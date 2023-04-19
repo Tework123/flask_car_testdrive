@@ -1,0 +1,21 @@
+.main_menu {
+  /* display: flex; */
+  color: red;
+  background-color: rgb(291, 155, 24);
+}
+
+ul.main_menu {
+  display: flex;
+  font-size: 25px;
+  color: green;
+  background-color: rgb(79, 74, 74);
+}
+body {
+  background-color: rgb(147, 137, 137);
+  font-size: 30px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
