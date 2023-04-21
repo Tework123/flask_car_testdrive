@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+<h2>{{user.name}}</h2>
+
+<table border="0">
+    <tr>
+        <td valign="top">
+            <div>
+                <img src="{{ profile_image }}">
+            </div>
+            <div>
+                <form action="{{url_for('.upload')}}" method='post' enctype="multipart/form-data">
+                    <p><input type="file" name="file"></p>
+                    <p><input type="submit" value="Download"></p>
+                </form>
+            </div>
+        </td>
+        <ul>
+            <li>Name: {{user.name }}</li>
+            <li>Email: {{user.email }}</li>
+        </ul>
+    </tr>
+</table>
+<p><a href="{{ url_for('.logout') }}">Exit from account</a></p>
+
+{% endblock %}

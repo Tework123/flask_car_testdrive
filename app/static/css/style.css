@@ -1,3 +1,5 @@
+
+/* main */
 .main_menu {
   /* display: flex; */
   color: red;
@@ -11,7 +13,7 @@ ul.main_menu {
   background-color: rgb(79, 74, 74);
 }
 body {
-  background-color: rgb(147, 137, 137);
+  /* background-color: rgb(147, 137, 137); */
   font-size: 30px;
 }
 
@@ -19,3 +21,71 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.footer {
+  background-color: goldenrod;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* user_profile*/
+
+
+/* registration, login */
+
+.form-contact {
+  display: block;
+  /* background-color: white; */
+  font-size: 30px;
+  text-align: center;
+}
+
+.form-contact p {
+  font-size: 30px;
+}
+
+.form-contact input {
+  font-size: 30px;
+  /* background-color: white; */
+}
+
+
+/* mistakes */
+
+
+.flash {
+  padding: 10px;
+  text-align: center;
+}
+
+.flash.error {
+  border: 1px solid #FF4343;
+  background: #FF9C9C;
+}
+
+.flash.success {
+  border: 1px solid #46ff43;
+  background: #abff9c;
+}
+
+#form-contact ul {
+  border: 1px solid #FF4343;
+  background: #FF9C9C;
+}
+
+
+#remember {
+  display: inline-block;
+  transform:scale(1.4);
+  opacity:0.9;
+  cursor:pointer;
+  padding-left: 20px;
+}
+
+#remember_me {
+  display: inline-block;
+
+}
+
+

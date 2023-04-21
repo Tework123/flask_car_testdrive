@@ -1,4 +1,4 @@
-from app import db
+from app import db, login_manager
 from datetime import datetime
 
 
@@ -14,11 +14,12 @@ class Users(db.Model):
     email = db.Column(db.String(50), unique=True)
     country = db.Column(db.String(50), unique=False)
     password = db.Column(db.String(500), nullable=True)
+    profile_pic = db.Column(db.String(), nullable=True)
     date = db.Column(db.DateTime, default=datetime.now())
 
-    def create(self, user):
-        self.__user = user
-        return self
+    # def create(self, user):
+    #     self.__user = user
+    #     return self
 
     def is_authenticated(self):
         return True
@@ -30,11 +31,12 @@ class Users(db.Model):
         return True
 
     def get_id(self):
-        print('...')
-        print(self.id_user)
-        print('...')
+        return str(self.id_user)
 
-        return self.id_user
+
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
 
 
 class Orders(db.Model):
