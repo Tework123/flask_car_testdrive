@@ -43,7 +43,7 @@ class Orders(db.Model):
     date_start = db.Column(db.DateTime, default=datetime.now())
     date_end = db.Column(db.DateTime, default=datetime.now())
 
-
+#change this
 class Cars(db.Model):
     id_car = db.Column(db.Integer, primary_key=True)
     name_car = db.Column(db.String(100), unique=True)
