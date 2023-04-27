@@ -17,10 +17,6 @@ class Users(db.Model):
     profile_pic = db.Column(db.String(), nullable=True)
     date = db.Column(db.DateTime, default=datetime.now())
 
-    # def create(self, user):
-    #     self.__user = user
-    #     return self
-
     def is_authenticated(self):
         return True
 
@@ -50,10 +46,21 @@ class Orders(db.Model):
 
 class Cars(db.Model):
     id_car = db.Column(db.Integer, primary_key=True)
-    id_brand = db.Column(db.Integer)
-    description = db.Column(db.String(1000))
-    id_photos = db.Column(db.Integer)
-    id_video = db.Column(db.Integer)
+    name_car = db.Column(db.String(100), unique=True)
+    description = db.Column(db.String(2000))
+    id_brand = db.Column(db.Integer, db.ForeignKey('brands.id_brand'))
+
+
+class Photos(db.Model):
+    id_photo = db.Column(db.Integer, primary_key=True)
+    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
+    name_photo = db.Column(db.String, unique=True)
+
+
+class Brands(db.Model):
+    id_brand = db.Column(db.Integer, primary_key=True)
+    name_brand = db.Column(db.String, unique=True)
+    name_photo = db.Column(db.String, unique=True)
 
     # def __repr__(self):
     #     return f'<users {self.id}>'

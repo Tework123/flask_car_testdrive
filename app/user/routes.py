@@ -104,9 +104,11 @@ def profile():
 def upload():
     if request.method == 'POST':
         file = request.files['file']
+        print(file)
         user = Users.query.filter_by(id_user=current_user.id_user).first()
         user.profile_pic = file.filename
         db.session.commit()
+
         file.save('app/static/profile_image/' + file.filename)
         # except:
         #     print('ошибка')

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+
+{{ brand }}
+<p>{{brand.name_brand}}</p>
+
+<p><img src="{{ brand.name_photo }}"></p>
+
+{% for car in cars %}
+    <p>{{ car['name_car'] }}</p>
+    <p>{{ car['description'] }}</p>
+<!--    <p><img src="{{ car['front_photo'] }}"></p>-->
+<!--    <p><img src="{{ car['behind_photo'] }}"></p>-->
+<!--    <p><img src="{{ car['side_photo'] }}"></p>-->
+
+{% endfor %}
+
+<form action="{{ url_for('admin.add_car') }}" method="get">
+    <button type="submit" name="add_car" value="{{ brand.name_brand }}">Add car</button>
+</form>
+{% endblock %}

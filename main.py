@@ -26,12 +26,8 @@ if __name__ == '__main__':
         # db.drop_all()
         # db.create_all()
 
-        # a = Users.query.all()
-        # print(a)
-        # for i in a:
-        #     print(i.email)
 
-        # me = Users(name='chren', email='adddd@mail', country='russia', password='23123pass')
+        # me = Users(name='admin', email='admin@.admin', country='russia', password='admin')
         # db.session.add(me)
         # db.session.commit()
 
@@ -41,6 +37,7 @@ if __name__ == '__main__':
         #     db.session.add(head)
         #
         # db.session.commit()
+
         # a = Users.query.all()
         # res = db.session.query(Users, Profiles).join( Profiles, Users.id == Profiles.user_id).all()
         # print(a)
