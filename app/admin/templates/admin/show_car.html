@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+
+<h1>{{ name_car }}</h1>
+<h2>{{ brand }}</h2>
+<h2>{{ description }}</h2>
+
+{% if car != [] %}
+    {% for photo in car %}
+        <p><img src="{{ photo['name_photo'] }}"></p>
+    {% endfor %}
+{% else %}
+    <p> Empty</p>
+{% endif %}
+
+
+<!--кнопка взять тест драйв-->
+<!--отзывы-->
+
+{% endblock %}

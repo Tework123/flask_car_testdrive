@@ -8,10 +8,13 @@ from werkzeug.utils import secure_filename
 from app import db
 from app.admin import bp
 from app.admin.forms import LoginForm, AddBrand, AddCar
-from app.models import Users, Brands, Cars, Photos
+from app.models import Users, Brands, Cars, Photos, Reviews
 
 menu = [['Home_users', '/'], ['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'], ['Admin-panel', '#']]
 
+
+# Обработка не найденных url через try except и перенаправление на показ брендов
+#     хз еще как
 
 @bp.route('/')
 def index():
@@ -71,33 +74,45 @@ def show_brands():
     return render_template('admin/show_brands.html', main_menu=menu, brands=brands)
 
 
-@bp.route('/show_brands/<alias>')
+@bp.route('/show_brand_<alias>')
 def show_brand(alias):
+    print('brand')
     if not isLogged():
         return redirect(url_for('.login'))
+    # try:
+    print(alias)
+    brand = db.session.execute(db.select(Brands).filter_by(name_brand=alias)).scalar_one()
+    # brand = db.sessionBrands.query.filter_by(name_brand=alias).first()
+
+    print(brand)
+    # except:
+    #     return redirect(url_for('.show_brands'))
     try:
-        brand = db.session.execute(db.select(Brands).filter_by(name_brand=alias)).scalar_one()
+
+        cars = db.session.query(Cars.name_car, Cars.description, Photos.name_photo) \
+            .join(Photos, Cars.id_car == Photos.id_car).join(
+            Brands, Cars.id_brand == Brands.id_brand).where(Brands.name_brand == alias).all()
+
+        cars_dict = [[]]
+        first_car = cars[0][0]
+        for row in cars:
+            if row[0] == first_car:
+                row = {'name_car': row.name_car, 'description': row.description, 'name_photo': row.name_photo}
+                cars_dict[-1].append(row)
+            else:
+                first_car = row[0]
+
+                row = {'name_car': row.name_car, 'description': row.description, 'name_photo': row.name_photo}
+                cars_dict.append([row])
+
+        for car in cars_dict:
+            for photo in car:
+                photo['name_photo'] = url_for('static', filename='car_image/' + photo['name_photo'])
+
     except:
-        return redirect(url_for('.show_brands'))
-
-    cars = db.session.query(Cars.name_car, Cars.description, Photos.name_photo) \
-        .join(Photos, Cars.id_car == Photos.id_car).join(
-        Brands, Cars.id_brand == Brands.id_brand).where(Brands.name_brand == alias).all()
-    print(cars)
-    cars = [{'name_car': row.name_car, 'description': row.description, 'name_photo': row.name_photo}
-            for row in cars]
-
-    #     Положить три фоточки в одно поле сразу через запятую
-    # Если нужно добавить фото, то через запятую еще одно название фото.
-    print(cars)
-
-    # for car in cars:
-    #     car['front_photo'] = url_for('static', filename='car_image/' + car['front_photo'])
-    #     car['behind_photo'] = url_for('static', filename='car_image/' + car['behind_photo'])
-    #     car['side_photo'] = url_for('static', filename='car_image/' + car['side_photo'])
-
+        cars_dict = []
     brand.name_photo = url_for('static', filename='brand_image/' + brand.name_photo)
-    return render_template('admin/show_brand.html', main_menu=menu, brand=brand, cars=cars)
+    return render_template('admin/show_brand.html', main_menu=menu, brand=brand, cars=cars_dict)
 
 
 @bp.route('/add_brand', methods=['POST', 'GET'])
@@ -149,6 +164,34 @@ def delete_brand():
             flash('Error, brand not deleted', category='error')
 
     return redirect(url_for('.show_brands'))
+
+
+@bp.route('/show_car_<alias_car>')
+def show_car(alias_car):
+    car = db.session.query(Cars.name_car, Cars.description, Photos.name_photo, Brands.name_brand).join(Photos,
+                                                                                                       Cars.id_car == Photos.id_car).join(
+        Brands, Cars.id_brand == Brands.id_brand).where(Cars.name_car == alias_car).all()
+    car_dict = []
+
+    # reviews = db.session.query(Reviews.text, Reviews.degree, Reviews.date, Users.name).join(
+    #     Reviews.id_car == Cars.id_car).join(Reviews.id_user == Users.id_user).where(Cars.name_car == alias_car).all()
+
+    for row in car:
+        row = {'name_car': row.name_car, 'description': row.description, 'name_photo': row.name_photo,
+               'name_brand': row.name_brand}
+        car_dict.append(row)
+
+    # for row in reviews:
+    #     print(row)
+
+    for photo in car_dict:
+        print(photo)
+        photo['name_photo'] = url_for('static', filename='car_image/' + photo['name_photo'])
+
+    # еще отзывы заджойнить
+
+    return render_template('admin/show_car.html', main_menu=menu, car=car_dict, name_car=car_dict[0]['name_car'],
+                           brand=car_dict[0]['name_brand'], description=car_dict[0]['description'])
 
 
 @bp.route('/add_car', methods=['POST', 'GET'])
