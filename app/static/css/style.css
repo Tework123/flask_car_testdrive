@@ -6,16 +6,204 @@
   background-color: rgb(291, 155, 24);
 }
 
-ul.main_menu {
-  display: flex;
-  font-size: 25px;
-  color: green;
-  background-color: rgb(79, 74, 74);
-}
+
+/* MAIN PART */
 body {
-  /* background-color: rgb(147, 137, 137); */
+  /* background-color: rgb(228, 220, 220); */
+  background: rgb(176,186,194);
+  background: linear-gradient(160deg, rgba(176,186,194,1) 0%, rgba(227,227,240,1) 51%, rgba(178,178,178,1) 100%);
+  /* background: rgb(0,0,0);
+background: linear-gradient(160deg, rgba(0,0,0,1) 0%, rgba(102,102,112,1) 51%, rgba(0,0,0,1) 100%); */
   font-size: 30px;
+  height: 100%;
+
 }
+
+
+
+body a{
+  font-size: 40px;
+  text-decoration: none;
+}
+
+body p{
+  font-size: 35px;
+  
+}
+
+body h1 {
+  margin: 30px;
+}
+
+.mb-home {
+  margin: 15px;
+  width: 60%;
+}
+
+.mb-home img {
+  width: auto;
+  margin: 15px;
+  height: 600px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* img-show_brands */
+.mb-3 img {
+  height: auto;
+  max-height: 600px;
+  width: 100%;
+  max-width: 900px;
+
+  
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+
+/* card show_brands */
+.mb-3 {
+  margin: 15px;
+  height: auto;
+  width: 48%;
+  max-width: 100%;
+  display: inline-block;
+}
+
+/* for one img-brand on show_brand.html */
+.mb-brand {
+  margin: 15px;
+  height: auto;
+  max-width: 20%;
+}
+
+.mb-brand img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+/* show_brand card car and img car */
+.mb-cars img {
+  height: auto;
+  width: 48%;
+  /* max-height: 500px;
+  max-width: 500px; */
+  margin: 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+.mb-cars {
+  margin: 15px;
+  height: auto;
+  max-width: 100%;
+}
+
+
+
+.mb-car {
+  margin: 15px;
+
+}
+
+/* show_car */
+.main-car {
+  display: grid;
+  padding: 15px;
+  padding-bottom: 100px;
+}
+
+.card-body-car {
+  display: grid;
+  grid-column: 1/13;
+}
+.mb-car-2-main {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1);
+}
+
+.mb-car-2-left {
+  grid-column: 1/5;
+  margin: 15px;
+
+}
+
+.mb-car-2-right {
+  grid-column: 5/13;
+  margin: 15px;
+}
+
+.mb-car-2-right img{
+  width: 100%;
+  height: auto;
+  margin-top: 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+/* profile */
+.mb-3-profile {
+ width: 80%;
+}
+
+
+.card:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+
+.main {
+  padding-bottom: 90px;
+}
+
+body .btn-primary{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+
+body .add_brand{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 0px;
+}
+
+
+input:hover {
+  box-shadow: 0 0 3px 3px rgba(0, 140, 186, 0.5);
+  
+}
+
+
+body .btn-secondary{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin: 4px 2px;
+}
+
 
 * {
   margin: 0;
@@ -23,32 +211,16 @@ body {
 }
 
 .footer {
-  background-color: goldenrod;
   position: absolute;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #ffffff;
 }
 
-/* user_profile*/
 
 
-/* registration, login */
-
-.form-contact {
-  display: block;
-  /* background-color: white; */
-  font-size: 30px;
-  text-align: center;
-}
-
-.form-contact p {
-  font-size: 30px;
-}
-
-.form-contact input {
-  font-size: 30px;
-  /* background-color: white; */
-}
 
 
 /* mistakes */
@@ -72,20 +244,6 @@ body {
 #form-contact ul {
   border: 1px solid #FF4343;
   background: #FF9C9C;
-}
-
-
-#remember {
-  display: inline-block;
-  transform:scale(1.4);
-  opacity:0.9;
-  cursor:pointer;
-  padding-left: 20px;
-}
-
-#remember_me {
-  display: inline-block;
-
 }
 
 

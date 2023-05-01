@@ -40,12 +40,12 @@ class Cars(db.Model):
     id_car = db.Column(db.Integer, primary_key=True)
     name_car = db.Column(db.String(100), unique=True)
     description = db.Column(db.String(2000))
-    id_brand = db.Column(db.Integer, db.ForeignKey('brands.id_brand'))
+    id_brand = db.Column(db.Integer, db.ForeignKey('brands.id_brand', ondelete='CASCADE'))
 
 
 class Photos(db.Model):
     id_photo = db.Column(db.Integer, primary_key=True)
-    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
+    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car', ondelete='CASCADE'))
     name_photo = db.Column(db.String, unique=True)
 
 
@@ -53,30 +53,27 @@ class Brands(db.Model):
     id_brand = db.Column(db.Integer, primary_key=True)
     name_brand = db.Column(db.String, unique=True)
     name_photo = db.Column(db.String, unique=True)
-    # description = db.Column(db.String)
-    # def __repr__(self):
-    #     return f'<users {self.id}>'
+    description = db.Column(db.String)
+
+# class Videos(db.Model):
+#     id_video = db.Column(db.Integer, primary_key=True)
+#     id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
+#     url = db.Column(db.String, unique=True)
 
 
-class Videos(db.Model):
-    id_video = db.Column(db.Integer, primary_key=True)
-    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
-    url = db.Column(db.String, unique=True)
-
-
-class Reviews(db.Model):
-    id_review = db.Column(db.Integer, primary_key=True)
-    id_user = db.Column(db.Integer, db.ForeignKey('user.id_user'))
-    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
-    date = db.Column(db.DateTime)
-    text = db.Column(db.String(2000))
-    degree = db.Column(db.Integer)
-
-
-class Orders(db.Model):
-    id_order = db.Column(db.Integer, primary_key=True)
-    price = db.Column(db.Integer)
-    id_user = db.Column(db.Integer, db.ForeignKey('users.id_user'))
-    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
-    date_start = db.Column(db.DateTime, default=datetime.now())
-    date_end = db.Column(db.DateTime, default=datetime.now())
+# class Reviews(db.Model):
+#     id_review = db.Column(db.Integer, primary_key=True)
+#     id_user = db.Column(db.Integer, db.ForeignKey('user.id_user'))
+#     id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
+#     date = db.Column(db.DateTime)
+#     text = db.Column(db.String(2000))
+#     degree = db.Column(db.Integer)
+#
+#
+# class Orders(db.Model):
+#     id_order = db.Column(db.Integer, primary_key=True)
+#     price = db.Column(db.Integer)
+#     id_user = db.Column(db.Integer, db.ForeignKey('users.id_user'))
+#     id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
+#     date_start = db.Column(db.DateTime, default=datetime.now())
+#     date_end = db.Column(db.DateTime, default=datetime.now())

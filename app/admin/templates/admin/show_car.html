@@ -2,21 +2,44 @@
 {% block content %}
 {{ super() }}
 
+<div class="main-car">
 
-<h1>{{ name_car }}</h1>
-<h2>{{ brand }}</h2>
-<h2>{{ description }}</h2>
+    <h1>{{ name_car }}</h1>
 
-{% if car != [] %}
-    {% for photo in car %}
-        <p><img src="{{ photo['name_photo'] }}"></p>
-    {% endfor %}
-{% else %}
-    <p> Empty</p>
-{% endif %}
+    <div class="card mb-car-2-main">
+        <div class="card-body-car">
+
+            <div class="card mb-car-2-left">
+
+                <div class="card-body">
+                    {% for string in description %}
+                        <p>{{ string }}</p>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card mb-car-2-right">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    {% if car != [] %}
+                    {% for photo in car %}
+
+                    <img src="{{ photo['name_photo'] }}">
+
+                    {% endfor %}
+                    {% else %}
+                    <p> Empty</p>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
-<!--кнопка взять тест драйв-->
-<!--отзывы-->
+    <!--кнопка взять тест драйв-->
+    <!--отзывы-->
+</div>
 
 {% endblock %}

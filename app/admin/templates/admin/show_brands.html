@@ -2,24 +2,40 @@
 {% block content %}
 {{ super() }}
 
+<div class="main">
+    <h1>Brands</h1>
 
-<h1>car_brands</h1>
-<p>{{ car }}</p>
+    <button onclick="location.href='{{url_for('admin.add_brand')}}'" type="button" class="btn btn-primary">Add brand
+    </button>
+    <br>
 
-{% if brands != [] %}
+
+    {% if brands != [] %}
     {% for brand in brands %}
-        <p><a href="{{url_for('admin.show_brand', alias=brand.name_brand)}}">{{brand.name_brand}}</a></p>
-        <p><img src="{{ brand.name_photo }}"></p>
+    <div class="card mb-3">
+        <a href="{{url_for('admin.show_brand', alias=brand.name_brand)}}"><img src="{{ brand.name_photo }}" class="card-img-top" alt="photo car"></a>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p><a href="{{url_for('admin.show_brand', alias=brand.name_brand)}}">{{brand.name_brand}}</a></p>
 
-        <form action="{{ url_for('admin.delete_brand') }}" method="post">
-            <button name="delete_brand" value="{{ brand.name_brand }}">Delete brand</button>
-        </form>
+            <p class="card-text">{{ brand.description }}</p>
+            <p class="card-text"><small class="text-muted">Amount cars from this brand</small></p>
+
+            <form action="{{ url_for('admin.delete_brand') }}" method="POST">
+                <button type="submit" class="btn btn-secondary" name="delete_brand" value="{{ brand.name_brand }}">
+                    Delete
+                    brand
+                </button>
+            </form>
+        </div>
+    </div>
+
+
     {% endfor %}
-{% else %}
-    <p> Brands empty</p>
-{% endif %}
-
-<button onclick="location.href='{{url_for('admin.add_brand')}}'">Add brand</button>
+    {% else %}
+    <p>Brands empty</p>
+    {% endif %}
+</div>
 
 
 {% endblock %}
