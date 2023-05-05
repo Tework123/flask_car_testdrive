@@ -13,9 +13,6 @@ from app.models import Users, Brands, Cars, Photos
 menu = [['Home_users', '/'], ['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'], ['Admin-panel', '#']]
 
 
-# Обработка не найденных url через try except и перенаправление на показ брендов
-#     хз еще как
-
 @bp.route('/')
 def index():
     if not isLogged():
@@ -81,15 +78,20 @@ def show_brands():
     if not isLogged():
         return redirect(url_for('.login'))
     brands = db.session.query(Brands.name_brand, Brands.description, Brands.name_photo,
-                              db.func.count(Cars.id_car)).join(Cars, Brands.id_brand == Cars.id_brand, isouter=True).group_by(
-                                  Brands.name_brand, Brands.description, Brands.name_photo).all()
-    print(brands)
-    # распарсить и добавить количество машинок присутствующих
+                              db.func.count(Cars.id_car)).join(Cars, Brands.id_brand == Cars.id_brand,
+                                                               isouter=True).group_by(
+        Brands.name_brand, Brands.description, Brands.name_photo).all()
 
-    for brand in brands:
-        brand.name_photo = url_for('static', filename='brand_image/' + brand.name_photo)
+    brands_dict = []
+    for row in brands:
+        row = {'name_brand': row.name_brand, 'description': row.description, 'name_photo': row.name_photo,
+               'count_car': row._data[3]}
+        brands_dict.append(row)
 
-    return render_template('admin/show_brands.html', main_menu=menu, brands=brands)
+    for brand in brands_dict:
+        brand['name_photo'] = url_for('static', filename='brand_image/' + brand['name_photo'])
+
+    return render_template('admin/show_brands.html', main_menu=menu, brands=brands_dict)
 
 
 @bp.route('/show_brand_<alias>')
@@ -98,7 +100,6 @@ def show_brand(alias):
         return redirect(url_for('.login'))
     try:
         brand = db.session.execute(db.select(Brands).filter_by(name_brand=alias)).scalar_one()
-
     except:
         return redirect(url_for('.show_brands'))
     try:
@@ -124,9 +125,11 @@ def show_brand(alias):
             for photo in car:
                 photo['name_photo'] = url_for('static', filename='car_image/' + photo['name_photo'])
 
+        brand.name_photo = url_for('static', filename='brand_image/' + brand.name_photo)
+
     except:
         cars_dict = []
-    brand.name_photo = url_for('static', filename='brand_image/' + brand.name_photo)
+        brand.name_photo = url_for('static', filename='brand_image/' + brand.name_photo)
 
     return render_template('admin/show_brand.html', main_menu=menu, brand=brand, cars=cars_dict)
 
@@ -140,12 +143,14 @@ def add_brand():
             brand_image = file.filename
 
             try:
-                brand = Brands(name_brand=form.name_brand.data, name_photo=brand_image, description=form.description.data)
+                brand = Brands(name_brand=form.name_brand.data, name_photo=brand_image,
+                               description=form.description.data)
                 db.session.add(brand)
                 db.session.flush()
                 db.session.commit()
-
-                file.save('app/static/brand_image/' + brand_image)
+                file_path = 'app/static/brand_image/' + brand_image
+                if not os.path.exists(file_path):
+                    file.save(file_path)
                 flash('Add brand success', category='success')
 
                 return redirect(url_for('.show_brands'))
@@ -218,26 +223,18 @@ def show_car(alias_car):
         Brands, Cars.id_brand == Brands.id_brand).where(Cars.name_car == alias_car).all()
     car_dict = []
 
-    # reviews = db.session.query(Reviews.text, Reviews.degree, Reviews.date, Users.name).join(
-    #     Reviews.id_car == Cars.id_car).join(Reviews.id_user == Users.id_user).where(Cars.name_car == alias_car).all()
-
     for row in car:
         row = {'name_car': row.name_car, 'description': row.description, 'name_photo': row.name_photo,
                'name_brand': row.name_brand}
         car_dict.append(row)
-
-    # for row in reviews:
-    #     print(row)
 
     for photo in car_dict:
         photo['name_photo'] = url_for('static', filename='car_image/' + photo['name_photo'])
 
     description = car_dict[0]['description'].split(', ')
 
-    # еще отзывы заджойнить
-
-    return render_template('admin/show_car.html', main_menu=menu, car=car_dict, name_car=car_dict[0]['name_car'],
-                           brand=car_dict[0]['name_brand'], description=description)
+    return render_template('admin/show_car.html', main_menu=menu, car=car_dict,
+                           description=description)
 
 
 @bp.route('/add_car', methods=['POST', 'GET'])
@@ -263,7 +260,9 @@ def add_car():
                     name_photo_str = photo.filename
                     name_photo_db = Photos(id_car=id_car, name_photo=photo.filename)
                     whole_photo.append(name_photo_db)
-                    photo.save('app/static/car_image/' + name_photo_str)
+                    file_path = 'app/static/car_image/' + name_photo_str
+                    if not os.path.exists(file_path):
+                        photo.save(file_path)
 
                 db.session.add_all(whole_photo)
                 db.session.flush()

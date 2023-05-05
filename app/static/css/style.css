@@ -152,10 +152,20 @@ body h1 {
   display: inline-block;
 }
 
+.show_car_buttons {
+  display:flex;
+  justify-content:flex-start;
+  margin: 10px;
+  margin-top: 20px;
+}
+
+
+
 /* profile */
 .mb-3-profile {
  width: 80%;
 }
+
 
 
 .card:hover {
@@ -170,16 +180,45 @@ body h1 {
 
 
 .main {
-  padding-bottom: 90px;
-}
 
-body .btn-primary{
+  padding-bottom: 150px;
+}
+.profile-button {
+  margin: 10px;
+
+}
+.btn-primary{
   border: none;
   color: white;
   text-align: center;
   font-size: 30px;
   margin-left: 30px;
 }
+ .btn-success{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+
+.btn-danger{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+body .btn-warning{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+
+
+
 
 body .add_brand{
   border: none;
@@ -205,6 +244,8 @@ body .btn-secondary{
 }
 
 
+
+
 * {
   margin: 0;
   padding: 0;
@@ -220,8 +261,49 @@ body .btn-secondary{
 }
 
 
+/* user */
 
+.main-profile {
+  padding: 15px;
+  padding-bottom: 100px;
+}
 
+.main-registration {
+  padding: 15px;
+  padding-bottom: 150px;
+}
+
+.main-login {
+  padding: 15px;
+  padding-bottom: 150px;
+}
+
+/* reviews */
+.mb-review img {
+  height: auto;
+  width: 30%;  
+  max-height: 500px;
+  max-width: 500px;
+  margin: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  display: inline-block;
+  
+}
+
+.mb-review {
+  margin: 15px;
+  height: auto;
+  max-width: 70%;
+}
+.card-body-review {
+  display: inline-block
+}
+
+.main-password_security{
+  padding-bottom: 750px;
+}
 
 /* mistakes */
 

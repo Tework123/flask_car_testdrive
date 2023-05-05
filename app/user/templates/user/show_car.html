@@ -13,8 +13,8 @@
 
                 <div class="card-body">
                     {% for string in description %}
-                        <p>{{ string }}</p>
-                        <hr>
+                    <p>{{ string }}</p>
+                    <hr>
                     {% endfor %}
                 </div>
             </div>
@@ -36,10 +36,23 @@
 
         </div>
     </div>
+    <div class="show_car_buttons">
+        <form action="{{ url_for('user.add_review') }}" method="get">
+            <button type="submit" name="add_car" value="{{ car[0]['name_car'] }}" class="btn btn-success">Add review
+            </button>
+        </form>
 
+        <form action="{{ url_for('user.add_review') }}" method="get">
+            <button type="submit" name="add_car" value="{{ car[0]['name_car'] }}" class="btn btn-primary">Add review
+            </button>
+        </form>
 
-    <!--кнопка взять тест драйв-->
-    <!--отзывы-->
+        <form action="{{ url_for('user.show_reviews') }}" method="get">
+            <button type="submit" name="show_reviews" value="{{ car[0]['name_car'] }}" class="btn btn-primary">Reviews
+            </button>
+        </form>
+    </div>
+
 </div>
 
 {% endblock %}

@@ -55,19 +55,25 @@ class Brands(db.Model):
     name_photo = db.Column(db.String, unique=True)
     description = db.Column(db.String)
 
-# class Videos(db.Model):
-#     id_video = db.Column(db.Integer, primary_key=True)
-#     id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
-#     url = db.Column(db.String, unique=True)
+
+class Videos(db.Model):
+    id_video = db.Column(db.Integer, primary_key=True)
+    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car', ondelete='CASCADE'))
+    url = db.Column(db.String, unique=True)
 
 
-# class Reviews(db.Model):
-#     id_review = db.Column(db.Integer, primary_key=True)
-#     id_user = db.Column(db.Integer, db.ForeignKey('user.id_user'))
-#     id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
-#     date = db.Column(db.DateTime)
-#     text = db.Column(db.String(2000))
-#     degree = db.Column(db.Integer)
+class Reviews(db.Model):
+    id_review = db.Column(db.Integer, primary_key=True)
+    id_user = db.Column(db.Integer, db.ForeignKey('users.id_user'))
+    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
+    date = db.Column(db.DateTime)
+    text = db.Column(db.String(5000))
+    degree = db.Column(db.Integer)
+
+
+class ReviewsPhoto(db.Model):
+    id_review = db.Column(db.Integer, db.ForeignKey('reviews.id_review', ondelete='CASCADE'))
+    id_photo = db.Column(db.Integer, primary_key=True)
 #
 #
 # class Orders(db.Model):

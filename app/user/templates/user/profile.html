@@ -1,27 +1,134 @@
 {% extends 'base.html' %}
 {% block content %}
 {{ super() }}
-<h2>{{user.name}}</h2>
+<div class="main-profile">
+    <div class="card mb-3-profile">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
 
-<table border="0">
-    <tr>
-        <td valign="top">
-            <div>
-                <img src="{{ profile_image }}">
-            </div>
-            <div>
-                <form action="{{url_for('.upload')}}" method='post' enctype="multipart/form-data">
-                    <p><input type="file" name="file"></p>
-                    <p><input type="submit" value="Download"></p>
-                </form>
-            </div>
-        </td>
-        <ul>
-            <li>Name: {{user.name }}</li>
-            <li>Email: {{user.email }}</li>
-        </ul>
-    </tr>
-</table>
-<p><a href="{{ url_for('.logout') }}">Exit from account</a></p>
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <img src="{{ profile_image }}"
+                                         alt="avatar"
+                                         class="rounded-circle img-fluid" style="width: 250px;">
+                                    <h4 class="my-3">{{ user.name }}</h4>
+                                    <h6>Last seen: {{ user.last_seen }}</h6>
+
+                                    <div class="profile-button">
+                                        <form action="{{ url_for('user.password_security') }}" method="get">
+                                            <button type="submit" name="edit_profile" value=""
+                                                    class="btn btn-primary">Edit profile
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <div class="profile-button">
+                                        <form action="{{ url_for('user.profile') }}" method="get">
+                                            <button type="submit" name="show_my_reviews" value=""
+                                                    class="btn btn-primary">Show my reviews
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <div class="profile-exit">
+                                        <p><a href="{{ url_for('.logout') }}">Exit from account</a></p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Name</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.name }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Email</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{user.email }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Phone</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">8919 999 99 99</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Country</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.country }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Date register</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.date.year }}.{{ user.date.month }}.{{
+                                                user.date.day }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Amount Reviews</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">digit</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Amount testdrive</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">digit</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="form-profile">
+                                <form action="{{url_for('.upload')}}" method='post'
+                                      enctype="multipart/form-data">
+                                    <p><input type="file" name="file"></p>
+                                    <p><input type="submit" value="Download"></p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+</div>
 
 {% endblock %}

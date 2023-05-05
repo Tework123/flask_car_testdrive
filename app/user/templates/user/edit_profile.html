@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {{ super() }}
-<div class="main-login">
+<div class="main-registration">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
@@ -10,11 +10,11 @@
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sing in</p>
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Edit profile</p>
 
-                                <form class="mx-1 mx-md-4" action="/user/login" method="post" id="form-contact">
+                                <form class="mx-1 mx-md-4" action="{{url_for('user.edit_profile', user='user')}}" method="post" id="form-contact">
                                     {{ form.hidden_tag() }}
-                                    {% for field in form if field.name not in ['submit', 'csrf_token', 'remember'] %}
+                                    {% for field in form if field.name not in ['csrf_token'] %}
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
@@ -29,19 +29,13 @@
                                     </ul>
                                     {% endfor %}
                                     {% else %}
-                                    <!--                                        <input type="text" id="form3Example1c" class="form-control"/>-->
-
                                     <p>{{ field() }}</p>
                                     {% endif %}
                                     {% endfor %}
-                                    <p id="remember_me">Remember me:</p>
-                                    <p id="remember">{{ form.remember() }}</p>
 
-                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <button type="button" class="btn btn-primary btn-lg">{{ form.submit() }}
-                                        </button>
-                                    </div>
-
+                                    <button type="submit" name="accept_changes" class="btn btn-primary"
+                                            value=""> Accept changes
+                                    </button>
 
                                 </form>
 
@@ -54,4 +48,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
