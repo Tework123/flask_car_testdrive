@@ -37,8 +37,8 @@
         </div>
     </div>
     <div class="show_car_buttons">
-        <form action="{{ url_for('user.add_review') }}" method="get">
-            <button type="submit" name="add_car" value="{{ car[0]['name_car'] }}" class="btn btn-success">Add review
+        <form action="{{ url_for('user.take_test_drive', name_car= car[0]['name_car']) }}" method="get">
+            <button type="submit" name="" value="" class="btn btn-success">Test Drive
             </button>
         </form>
 
@@ -51,6 +51,16 @@
             <button type="submit" name="show_reviews" value="{{ car[0]['name_car'] }}" class="btn btn-primary">Reviews
             </button>
         </form>
+    </div>
+    <div class="card mb-3-video">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <div class="url_video">
+                <iframe width="1200" height="800" src="{{car_video}}" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
 
 </div>

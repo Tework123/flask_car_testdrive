@@ -273,15 +273,43 @@ body .btn-secondary{
   padding-bottom: 150px;
 }
 
+.button-register {
+
+  text-align: center;
+
+}
+
+
 .main-login {
   padding: 15px;
   padding-bottom: 150px;
 }
 
+/* video */
+.mb-3-video {
+  width: 70%;
+}
+.url_video {
+  width: 1500px;
+}
+/* order */
+.main-order h2{
+  padding-left: 15px;
+}
+
+.main-order {
+  padding-bottom: 370px;
+
+}
+/* show test drives */
+.closed {
+  color: red;
+}
+
 /* reviews */
 .mb-review img {
   height: auto;
-  width: 30%;  
+  width: 410%;  
   max-height: 500px;
   max-width: 500px;
   margin: 10px;

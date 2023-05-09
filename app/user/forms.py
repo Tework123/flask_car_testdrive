@@ -14,6 +14,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     name = StringField('Name: ', validators=[DataRequired(), Length(min=3, max=20)])
     email = StringField('Email: ', validators=[Email()])
+    phone = StringField('Phone: ', validators=[DataRequired(), Length(min=5, max=40)])
     country = StringField('Country: ', validators=[DataRequired(), Length(min=3, max=30)])
     password = PasswordField('Password: ', validators=[DataRequired(), Length(min=4, max=330)])
     repeat_password = PasswordField('Repeat password: ', validators=[DataRequired(), Length(min=4, max=330)])
@@ -21,8 +22,9 @@ class RegisterForm(FlaskForm):
 
 class EditProfile(FlaskForm):
     name = StringField('Name: ', validators=[DataRequired(), Length(min=3, max=20)])
-    text = TextAreaField("About me: ")
+    text = TextAreaField("About me: ", validators=[Length(min=5, max=500)])
     email = StringField('Email: ', validators=[Email()])
+    phone = StringField('Phone: ', validators=[DataRequired(), Length(min=5, max=40)])
     country = StringField('Country: ', validators=[DataRequired(), Length(min=3, max=30)])
     password = PasswordField('Password: ', validators=[DataRequired(), Length(min=4, max=330)])
     repeat_password = PasswordField('Repeat password: ', validators=[DataRequired(), Length(min=4, max=330)])

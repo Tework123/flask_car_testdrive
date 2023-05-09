@@ -27,9 +27,16 @@
                                     </div>
 
                                     <div class="profile-button">
-                                        <form action="{{ url_for('user.profile') }}" method="get">
+                                        <form action="{{ url_for('user.show_my_reviews') }}" method="get">
                                             <button type="submit" name="show_my_reviews" value=""
                                                     class="btn btn-primary">Show my reviews
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="profile-button">
+                                        <form action="{{ url_for('user.show_my_test_drives') }}" method="get">
+                                            <button type="submit" name="show_my_test_drives" value=""
+                                                    class="btn btn-primary">Show my test drives
                                             </button>
                                         </form>
                                     </div>
@@ -67,10 +74,11 @@
                                             <p class="mb-0">Phone</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">8919 999 99 99</p>
+                                            <p class="text-muted mb-0">{{ user.phone }}</p>
                                         </div>
                                     </div>
                                     <hr>
+
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <p class="mb-0">Country</p>
@@ -97,7 +105,11 @@
                                             <p class="mb-0">Amount Reviews</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">digit</p>
+                                            {% if amount_reviews != [] %}
+                                            <p class="text-muted mb-0">{{amount_reviews[0][1]}}</p>
+                                            {% else %}
+                                            <p class="text-muted mb-0">Nothing</p>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <hr>
@@ -107,13 +119,30 @@
                                             <p class="mb-0">Amount testdrive</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">digit</p>
+                                            {% if amount_testdrive != [] %}
+                                            <p class="text-muted mb-0">{{amount_testdrive[0][1]}}</p>
+                                            {% else %}
+                                            <p class="text-muted mb-0">Nothing</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">About me</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.text }}</p>
                                         </div>
                                     </div>
 
                                 </div>
 
                             </div>
+                            <h2>Download new photo: </h2>
+                            <br>
                             <div class="form-profile">
                                 <form action="{{url_for('.upload')}}" method='post'
                                       enctype="multipart/form-data">

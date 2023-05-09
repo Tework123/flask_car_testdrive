@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+
+<div class="main-order">
+    <br>
+    <h2>Testdrive {{ name_car }}</h2>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+
+            <form action="{{ url_for('user.take_test_drive', name_car=name_car) }}" method="post" enctype="multipart/form-data"
+                  id="form-contact">
+
+                {{ form.hidden_tag() }}
+
+                {% for field in form if field.name not in ['csrf_token'] %}
+                <p>{{field.label()}}</p>
+                <p>{{ field }}</p>
+                {% endfor %}
+                <p>Price: {{ price }} ₽</p>
+                <h3>Busy date: </h3>
+                {% for date in busy_date %}
+                <p>{{date.date_start}}</p>
+                {% endfor %}
+
+                <button type="submit" name="take_test_drive" class="btn btn-primary add_brand" value="{{ name_car }}">Pay
+                </button>
+
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+
+</div>

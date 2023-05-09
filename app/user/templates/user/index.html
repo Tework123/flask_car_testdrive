@@ -9,7 +9,7 @@
 
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-
+                    {% if cars != [] %}
                     {% for car in cars %}
                     <div class="carousel-item active">
 
@@ -18,6 +18,9 @@
                     </div>
 
                     {% endfor %}
+                    {% else %}
+                    <h2>Empty cars</h2>
+                    {% endif %}
 
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"

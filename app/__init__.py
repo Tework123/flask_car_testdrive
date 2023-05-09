@@ -1,13 +1,15 @@
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template, request
+from flask import Flask
 from flask_migrate import Migrate
+from config import Config
 
 # создание объектов приложения и базы данных
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:testdrive123@localhost:5432/testdrive'
-app.config['SECRET_KEY'] = 'Adjgsdg234gjalfbcvDSF;m234:Fk-34-99841f..s#@$'
+app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
+app.config['SECRET_KEY'] = Config.SECRET_KEY
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
