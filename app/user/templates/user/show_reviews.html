@@ -15,8 +15,7 @@
         <div class="card-body">
             <div class="card-body-review">
                 <h5 class="card-title"></h5>
-
-                <p>{{review[0]['name']}}</p>
+                <a href="{{url_for('user.profile_people', alias=review[0]['id_user'])}}">{{review[0]['name']}}</a>
                 <p>Date: {{review[0]['date']}}</p>
                 <p>Description: {{review[0]['text']}}</p>
                 <p>Dergee: {{review[0]['degree']}}</p>

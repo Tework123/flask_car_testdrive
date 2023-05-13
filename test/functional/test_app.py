@@ -1,7 +1,4 @@
-import pytest
-
-from app.main import app
-from app.main import create_app
+from main import app
 
 
 # @pytest.fixture()

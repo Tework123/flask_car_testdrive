@@ -37,10 +37,7 @@
         </div>
     </div>
     <div class="show_car_buttons">
-        <form action="{{ url_for('user.add_review') }}" method="get">
-            <button type="submit" name="add_car" value="{{ car[0]['name_car'] }}" class="btn btn-success">Test Drive
-            </button>
-        </form>
+
         <form action="{{ url_for('admin.show_reviews') }}" method="get">
             <button type="submit" name="show_reviews" value="{{ car[0]['name_car'] }}" class="btn btn-primary">Reviews
             </button>

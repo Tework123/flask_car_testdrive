@@ -1,20 +1,26 @@
 import datetime
+from datetime import datetime as datetime_module
 import os
 
+import jwt
 from flask import render_template, request, redirect, url_for, flash, make_response
+from flask_mail import Message
 from flask_paginate import get_page_parameter, Pagination
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
-from app.admin.forms import TakeTestdrive
-from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive
+from app import db, app, mail
+from app.user.forms import TakeTestdrive
+from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive, ResetPasswordStatic
 
 from app.user import bp
 
 from flask_login import current_user, login_user, logout_user, login_required
 
-from app.user.forms import LoginForm, RegisterForm, ReviewsForm, EditProfile, PasswordSecurity
+from app.user.email import send_password_reset_email, send_email
+from app.user.forms import LoginForm, RegisterForm, ReviewsForm, EditProfile, PasswordSecurity, ResetPassword, \
+    ResetPasswordForm
 
 from app import login_manager
+from config import Config
 
 menu = [['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'],
         ['Registration', 'register']]
@@ -114,9 +120,11 @@ def show_car(alias_car):
         photo['name_photo'] = url_for('static', filename='car_image/' + photo['name_photo'])
 
     description = car_dict[0]['description'].split(', ')
-
-    car_video = car_dict[0]['url_video'].split()
-    car_video = car_video[3][5:-1]
+    try:
+        car_video = car_dict[0]['url_video'].split()
+        car_video = car_video[3][5:-1]
+    except:
+        car_video = 'Not video'
 
     return render_template('user/show_car.html', main_menu=menu, car=car_dict,
                            description=description, car_video=car_video)
@@ -133,7 +141,6 @@ def add_review():
     if len(review) >= 1:
         flash('You already add review for this car, you can change it', category='error')
         return redirect(url_for('.show_my_reviews'))
-        # перенаправить на страницу всех его отзывов, а пока так
 
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -192,7 +199,8 @@ def show_reviews():
     if request.method == 'POST':
         name_car = request.form['show_reviews']
 
-    reviews = db.session.query(Reviews.text, Reviews.date, Reviews.degree, ReviewsPhoto.id_photo, Users.name).join(
+    reviews = db.session.query(Reviews.text, Reviews.date, Reviews.degree, ReviewsPhoto.id_photo, Users.name,
+                               Users.id_user).join(
         ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review, isouter=True).join(Users,
                                                                                       Reviews.id_user == Users.id_user).where(
         Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=3, error_out=False)
@@ -215,14 +223,14 @@ def show_reviews():
 
             if row[0] == first_review:
                 row = {'text': row.text, 'date': row.date, 'degree': row.degree, 'id_photo': row.id_photo,
-                       'name': row.name}
+                       'name': row.name, 'id_user': row.id_user}
                 reviews_dict[-1].append(row)
             else:
                 first_review = row[0]
                 row = {'text': row.text, 'date': row.date, 'degree': row.degree, 'id_photo': row.id_photo,
-                       'name': row.name}
+                       'name': row.name, 'id_user': row.id_user}
                 reviews_dict.append([row])
-
+        print(reviews_dict)
         for review in reviews_dict:
             for photo in review:
                 if photo['id_photo']:
@@ -258,10 +266,13 @@ def show_my_reviews():
         #     reviews_dict = []
     else:
         my_reviews_dict = []
-
+    print(my_reviews_dict)
     return render_template('user/show_my_reviews.html', main_menu=menu, title='My reviews', my_reviews=my_reviews_dict)
 
 
+# настроить отправку нормальный сообщений на почту
+# настроить показ кол-ва ревью в профиле, возможно нахуй эти миграции
+#
 @bp.route('/delete_review', methods=['POST', 'GET'])
 def delete_review():
     if request.method == 'POST':
@@ -342,12 +353,17 @@ def take_test_drive(name_car):
     form = TakeTestdrive()
     price = 10
     id_car = db.session.execute(db.select(Cars.id_car).filter_by(name_car=name_car)).scalar_one()
-
-    busy_date = db.session.execute(db.select(TestDrive).filter_by(id_car=id_car)).scalars().all()
+    busy_date = db.session.query(TestDrive).filter(TestDrive.date_start > datetime.datetime.now(),
+                                                   TestDrive.id_car == id_car).all()
 
     if request.method == 'POST':
         if form.validate_on_submit():
             date_start = form.date_start.data.strftime('%Y-%m-%d')
+            date_start_date = datetime_module.strptime(date_start, '%Y-%m-%d').date()
+
+            if date_start_date < datetime.datetime.now().date():
+                flash('This date already lost', category='error')
+                return redirect(url_for('.take_test_drive', name_car=name_car))
             date_end = form.date_start.data.strftime('%Y-%m-%d')
 
             order = db.session.execute(db.select(TestDrive).filter_by(id_car=id_car,
@@ -362,6 +378,12 @@ def take_test_drive(name_car):
             db.session.add(test_drive)
             db.session.flush()
             db.session.commit()
+
+            subject = 'Your testdrive on: ' + name_car
+            body = 'Hello, your testdrive date: ' + date_start
+            attachments = 123
+            send_email(subject, Config.MAIL_USERNAME, [current_user.email], body)
+
             flash('test_drive reserved', category='success')
             return redirect(url_for('.pay_for_test_drive'))
 
@@ -456,6 +478,48 @@ def login():
     return render_template('user/login.html', main_menu=menu, title='Sing in', form=form)
 
 
+@bp.route('/reset_password', methods=['POST', 'GET'])
+def reset_password():
+    form = ResetPassword()
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            # try:
+            user = Users.query.filter_by(email=form.email.data).first()
+            if user:
+                send_password_reset_email(user)
+                flash('Check your email', category='success')
+            else:
+                flash('Your email was not found', category='error')
+            return redirect(url_for('.login'))
+
+        else:
+            flash('incorrect password', category='error')
+    # except:
+    #     flash('No such user', category='error')
+
+    return render_template('user/reset_password.html', main_menu=menu, title='Reset paswword', form=form)
+
+
+@bp.route('/reset_password_token/<token>', methods=['GET', 'POST'])
+def reset_password_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('.index'))
+
+    user = ResetPasswordStatic.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('.index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hash = generate_password_hash(form.password.data)
+        user.password = hash
+        db.session.commit()
+        flash('You password has been reset', category='success')
+        return redirect(url_for('.login'))
+
+    return render_template('user/reset_password.html', form=form)
+
+
 @bp.route('/logout')
 @login_required
 def logout():
@@ -467,6 +531,7 @@ def logout():
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        db.session.add(current_user)
         db.session.commit()
 
 
@@ -485,6 +550,8 @@ def profile():
     amount_reviews = db.session.execute(
         db.select(Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(id_user=current_user.id_user).group_by(
             Reviews.id_user)).scalars().all()
+    print(amount_reviews)
+    print(amount_testdrive)
 
     if not image:
         image = url_for('static', filename='profile_image/' + 'default.jpg')
@@ -493,6 +560,27 @@ def profile():
 
     return render_template('user/profile.html', main_menu=menu, title='My profile', user=current_user,
                            profile_image=image, amount_reviews=amount_reviews, amount_testdrive=amount_testdrive)
+
+
+@bp.route('/profile_<alias>', methods=['GET', 'POST'])
+def profile_people(alias):
+    user = Users.query.filter_by(id_user=alias).first()
+    print(user)
+    if not user.profile_pic:
+        user.profile_pic = url_for('static', filename='profile_image/' + 'default.jpg')
+    else:
+        user.profile_pic = url_for('static', filename='profile_image/' + user.profile_pic)
+
+    amount_testdrive = db.session.query(TestDrive.id_user, db.func.count(TestDrive.id_order)).filter_by(
+        id_user=alias).group_by(TestDrive.id_user).all()
+    amount_reviews = db.session.execute(
+        db.select(Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(id_user=alias).group_by(
+            Reviews.id_user)).scalars().all()
+    print(amount_testdrive)
+    print(amount_reviews)
+
+    return render_template('user/profile_people.html', main_menu=menu, user=user, amount_reviews=amount_reviews,
+                           amount_testdrive=amount_testdrive)
 
 
 # прикрутить посмотреть мой отзывы

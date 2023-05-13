@@ -195,10 +195,11 @@ def show_car(alias_car):
         photo['name_photo'] = url_for('static', filename='car_image/' + photo['name_photo'])
 
     description = car_dict[0]['description'].split(', ')
-
-    car_video = car_dict[0]['url_video'].split()
-    car_video = car_video[3][5:-1]
-
+    try:
+        car_video = car_dict[0]['url_video'].split()
+        car_video = car_video[3][5:-1]
+    except:
+        car_video = 'Not video'
     return render_template('admin/show_car.html', main_menu=menu, car=car_dict,
                            description=description, car_video=car_video)
 

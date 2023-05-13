@@ -21,6 +21,4 @@ class AddCar(FlaskForm):
     url_video = StringField('Url video: ', validators=[DataRequired()])
 
 
-class TakeTestdrive(FlaskForm):
-    date_start = DateField('Date:', validators=[DataRequired()], format='%Y-%m-%d')
 
