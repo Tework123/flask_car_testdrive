@@ -2,21 +2,28 @@
 {% block content %}
 {{ super() }}
 
+<div class="main">
 
-<h1>Add brand</h1>
+    <h1>Add brand</h1>
 
-<form class="mx-1 mx-md-4" action="/admin/add_brand" method="post" enctype="multipart/form-data" id="form-contact">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
 
-    {{ form.hidden_tag() }}
+            <form action="/admin/add_brand" method="post" enctype="multipart/form-data" id="form-contact">
 
-    {% for field in form if field.name not in ['photo', 'submit', 'csrf_token'] %}
-    <p>{{field.label()}}</p>
-    <p>{{ field }}</p>
-    {% endfor %}
+                {{ form.hidden_tag() }}
 
-    {{ form.photo }}
-    <input type="submit" value="Add brand">
+                {% for field in form if field.name not in ['csrf_token'] %}
+                <p>{{field.label()}}</p>
+                <p>{{ field }}</p>
+                {% endfor %}
+
+                <input type="submit" class="btn btn-primary add_brand" value="Add brand">
 
 
-    {% endblock %}
-</form>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

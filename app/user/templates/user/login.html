@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {{ super() }}
-
-<section class="vh-100" style="background-color: #eee;">
+<div class="main-login">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
@@ -13,7 +12,7 @@
 
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sing in</p>
 
-                                <form class="mx-1 mx-md-4" action="/user/login" method="post"  id="form-contact">
+                                <form class="mx-1 mx-md-4" action="/user/login" method="post" id="form-contact">
                                     {{ form.hidden_tag() }}
                                     {% for field in form if field.name not in ['submit', 'csrf_token', 'remember'] %}
                                     <div class="d-flex flex-row align-items-center mb-4">
@@ -30,16 +29,21 @@
                                     </ul>
                                     {% endfor %}
                                     {% else %}
-                                    <!--                                        <input type="text" id="form3Example1c" class="form-control"/>-->
 
                                     <p>{{ field() }}</p>
                                     {% endif %}
                                     {% endfor %}
                                     <p id="remember_me">Remember me:</p>
                                     <p id="remember">{{ form.remember() }}</p>
+                                    <br>
+                                    <div class="reset_password">
+                                        <a href="{{ url_for('user.reset_password')}}">I forgot password</a>
+                                    </div>
+
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <button type="button" class="btn btn-primary btn-lg">{{ form.submit() }}
+                                        <button type="submit" name="reset_password" class="btn btn-primary"
+                                                value=""> Next
                                         </button>
                                     </div>
 
@@ -54,6 +58,5 @@
             </div>
         </div>
     </div>
-</section>
-
+</div>
 {% endblock %}

@@ -2,19 +2,30 @@
 {% block content %}
 {{ super() }}
 
+<div class="main">
 
-<h1>Add car for {{ brand }} brand</h1>
+    <h1>Add car for {{ brand }} brand</h1>
 
-<form class="mx-1 mx-md-4" action="/admin/add_car" method="post" enctype="multipart/form-data" id="form-contact">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
 
-    {{ form.hidden_tag() }}
+            <form action="/admin/add_car" method="post" enctype="multipart/form-data"
+                  id="form-contact">
 
-    {% for field in form if field.name not in ['submit', 'csrf_token'] %}
-    <p>{{field.label()}}</p>
-    <p>{{ field }}</p>
-    {% endfor %}
+                {{ form.hidden_tag() }}
 
-    <button type="submit" name="add_car" value="{{ brand }}">Add car</button>
+                {% for field in form if field.name not in ['csrf_token'] %}
+                <p>{{field.label()}}</p>
+                <p>{{ field }}</p>
+                {% endfor %}
 
+                <button type="submit" name="add_car" class="btn btn-primary add_brand" value="{{ brand }}">Add car
+                </button>
+
+            </form>
+        </div>
+    </div>
     {% endblock %}
-</form>
+
+</div>

@@ -2,7 +2,43 @@
 {% block content %}
 {{ super() }}
 
+<div class="main">
+    <div class="card mb-home">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
 
-<h1>user</h1>
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% if cars != [] %}
+                    {% for car in cars %}
+                    <div class="carousel-item active">
+
+                        <a href="{{url_for('user.show_car', alias_car=car['name_car'])}}">
+                            <img src="{{ car['name_photo'] }}"></a>
+                    </div>
+
+                    {% endfor %}
+                    {% else %}
+                    <h2>Empty cars</h2>
+                    {% endif %}
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
 
 {% endblock %}

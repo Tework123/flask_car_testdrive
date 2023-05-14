@@ -1,57 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 {{ super() }}
+<div class="main">
 
-<section class="vh-100" style="background-color: #eee;">
-    <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-12 col-xl-11">
-                <div class="card text-black" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
-                        <div class="row justify-content-center">
-                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+    <section class="vh-100" style="">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black" style="border-radius: 25px;">
+                        <div class="card-body p-md-5">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Admin Sing in</p>
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Admin Sing in</p>
 
-                                <form class="mx-1 mx-md-4" action="/admin/login" method="post"  id="form-contact">
-                                    {{ form.hidden_tag() }}
-                                    {% for field in form if field.name not in ['submit', 'csrf_token'] %}
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                                        <div class="form-outline flex-fill mb-0">
-                                            <p class="form-label">{{ field.label() }}</p>
+                                    <form class="mx-1 mx-md-4" action="/admin/login" method="post" id="form-contact">
+                                        {{ form.hidden_tag() }}
+                                        {% for field in form if field.name not in ['submit', 'csrf_token'] %}
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <p class="form-label">{{ field.label() }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {% if field.errors %}
-                                    {{ field(class='invalid') }}
-                                    {% for e in field.errors %}
-                                    <ul>
-                                        {{ e }}
-                                    </ul>
-                                    {% endfor %}
-                                    {% else %}
-                                    <!--                                        <input type="text" id="form3Example1c" class="form-control"/>-->
+                                        {% if field.errors %}
+                                        {{ field(class='invalid') }}
+                                        {% for e in field.errors %}
+                                        <ul>
+                                            {{ e }}
+                                        </ul>
+                                        {% endfor %}
+                                        {% else %}
 
-                                    <p>{{ field() }}</p>
-                                    {% endif %}
-                                    {% endfor %}
+                                        <p class="input">{{ field() }}</p>
+                                        {% endif %}
+                                        {% endfor %}
 
-                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <button type="button" class="btn btn-primary btn-lg">{{ form.submit() }}
-                                        </button>
-                                    </div>
+                                        <button type="submit" class="btn btn-primary login">Sing in</button>
+                                    </form>
 
-
-                                </form>
-
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
+    </section>
+</div>
 {% endblock %}

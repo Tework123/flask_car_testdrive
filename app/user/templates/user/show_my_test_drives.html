@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+<div class="main">
+    {% if my_test_drives != [] %}
+    {% for test_drive in my_test_drives %}
+    <div class="card mb-review">
+        <div class="card-body">
+            <div class="card-body-review">
+                <h5 class="card-title"></h5>
+                {% if time_now > test_drive['date_start'] %}
+                <p class="closed">Closed</p>
+                {% endif %}
+                <p>Car: {{test_drive['name_car']}}</p>
+                <p>Price: {{test_drive['price']}}</p>
+                <p>Date start test drive: {{test_drive['date_start']}}</p>
+                <p>Date end: {{test_drive['date_end']}}</p>
+
+            </div>
+
+            {% if test_drive['name_photo'] %}
+            <img src="{{ test_drive['name_photo'] }}">
+            {% endif %}
+
+            {% if time_now < test_drive['date_start'] %}
+            <form action="{{ url_for('user.delete_test_drive') }}" method="POST">
+                <button type="submit" class="btn btn-secondary" name="delete_test_drive"
+                        value="{{ test_drive['id_order'] }}">
+                    Delete
+                    test drive
+                </button>
+            </form>
+            {% endif %}
+
+
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>My test drives empty</p>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}
+
+</div>

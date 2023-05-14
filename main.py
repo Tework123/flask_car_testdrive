@@ -1,20 +1,19 @@
-from app import app, login_manager
-from flask import Flask, render_template, request
-
-from app.models import Users, MainMenu
+from app import app
+from flask import url_for, redirect
 from app import db
 
-menu = [['Home', '/'], ['Сar brands', '/user/car_brands'], ['Sing in', '/user/login'],
+menu = [['Home', '/user'], ['Сar brands', '/user/show_brands'], ['Sing in', '/user/login'],
         ['Registration', '/user/register']]
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', title='Home', main_menu=menu)
+    return redirect(url_for('user.index'))
 
 
 if __name__ == '__main__':
     with app.app_context():
+
         # импорт и регистрация blueprint
         from app.user import bp as bp_user
 
@@ -23,29 +22,12 @@ if __name__ == '__main__':
         from app.admin import bp as bp_admin
 
         app.register_blueprint(bp_admin, url_prefix='/admin')
+
+        from app.errors import bp as bp_errors
+
+        app.register_blueprint(bp_errors, url_prefix='/errors')
+
         # db.drop_all()
         # db.create_all()
 
-
-        # me = Users(name='admin', email='admin@.admin', country='russia', password='admin')
-        # db.session.add(me)
-        # db.session.commit()
-
-        # menu = [['Home', '/'], ['Сar brands', '/user/car_brands'], ['Sing in', '/user/login'], ['Registration', '/user/register']]
-        # for i in menu:
-        #     head = MainMenu(text=i[0], url=i[1])
-        #     db.session.add(head)
-        #
-        # db.session.commit()
-
-        # a = Users.query.all()
-        # res = db.session.query(Users, Profiles).join( Profiles, Users.id == Profiles.user_id).all()
-        # print(a)
-        # print(res)
-        #     db.create_all()
-
-        # Создание базы данных
-    # from main import db
-    #
-    # db.create_all()
     app.run(debug=True)

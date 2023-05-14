@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+
+<div class="main-order">
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p>id_car: {{ test_drive.id_car }}</p>
+            <p>id_user: {{ test_drive.id_user }}</p>
+            <p>price: {{ test_drive.price }}</p>
+            <p>date_start: {{ test_drive.date_start }}</p>
+
+
+            <iframe src="https://yoomoney.ru/quickpay/fundraise/widget?billNumber=mHHyQwEXBoU.230507&" width="500"
+                    height="480" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+        </div>
+    </div>
+    {% endblock %}
+
+</div>

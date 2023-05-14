@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+
+<div class="main">
+    <h1>Reviews for {{ name_car }}</h1>
+    <form action="{{ url_for( 'admin.show_car', alias_car=name_car) }}" method="get">
+        <button type="submit" name="back_to_car" value="{{ name_car }}" class="btn btn-primary">Back</button>
+    </form>
+
+    {% if reviews != [] %}
+    {% for review in reviews %}
+    <div class="card mb-review">
+        <div class="card-body">
+            <div class="card-body-review">
+                <h5 class="card-title"></h5>
+
+                <p>{{review[0]['name']}}</p>
+                <p>Date: {{review[0]['date']}}</p>
+                <p>Description: {{review[0]['text']}}</p>
+                <p>Dergee: {{review[0]['degree']}}</p>
+            </div>
+
+            {% if review[0]['id_photo'] %}
+            {% for photo in review %}
+            <img src="{{ photo['id_photo'] }}">
+            {% endfor %}
+            {% endif %}
+
+            <form action="{{ url_for('admin.delete_review') }}" method="POST">
+                <button type="submit" class="btn btn-secondary" name="delete_review" value="{{ review[0]['id_review'] }}">
+                    Delete
+                    review
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Reviews empty</p>
+    {% endif %}
+
+    {% if prev_url %}
+    <form action="{{ prev_url }}" method="post">
+        <button type="submit" name="show_reviews" value="{{ name_car }}" class="btn btn-primary">Prev page</button>
+    </form>
+    {% endif %}
+
+    {% if next_url %}
+    <form action="{{ next_url }}" method="post">
+        <button type="submit" name="show_reviews" value="{{ name_car }}" class="btn btn-primary">Next page</button>
+    </form>
+    {% endif %}
+
+
+</div>
+{% endblock %}
+
+
+
