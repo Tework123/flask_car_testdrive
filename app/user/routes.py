@@ -675,6 +675,7 @@ def delete_profile(id_user):
             Users.query.filter_by(id_user=id_user).delete()
             db.session.commit()
             flash('profile deleted', category='success')
+            print('hello')
             return redirect(url_for('.index'))
         except:
             flash('Error, profile not deleted', category='error')
