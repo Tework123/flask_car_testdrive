@@ -3,7 +3,7 @@ from threading import Thread
 from flask import render_template, current_app
 from flask_mail import Message
 
-from app import mail
+from app import mail, app
 from app.models import ResetPasswordStatic
 from config import Config
 
@@ -13,8 +13,14 @@ def send_async_email(app, msg):
         mail.send(msg)
 
 
-def send_email(subject, sender, recipients, body):
+def send_email(subject, sender, recipients, body, attachments=None):
     msg = Message(subject, sender=sender, recipients=recipients, body=body)
+
+    if attachments is not None:
+        attach_photo = attachments.split('/')[-1]
+        with app.open_resource(attachments) as fp:
+            msg.attach(attach_photo, 'image/png', fp.read())
+
     Thread(target=send_async_email, args=(current_app._get_current_object(), msg)).start()
 
 

@@ -1,13 +1,9 @@
 import datetime
 from datetime import datetime as datetime_module
 import os
-
-import jwt
-from flask import render_template, request, redirect, url_for, flash, make_response
-from flask_mail import Message
-from flask_paginate import get_page_parameter, Pagination
+from flask import render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db, app, mail
+from app import db
 from app.user.forms import TakeTestdrive
 from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive, ResetPasswordStatic
 
@@ -38,7 +34,6 @@ def index():
         row = {'name_car': row.name_car, 'name_photo': row._data[1]}
         cars_dict.append(row)
 
-    # может лучше сразу в базе весь путь к картинке хранить
     for car in cars_dict:
         car['name_photo'] = url_for('static', filename='car_image/' + car['name_photo'])
 
@@ -193,51 +188,53 @@ def add_review():
 
 @bp.route('/show_reviews', methods=['POST', 'GET'])
 def show_reviews():
-    # try:
-    page = request.args.get('page', 1, type=int)
-    name_car = request.args.get('show_reviews')
-    if request.method == 'POST':
-        name_car = request.form['show_reviews']
+    try:
+        page = request.args.get('page', 1, type=int)
+        name_car = request.args.get('show_reviews')
+        if request.method == 'POST':
+            name_car = request.form['show_reviews']
 
-    reviews = db.session.query(Reviews.text, Reviews.date, Reviews.degree, ReviewsPhoto.id_photo, Users.name,
-                               Users.id_user).join(
-        ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review, isouter=True).join(Users,
-                                                                                      Reviews.id_user == Users.id_user).where(
-        Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=3, error_out=False)
+        reviews = db.session.query(Reviews.text, Reviews.date, Reviews.degree, ReviewsPhoto.id_photo, Users.name,
+                                   Users.id_user).join(
+            ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review, isouter=True).join(Users,
+                                                                                          Reviews.id_user == Users.id_user).where(
+            Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=2, error_out=False)
 
-    if reviews.has_next:
-        next_url = url_for('user.show_reviews', page=reviews.next_num)
-    else:
-        next_url = None
-    if reviews.has_prev:
-        prev_url = url_for('user.show_reviews', page=reviews.prev_num)
-    else:
-        prev_url = None
+        if reviews.has_next:
+            next_url = url_for('user.show_reviews', page=reviews.next_num)
+        else:
+            next_url = None
+        if reviews.has_prev:
+            prev_url = url_for('user.show_reviews', page=reviews.prev_num)
+        else:
+            prev_url = None
 
-    reviews_dict = [[]]
+        reviews_dict = [[]]
 
-    if reviews.items != []:
-        first_review = reviews.items[0][0]
+        if reviews.items != []:
+            first_review = reviews.items[0][0]
 
-        for row in reviews:
+            for row in reviews:
 
-            if row[0] == first_review:
-                row = {'text': row.text, 'date': row.date, 'degree': row.degree, 'id_photo': row.id_photo,
-                       'name': row.name, 'id_user': row.id_user}
-                reviews_dict[-1].append(row)
-            else:
-                first_review = row[0]
-                row = {'text': row.text, 'date': row.date, 'degree': row.degree, 'id_photo': row.id_photo,
-                       'name': row.name, 'id_user': row.id_user}
-                reviews_dict.append([row])
-        print(reviews_dict)
-        for review in reviews_dict:
-            for photo in review:
-                if photo['id_photo']:
-                    photo['id_photo'] = url_for('static', filename='reviews_photo/' + str(photo['id_photo']) + '.jpg')
-        # except:
-        #     reviews_dict = []
-    else:
+                if row[0] == first_review:
+                    row = {'text': row.text, 'date': row.date, 'degree': row.degree, 'id_photo': row.id_photo,
+                           'name': row.name, 'id_user': row.id_user}
+                    reviews_dict[-1].append(row)
+                else:
+                    first_review = row[0]
+                    row = {'text': row.text, 'date': row.date, 'degree': row.degree, 'id_photo': row.id_photo,
+                           'name': row.name, 'id_user': row.id_user}
+                    reviews_dict.append([row])
+
+            for review in reviews_dict:
+                for photo in review:
+                    if photo['id_photo']:
+                        photo['id_photo'] = url_for('static',
+                                                    filename='reviews_photo/' + str(photo['id_photo']) + '.jpg')
+        else:
+            reviews_dict = []
+
+    except:
         reviews_dict = []
     return render_template('user/show_reviews.html', main_menu=menu, reviews=reviews_dict, next_url=next_url,
                            prev_url=prev_url, name_car=name_car, title='Reviews')
@@ -246,33 +243,32 @@ def show_reviews():
 @bp.route('/show_my_reviews', methods=['POST', 'GET'])
 @login_required
 def show_my_reviews():
-    my_reviews = db.session.query(Reviews.id_review, Reviews.date, Reviews.text, Reviews.degree,
-                                  ReviewsPhoto.id_photo).join(ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review,
-                                                              isouter=True).where(
-        Reviews.id_user == current_user.id_user).all()
+    try:
+        my_reviews = db.session.query(Reviews.id_review, Reviews.date, Reviews.text, Reviews.degree,
+                                      ReviewsPhoto.id_photo).join(ReviewsPhoto,
+                                                                  Reviews.id_review == ReviewsPhoto.id_review,
+                                                                  isouter=True).where(
+            Reviews.id_user == current_user.id_user).all()
 
-    if my_reviews:
+        if my_reviews:
+            my_reviews_dict = []
+
+            for row in my_reviews:
+                row = {'id_review': row.id_review, 'date': row.date, 'text': row.text, 'degree': row.degree,
+                       'id_photo': row.id_photo}
+                my_reviews_dict.append(row)
+
+            for review in my_reviews_dict:
+                if review['id_photo']:
+                    review['id_photo'] = url_for('static', filename='reviews_photo/' + str(review['id_photo']) + '.jpg')
+        else:
+            my_reviews_dict = []
+    except:
+        flash('Don`t have your reviews now', category='error')
         my_reviews_dict = []
-
-        for row in my_reviews:
-            row = {'id_review': row.id_review, 'date': row.date, 'text': row.text, 'degree': row.degree,
-                   'id_photo': row.id_photo}
-            my_reviews_dict.append(row)
-
-        for review in my_reviews_dict:
-            if review['id_photo']:
-                review['id_photo'] = url_for('static', filename='reviews_photo/' + str(review['id_photo']) + '.jpg')
-        # except:
-        #     reviews_dict = []
-    else:
-        my_reviews_dict = []
-    print(my_reviews_dict)
     return render_template('user/show_my_reviews.html', main_menu=menu, title='My reviews', my_reviews=my_reviews_dict)
 
 
-# настроить отправку нормальный сообщений на почту
-# настроить показ кол-ва ревью в профиле, возможно нахуй эти миграции
-#
 @bp.route('/delete_review', methods=['POST', 'GET'])
 def delete_review():
     if request.method == 'POST':
@@ -301,33 +297,37 @@ def delete_review():
 
 @bp.route('/show_my_test_drives', methods=['POST', 'GET'])
 def show_my_test_drives():
-    my_test_drives = db.session.query(TestDrive.id_order, TestDrive.price, TestDrive.date_start, TestDrive.date_end,
-                                      Cars.name_car,
-                                      db.func.min(Photos.name_photo)).join(Cars,
-                                                                           TestDrive.id_car == Cars.id_car).join(
-        Photos, Cars.id_car == Photos.id_car).where(
-        TestDrive.id_user == current_user.id_user).group_by(TestDrive.id_order, TestDrive.price, TestDrive.date_start,
-                                                            TestDrive.date_end,
-                                                            Cars.name_car).order_by(TestDrive.date_start.desc()).all()
+    try:
+        my_test_drives = db.session.query(TestDrive.id_order, TestDrive.price, TestDrive.date_start, TestDrive.date_end,
+                                          Cars.name_car,
+                                          db.func.min(Photos.name_photo)).join(Cars,
+                                                                               TestDrive.id_car == Cars.id_car).join(
+            Photos, Cars.id_car == Photos.id_car).where(
+            TestDrive.id_user == current_user.id_user).group_by(TestDrive.id_order, TestDrive.price,
+                                                                TestDrive.date_start,
+                                                                TestDrive.date_end,
+                                                                Cars.name_car).order_by(
+            TestDrive.date_start.desc()).all()
 
-    if my_test_drives:
-        my_test_drives_dict = []
-        for row in my_test_drives:
-            row = {'id_order': row.id_order, 'price': row.price, 'date_start': row.date_start, 'date_end': row.date_end,
-                   'name_car': row.name_car,
-                   'name_photo': row._data[5]}
-            my_test_drives_dict.append(row)
+        if my_test_drives:
+            my_test_drives_dict = []
+            for row in my_test_drives:
+                row = {'id_order': row.id_order, 'price': row.price, 'date_start': row.date_start,
+                       'date_end': row.date_end,
+                       'name_car': row.name_car,
+                       'name_photo': row._data[5]}
+                my_test_drives_dict.append(row)
 
-        for test_drive in my_test_drives_dict:
-            if test_drive['name_photo']:
-                test_drive['name_photo'] = url_for('static', filename='car_image/' + test_drive['name_photo'])
+            for test_drive in my_test_drives_dict:
+                if test_drive['name_photo']:
+                    test_drive['name_photo'] = url_for('static', filename='car_image/' + test_drive['name_photo'])
 
-        time_now = datetime.datetime.now()
-        # except:
-
-        #     reviews_dict = []
-    else:
-        time_now = datetime.datetime.now()
+            time_now = datetime.datetime.now()
+        else:
+            time_now = datetime.datetime.now()
+            my_test_drives_dict = []
+    except:
+        flash('Don`t have your test_drive now', category='error')
         my_test_drives_dict = []
 
     return render_template('user/show_my_test_drives.html', main_menu=menu, my_test_drives=my_test_drives_dict,
@@ -349,6 +349,7 @@ def delete_test_drive():
 
 
 @bp.route('/take_testdrive_<name_car>', methods=['POST', 'GET'])
+@login_required
 def take_test_drive(name_car):
     form = TakeTestdrive()
     price = 10
@@ -381,8 +382,9 @@ def take_test_drive(name_car):
 
             subject = 'Your testdrive on: ' + name_car
             body = 'Hello, your testdrive date: ' + date_start
-            attachments = 123
-            send_email(subject, Config.MAIL_USERNAME, [current_user.email], body)
+            car_photo = db.session.execute(db.select(Photos.name_photo).filter_by(id_car=id_car)).scalars().first()
+            attachments = 'static/car_image/' + car_photo
+            send_email(subject, Config.MAIL_USERNAME, [current_user.email], body, attachments)
 
             flash('test_drive reserved', category='success')
             return redirect(url_for('.pay_for_test_drive'))
@@ -394,6 +396,7 @@ def take_test_drive(name_car):
 
 
 @bp.route('/pay_for_test_drive', methods=['POST', 'GET'])
+@login_required
 def pay_for_test_drive():
     test_drive = db.session.execute(
         db.select(TestDrive).filter_by(
@@ -429,6 +432,10 @@ def register():
                         new_user = Users.query.filter_by(email=form.email.data).first()
                         login_user(new_user)
                         flash('Welcome', category='success')
+
+                        subject = 'You was register on testdrive'
+                        body = user.name + ' Welcome!'
+                        send_email(subject, Config.MAIL_USERNAME, [current_user.email], body)
 
                         return redirect(url_for('.profile'))
 
@@ -484,19 +491,18 @@ def reset_password():
 
     if request.method == 'POST':
         if form.validate_on_submit():
-            # try:
-            user = Users.query.filter_by(email=form.email.data).first()
-            if user:
-                send_password_reset_email(user)
-                flash('Check your email', category='success')
-            else:
-                flash('Your email was not found', category='error')
-            return redirect(url_for('.login'))
-
+            try:
+                user = Users.query.filter_by(email=form.email.data).first()
+                if user:
+                    send_password_reset_email(user)
+                    flash('Check your email', category='success')
+                else:
+                    flash('Your email was not found', category='error')
+                return redirect(url_for('.login'))
+            except:
+                flash('Db error', category='error')
         else:
             flash('incorrect password', category='error')
-    # except:
-    #     flash('No such user', category='error')
 
     return render_template('user/reset_password.html', main_menu=menu, title='Reset paswword', form=form)
 
@@ -537,7 +543,7 @@ def before_request():
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    flash('Login for add review', category='error')
+    flash('Login for this action', category='error')
     return redirect(url_for('.login'))
 
 
@@ -549,9 +555,7 @@ def profile():
         id_user=current_user.id_user).group_by(TestDrive.id_user).all()
     amount_reviews = db.session.execute(
         db.select(Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(id_user=current_user.id_user).group_by(
-            Reviews.id_user)).scalars().all()
-    print(amount_reviews)
-    print(amount_testdrive)
+            Reviews.id_user)).all()
 
     if not image:
         image = url_for('static', filename='profile_image/' + 'default.jpg')
@@ -565,7 +569,8 @@ def profile():
 @bp.route('/profile_<alias>', methods=['GET', 'POST'])
 def profile_people(alias):
     user = Users.query.filter_by(id_user=alias).first()
-    print(user)
+    if user == current_user:
+        return redirect(url_for('.profile'))
     if not user.profile_pic:
         user.profile_pic = url_for('static', filename='profile_image/' + 'default.jpg')
     else:
@@ -575,17 +580,12 @@ def profile_people(alias):
         id_user=alias).group_by(TestDrive.id_user).all()
     amount_reviews = db.session.execute(
         db.select(Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(id_user=alias).group_by(
-            Reviews.id_user)).scalars().all()
-    print(amount_testdrive)
-    print(amount_reviews)
+            Reviews.id_user)).all()
 
     return render_template('user/profile_people.html', main_menu=menu, user=user, amount_reviews=amount_reviews,
                            amount_testdrive=amount_testdrive)
 
 
-# прикрутить посмотреть мой отзывы
-# прикрутить заказы, просмотр заказов также нужен
-# доделать админку
 @bp.route('/edit_profile_<user>', methods=['GET', 'POST'])
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -619,7 +619,8 @@ def edit_profile(user):
         else:
             flash('This email already use', category='error')
 
-    return render_template('user/edit_profile.html', main_menu=menu, title='Edit_profile', form=form)
+    return render_template('user/edit_profile.html', main_menu=menu, title='Edit_profile', form=form,
+                           id_user=current_user.id_user)
 
 
 @bp.route('/password_security', methods=['GET', 'POST'])
@@ -659,3 +660,24 @@ def upload():
         file.save('app/static/profile_image/' + file.filename)
 
         return redirect(url_for('.profile'))
+
+
+@bp.route('/delete_profile_<id_user>', methods=['POST'])
+def delete_profile(id_user):
+    if request.method == 'POST':
+        try:
+            profile_pic = db.session.execute(db.select(Users.profile_pic).filter_by(id_user=id_user)).scalar_one()
+            if profile_pic:
+                file_path = 'app/static/profile_image/' + profile_pic
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+
+            Users.query.filter_by(id_user=id_user).delete()
+            db.session.commit()
+            flash('profile deleted', category='success')
+            return redirect(url_for('.index'))
+        except:
+            flash('Error, profile not deleted', category='error')
+
+    return redirect(url_for('.profile'))
+

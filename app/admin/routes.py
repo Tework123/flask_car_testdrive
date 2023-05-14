@@ -1,10 +1,6 @@
 import os
-
 from flask import render_template, request, flash, redirect, url_for, session
-from flask_login import current_user, login_user, login_required, logout_user
-from werkzeug.security import check_password_hash
-from werkzeug.utils import secure_filename
-
+from flask_login import current_user
 from app import db
 from app.admin import bp
 from app.admin.forms import LoginForm, AddBrand, AddCar
@@ -27,7 +23,7 @@ def index():
     for row in whole_cars:
         row = {'name_car': row.name_car, 'name_photo': row._data[1]}
         cars_dict.append(row)
-    # может лучше сразу в базе весь путь к картинке хранить
+
     for car in cars_dict:
         car['name_photo'] = url_for('static', filename='car_image/' + car['name_photo'])
 
@@ -206,53 +202,55 @@ def show_car(alias_car):
 
 @bp.route('/show_reviews', methods=['POST', 'GET'])
 def show_reviews():
-    # try:
-    page = request.args.get('page', 1, type=int)
-    name_car = request.args.get('show_reviews')
-    if request.method == 'POST':
-        name_car = request.form['show_reviews']
+    try:
+        page = request.args.get('page', 1, type=int)
+        name_car = request.args.get('show_reviews')
+        if request.method == 'POST':
+            name_car = request.form['show_reviews']
 
-    reviews = db.session.query(Reviews.id_review, Reviews.text, Reviews.date, Reviews.degree, ReviewsPhoto.id_photo,
-                               Users.name).join(
-        ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review, isouter=True).join(Users,
-                                                                                      Reviews.id_user == Users.id_user).where(
-        Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=3, error_out=False)
+        reviews = db.session.query(Reviews.id_review, Reviews.text, Reviews.date, Reviews.degree, ReviewsPhoto.id_photo,
+                                   Users.name).join(
+            ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review, isouter=True).join(Users,
+                                                                                          Reviews.id_user == Users.id_user).where(
+            Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=3, error_out=False)
 
-    if reviews.has_next:
-        next_url = url_for('user.show_reviews', page=reviews.next_num)
-    else:
-        next_url = None
-    if reviews.has_prev:
-        prev_url = url_for('user.show_reviews', page=reviews.prev_num)
-    else:
-        prev_url = None
+        if reviews.has_next:
+            next_url = url_for('user.show_reviews', page=reviews.next_num)
+        else:
+            next_url = None
+        if reviews.has_prev:
+            prev_url = url_for('user.show_reviews', page=reviews.prev_num)
+        else:
+            prev_url = None
 
-    reviews_dict = [[]]
+        reviews_dict = [[]]
 
-    if reviews.items:
-        first_review = reviews.items[0][0]
+        if reviews.items:
+            first_review = reviews.items[0][0]
 
-        for row in reviews:
+            for row in reviews:
 
-            if row[0] == first_review:
-                row = {'id_review': row.id_review, 'text': row.text, 'date': row.date, 'degree': row.degree,
-                       'id_photo': row.id_photo,
-                       'name': row.name}
-                reviews_dict[-1].append(row)
-            else:
-                first_review = row[0]
-                row = {'id_review': row.id_review, 'text': row.text, 'date': row.date, 'degree': row.degree,
-                       'id_photo': row.id_photo,
-                       'name': row.name}
-                reviews_dict.append([row])
+                if row[0] == first_review:
+                    row = {'id_review': row.id_review, 'text': row.text, 'date': row.date, 'degree': row.degree,
+                           'id_photo': row.id_photo,
+                           'name': row.name}
+                    reviews_dict[-1].append(row)
+                else:
+                    first_review = row[0]
+                    row = {'id_review': row.id_review, 'text': row.text, 'date': row.date, 'degree': row.degree,
+                           'id_photo': row.id_photo,
+                           'name': row.name}
+                    reviews_dict.append([row])
 
-        for review in reviews_dict:
-            for photo in review:
-                if photo['id_photo']:
-                    photo['id_photo'] = url_for('static', filename='reviews_photo/' + str(photo['id_photo']) + '.jpg')
-        # except:
-        #     reviews_dict = []
-    else:
+            for review in reviews_dict:
+                for photo in review:
+                    if photo['id_photo']:
+                        photo['id_photo'] = url_for('static',
+                                                    filename='reviews_photo/' + str(photo['id_photo']) + '.jpg')
+        else:
+            reviews_dict = []
+    except:
+        flash('Don`t have reviews now')
         reviews_dict = []
     return render_template('admin/show_reviews.html', main_menu=menu, reviews=reviews_dict, next_url=next_url,
                            prev_url=prev_url, name_car=name_car, title='Reviews')
@@ -294,35 +292,34 @@ def add_car():
         brand = request.form['add_car']
 
         if form.validate_on_submit():
-            # try:
-            id_brand = db.session.execute(db.select(Brands.id_brand).filter_by(name_brand=brand)).scalar_one()
-            car = Cars(name_car=form.name_car.data, description=form.description.data,
-                       id_brand=id_brand, url_video=form.url_video.data)
+            try:
+                id_brand = db.session.execute(db.select(Brands.id_brand).filter_by(name_brand=brand)).scalar_one()
+                car = Cars(name_car=form.name_car.data, description=form.description.data,
+                           id_brand=id_brand, url_video=form.url_video.data)
 
-            db.session.add(car)
-            db.session.flush()
-            db.session.commit()
-            id_car = db.session.execute(db.select(Cars.id_car).filter_by(name_car=form.name_car.data)).scalar_one()
-            whole_photo = []
-            for photo in form.photos.data:
-                name_photo_str = photo.filename
-                name_photo_db = Photos(id_car=id_car, name_photo=photo.filename)
-                whole_photo.append(name_photo_db)
-                file_path = 'app/static/car_image/' + name_photo_str
-                if not os.path.exists(file_path):
-                    photo.save(file_path)
+                db.session.add(car)
+                db.session.flush()
+                db.session.commit()
+                id_car = db.session.execute(db.select(Cars.id_car).filter_by(name_car=form.name_car.data)).scalar_one()
+                whole_photo = []
+                for photo in form.photos.data:
+                    name_photo_str = photo.filename
+                    name_photo_db = Photos(id_car=id_car, name_photo=photo.filename)
+                    whole_photo.append(name_photo_db)
+                    file_path = 'app/static/car_image/' + name_photo_str
+                    if not os.path.exists(file_path):
+                        photo.save(file_path)
 
-            db.session.add_all(whole_photo)
-            db.session.flush()
-            db.session.commit()
+                db.session.add_all(whole_photo)
+                db.session.flush()
+                db.session.commit()
 
-            flash('Add car success', category='success')
-            return redirect(url_for('.show_brand', alias=brand))
+                flash('Add car success', category='success')
+                return redirect(url_for('.show_brand', alias=brand))
 
-        # except:
-        #     db.session.rollback()
-        #     flash('Add car error', category='error')
-
+            except:
+                db.session.rollback()
+                flash('Add car error', category='error')
         else:
             flash('incorrect file', category='error')
 

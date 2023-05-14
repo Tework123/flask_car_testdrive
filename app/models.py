@@ -1,10 +1,7 @@
 import jwt
-
-import app
 from app import db, login_manager
 from datetime import datetime
 from time import time
-
 from config import Config
 
 
@@ -104,7 +101,7 @@ class ReviewsPhoto(db.Model):
 class TestDrive(db.Model):
     id_order = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer)
-    id_user = db.Column(db.Integer, db.ForeignKey('users.id_user'))
-    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car'))
+    id_user = db.Column(db.Integer, db.ForeignKey('users.id_user', ondelete='SET NULL'))
+    id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car', ondelete='SET NULL'))
     date_start = db.Column(db.DateTime, default=datetime.now())
     date_end = db.Column(db.DateTime)

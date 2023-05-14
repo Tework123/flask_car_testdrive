@@ -12,7 +12,8 @@
 
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Edit profile</p>
 
-                                <form class="mx-1 mx-md-4" action="{{url_for('user.edit_profile', user='user')}}" method="post" id="form-contact">
+                                <form class="mx-1 mx-md-4" action="{{url_for('user.edit_profile', user='user')}}"
+                                      method="post" id="form-contact">
                                     {{ form.hidden_tag() }}
                                     {% for field in form if field.name not in ['csrf_token'] %}
                                     <div class="d-flex flex-row align-items-center mb-4">
@@ -37,6 +38,14 @@
                                             value=""> Accept changes
                                     </button>
 
+                                </form>
+
+                                <form action="{{ url_for('user.delete_profile', id_user=id_user) }}" method="POST">
+                                    <button type="submit" class="btn btn-danger btn-delete_profile" name="delete_profile"
+                                            value="{{ id_user }}">
+                                        Delete
+                                        profile
+                                    </button>
                                 </form>
 
                             </div>

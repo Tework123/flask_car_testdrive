@@ -208,7 +208,18 @@ body h1 {
   text-align: center;
   font-size: 30px;
   margin-left: 30px;
+  
 }
+
+.btn-delete_profile{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 54px;
+  margin-top: 10px;
+}
+
 body .btn-warning{
   border: none;
   color: white;
@@ -252,7 +263,7 @@ body .btn-secondary{
 }
 
 .footer {
-  position: absolute;
+  /* position: absolute; */
   left: 0;
   bottom: 0;
   width: 100%;
@@ -265,12 +276,10 @@ body .btn-secondary{
 
 .main-profile {
   padding: 15px;
-  padding-bottom: 100px;
 }
 
 .main-registration {
   padding: 15px;
-  padding-bottom: 150px;
 }
 
 .button-register {
@@ -282,7 +291,10 @@ body .btn-secondary{
 
 .main-login {
   padding: 15px;
-  padding-bottom: 150px;
+}
+.main-reset-password{
+  padding: 15px;
+
 }
 
 /* video */
@@ -329,7 +341,9 @@ body .btn-secondary{
   display: inline-block
 }
 
+
 .main-password_security{
+
   padding-bottom: 750px;
 }
 
