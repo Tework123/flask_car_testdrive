@@ -166,7 +166,7 @@ def add_review():
             #         db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalars().all()
             #     print(photos_id)
             #     for photo_id in range(len(photos_id)):
-            #         file_path = 'app/static/reviews_photo/' + str(photos_id[photo_id]) + '.jpg'
+            #         file_path = Config.basepath + 'app/static/reviews_photo/' + str(photos_id[photo_id]) + '.jpg'
             #         if not os.path.exists(file_path):
             #             form.photos.data[photo_id].save(file_path)
 
@@ -176,7 +176,7 @@ def add_review():
             db.session.commit()
             photo_id = db.session.execute(
                 db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalars().first()
-            file_path = 'app/static/reviews_photo/' + str(photo_id) + '.jpg'
+            file_path = Config.basepath + 'app/static/reviews_photo/' + str(photo_id) + '.jpg'
             if not os.path.exists(file_path):
                 form.photos.data.save(file_path)
 
@@ -244,7 +244,7 @@ def show_reviews():
 @login_required
 def show_my_reviews():
     try:
-        my_reviews = db.session.query(Reviews.id_review, Reviews.date, Reviews.text, Reviews.degree,
+        my_reviews = db.session.query(Reviews.id_review, Reviews.date, Reviews.text, Reviews.degree, Cars.name_car,
                                       ReviewsPhoto.id_photo).join(ReviewsPhoto,
                                                                   Reviews.id_review == ReviewsPhoto.id_review,
                                                                   isouter=True).where(
@@ -255,7 +255,7 @@ def show_my_reviews():
 
             for row in my_reviews:
                 row = {'id_review': row.id_review, 'date': row.date, 'text': row.text, 'degree': row.degree,
-                       'id_photo': row.id_photo}
+                       'id_photo': row.id_photo, 'name_car': row.name_car}
                 my_reviews_dict.append(row)
 
             for review in my_reviews_dict:
@@ -277,7 +277,7 @@ def delete_review():
             id_photo = db.session.execute(db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalar_one()
             if id_photo is not None:
 
-                file_path = 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
+                file_path = Config.basepath + 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -668,17 +668,15 @@ def delete_profile(id_user):
         try:
             profile_pic = db.session.execute(db.select(Users.profile_pic).filter_by(id_user=id_user)).scalar_one()
             if profile_pic:
-                file_path = 'app/static/profile_image/' + profile_pic
+                file_path = Config.basepath + 'app/static/profile_image/' + profile_pic
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
             Users.query.filter_by(id_user=id_user).delete()
             db.session.commit()
             flash('profile deleted', category='success')
-            print('hello')
             return redirect(url_for('.index'))
         except:
             flash('Error, profile not deleted', category='error')
 
     return redirect(url_for('.profile'))
-

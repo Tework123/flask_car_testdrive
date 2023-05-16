@@ -2,7 +2,7 @@ import os
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_migrate import Migrate
 from config import Config
 import logging
@@ -53,3 +53,30 @@ app.logger.addHandler(mail_handler)
 
 app.logger.setLevel(logging.INFO)
 app.logger.info('Start application')
+
+# импорт и регистрация blueprint
+from app.user import bp as bp_user
+
+app.register_blueprint(bp_user, url_prefix='/user')
+
+from app.admin import bp as bp_admin
+
+app.register_blueprint(bp_admin, url_prefix='/admin')
+
+from app.errors import bp as bp_errors
+
+app.register_blueprint(bp_errors, url_prefix='/errors')
+
+with app.app_context():
+    # db.drop_all()
+    # db.create_all()
+    pass
+
+
+# menu = [['Home', '/user'], ['Сar brands', '/user/show_brands'], ['Sing in', '/user/login'],
+#         ['Registration', '/user/register']]
+
+
+@app.route('/')
+def index():
+    return redirect(url_for('user.index'))

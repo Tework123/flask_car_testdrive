@@ -5,6 +5,7 @@ from app import db
 from app.admin import bp
 from app.admin.forms import LoginForm, AddBrand, AddCar
 from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto
+from config import Config
 
 menu = [['Home_users', '/'], ['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'], ['Admin-panel', '#']]
 
@@ -34,6 +35,7 @@ def index():
 def show_brands():
     if not is_logged():
         return redirect(url_for('.login'))
+
     brands = db.session.query(Brands.name_brand, Brands.description, Brands.name_photo,
                               db.func.count(Cars.id_car)).join(Cars, Brands.id_brand == Cars.id_brand,
                                                                isouter=True).group_by(
@@ -55,6 +57,7 @@ def show_brands():
 def show_brand(alias):
     if not is_logged():
         return redirect(url_for('.login'))
+
     try:
         brand = db.session.execute(db.select(Brands).filter_by(name_brand=alias)).scalar_one()
     except:
@@ -102,13 +105,17 @@ def add_brand():
             try:
                 brand = Brands(name_brand=form.name_brand.data, name_photo=brand_image,
                                description=form.description.data)
+
+                file_path = Config.basepath + 'app/static/brand_image/' + brand_image
+
+                if not os.path.exists(file_path):
+                    file.save(file_path)
+
                 db.session.add(brand)
                 db.session.flush()
                 db.session.commit()
-                file_path = 'app/static/brand_image/' + brand_image
-                if not os.path.exists(file_path):
-                    file.save(file_path)
                 flash('Add brand success', category='success')
+
 
                 return redirect(url_for('.show_brands'))
 
@@ -140,11 +147,11 @@ def delete_brand():
                     photos_dict.append(row)
 
                 for photo in photos_dict:
-                    file_path = 'app/static/car_image/' + photo['name_photo']
+                    file_path = Config.basepath + 'app/static/car_image/' + photo['name_photo']
                     if os.path.exists(file_path):
                         os.remove(file_path)
 
-                file_path = 'app/static/brand_image/' + brand_photo
+                file_path = Config.basepath + 'app/static/brand_image/' + brand_photo
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -160,7 +167,7 @@ def delete_brand():
                 Brands.query.filter_by(name_brand=name_brand).delete()
                 db.session.commit()
 
-                file_path = 'app/static/brand_image/' + brand_photo
+                file_path = Config.basepath + 'app/static/brand_image/' + brand_photo
                 if os.path.exists(file_path):
                     os.remove(file_path)
                 flash('brand deleted', category='success')
@@ -264,7 +271,7 @@ def delete_review():
             id_photo = db.session.execute(db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalar_one()
             if id_photo is not None:
 
-                file_path = 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
+                file_path = Config.basepath + 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -306,7 +313,7 @@ def add_car():
                     name_photo_str = photo.filename
                     name_photo_db = Photos(id_car=id_car, name_photo=photo.filename)
                     whole_photo.append(name_photo_db)
-                    file_path = 'app/static/car_image/' + name_photo_str
+                    file_path = Config.basepath + 'app/static/car_image/' + name_photo_str
                     if not os.path.exists(file_path):
                         photo.save(file_path)
 
@@ -341,7 +348,7 @@ def delete_car():
                 car_and_photos_dict.append(row)
 
             for dict in car_and_photos_dict:
-                file_path = 'app/static/car_image/' + dict['name_photo']
+                file_path = Config.basepath + 'app/static/car_image/' + dict['name_photo']
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
