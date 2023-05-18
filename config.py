@@ -18,8 +18,8 @@ class Config(object):
     host = 'local'
     # host = 'prod'
     if host == 'local':
-        basepath = os.path.abspath(".") + '/'
+        basepath = os.path.abspath("") + '/'
         SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES')
     else:
-        basepath = os.path.abspath('.') + '/flask_car_testdrive/'
+        basepath = os.path.abspath('') + '/flask_car_testdrive/'
         SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_MYSQL')

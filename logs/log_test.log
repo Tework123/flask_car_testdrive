@@ -1,80 +1,92 @@
-2023-05-14 15:17:48,918 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-14 15:17:49,369 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-14 15:29:42,044 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-14 15:29:42,469 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-14 15:45:51,510 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-14 15:45:51,983 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-14 15:58:37,533 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 06:20:59,543 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 06:21:00,011 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 08:59:22,181 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 08:59:22,717 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 09:34:05,093 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 09:34:05,601 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 14:52:51,003 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 14:52:51,601 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:01:37,986 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:01:38,493 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:02:10,241 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:02:10,687 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:02:15,975 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:02:16,446 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:02:25,227 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:02:25,710 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-15 15:09:08,687 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-15 15:09:09,175 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-15 15:09:43,019 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 15:10:17,117 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 15:10:17,597 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:04:35,714 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:04:36,158 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:05:11,910 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:05:12,730 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:05:57,902 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:05:58,685 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:07:26,427 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:07:26,887 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:09:34,805 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:10:37,999 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:11:15,537 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:11:16,012 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:14:20,043 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:14:20,567 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:14:31,912 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:14:32,706 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:14:49,957 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:14:50,453 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:15:27,828 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:15:37,789 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-15 17:15:38,243 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-16 05:50:41,631 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 05:51:20,815 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 05:51:21,427 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 05:53:15,322 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 05:55:47,326 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:03:38,722 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:03:39,209 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:07:21,077 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:10:12,216 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:11:02,362 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:11:02,839 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:19:11,798 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:19:12,279 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:21:19,427 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:21:19,905 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:28:49,702 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:28:50,178 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:30:52,018 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:30:52,497 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:49:36,050 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:50:09,279 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:50:09,816 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:52:34,062 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:52:34,563 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:54:22,874 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:54:23,386 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:56:00,032 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:56:24,219 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:56:24,910 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:57:03,839 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
-2023-05-16 06:57:04,364 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 07:36:35,711 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 07:36:35,743 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 07:36:35,798 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 07:36:35,825 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 07:37:32,097 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 08:51:09,474 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 08:51:09,963 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 08:59:38,908 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 08:59:38,966 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 08:59:38,995 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 08:59:39,019 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 06:07:34,059 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 06:07:34,504 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 06:24:14,000 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 06:25:26,259 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 06:25:57,433 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 06:26:35,836 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:02:12,122 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:14,995 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:14,996 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:25,051 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:25,053 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:25,475 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:25,477 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:55,774 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:05:56,208 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:06:31,805 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:06:31,858 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:06:31,858 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-18 08:06:33,646 ERROR: Exception on /user/ [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1821, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2312, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/app/user/routes.py", line 539, in before_request
+    if current_user.is_authenticated:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/werkzeug/local.py", line 316, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/werkzeug/local.py", line 520, in _get_current_object
+    return get_name(local())  # type: ignore
+                    ^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+                                      ^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_login/utils.py", line 372, in _get_user
+    current_app.login_manager._load_user()
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_login/login_manager.py", line 347, in _load_user
+    raise Exception(
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+2023-05-18 08:06:33,646 ERROR: Exception on /user/ [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1821, in full_dispatch_request
+    rv = self.preprocess_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2312, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/app/user/routes.py", line 539, in before_request
+    if current_user.is_authenticated:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/werkzeug/local.py", line 316, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/werkzeug/local.py", line 520, in _get_current_object
+    return get_name(local())  # type: ignore
+                    ^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+                                      ^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_login/utils.py", line 372, in _get_user
+    current_app.login_manager._load_user()
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_login/login_manager.py", line 347, in _load_user
+    raise Exception(
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+2023-05-18 08:23:50,728 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]

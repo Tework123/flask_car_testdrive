@@ -494,6 +494,7 @@ def reset_password():
             try:
                 user = Users.query.filter_by(email=form.email.data).first()
                 if user:
+
                     send_password_reset_email(user)
                     flash('Check your email', category='success')
                 else:

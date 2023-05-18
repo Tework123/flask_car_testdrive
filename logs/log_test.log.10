@@ -1,40 +1,4 @@
-2023-05-12 06:09:05,560 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:67]
-2023-05-12 06:09:06,094 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:67]
-2023-05-12 06:11:12,100 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:11:46,664 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:11:47,110 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:11:49,130 INFO: START AASD [in /home/t1/PycharmProjects/flask_car_testdrive/app/main.py:20]
-2023-05-12 06:11:49,951 INFO: START AASD [in /home/t1/PycharmProjects/flask_car_testdrive/app/main.py:20]
-2023-05-12 06:13:18,353 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:13:18,812 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:13:23,450 INFO: START AASD [in /home/t1/PycharmProjects/flask_car_testdrive/app/main.py:22]
-2023-05-12 06:14:54,740 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:14:55,191 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:15:00,902 INFO: START AASD [in /home/t1/PycharmProjects/flask_car_testdrive/app/main.py:22]
-2023-05-12 06:16:40,465 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:62]
-2023-05-12 06:16:40,920 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:62]
-2023-05-12 06:17:50,670 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:62]
-2023-05-12 06:17:51,119 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:62]
-2023-05-12 06:18:46,349 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:18:46,813 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
-2023-05-12 06:19:28,944 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:53]
-2023-05-12 06:19:29,394 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:53]
-2023-05-12 06:21:32,631 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:21:33,063 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:28:41,464 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:28:41,888 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:30:38,247 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:30:38,692 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:30:48,170 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:30:48,604 INFO: MMMM [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:47]
-2023-05-12 06:59:35,955 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 06:59:36,401 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:02:28,304 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:02:28,753 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:05:09,732 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:05:10,210 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:06:48,740 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:06:52,528 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+2023-05-12 07:13:32,818 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -52,7 +16,8 @@ Traceback (most recent call last):
     a = x / y
         ~~^~~
 ZeroDivisionError: division by zero
-2023-05-12 07:07:10,487 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+2023-05-12 07:15:09,921 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-12 07:15:13,845 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -70,11 +35,10 @@ Traceback (most recent call last):
     a = x / y
         ~~^~~
 ZeroDivisionError: division by zero
-2023-05-12 07:10:47,722 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:13:03,193 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:13:10,772 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:13:26,812 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:13:29,943 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+2023-05-12 07:15:36,039 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-12 07:16:07,328 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-12 07:16:10,914 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-12 07:16:12,955 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -88,11 +52,13 @@ Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/app/main.py", line 18, in index
+  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 18, in index
     a = x / y
         ~~^~~
 ZeroDivisionError: division by zero
-2023-05-12 07:13:32,101 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+2023-05-12 07:17:00,526 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-12 07:17:22,804 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-12 07:17:28,419 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -106,7 +72,56 @@ Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/app/main.py", line 18, in index
+  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 18, in index
     a = x / y
         ~~^~~
 ZeroDivisionError: division by zero
+2023-05-12 07:19:26,434 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-12 07:20:05,910 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-12 07:20:08,261 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 18, in index
+    a = x / y
+        ~~^~~
+ZeroDivisionError: division by zero
+2023-05-12 07:22:35,791 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-12 07:22:38,427 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 24, in index
+    mail.send(msg)
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 492, in send
+    message.send(connection)
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 427, in send
+    connection.send(self)
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 181, in send
+    if message.has_bad_headers():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 400, in has_bad_headers
+    headers = [self.sender, self.reply_to] + self.recipients
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+TypeError: can only concatenate list (not "str") to list
+2023-05-12 07:22:47,114 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
