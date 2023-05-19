@@ -1,4 +1,4 @@
-2023-05-12 07:41:01,181 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+2023-05-12 07:53:51,495 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -25,8 +25,7 @@ Traceback (most recent call last):
     headers = [self.sender, self.reply_to] + self.recipients
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
 TypeError: can only concatenate list (not "str") to list
-2023-05-12 07:41:14,929 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
-2023-05-12 07:41:16,305 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+2023-05-12 07:54:38,133 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -53,7 +52,13 @@ Traceback (most recent call last):
     headers = [self.sender, self.reply_to] + self.recipients
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
 TypeError: can only concatenate list (not "str") to list
-2023-05-12 07:41:19,461 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+2023-05-12 07:55:15,012 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 07:56:11,069 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 07:56:11,513 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 07:58:23,452 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 07:58:23,895 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 07:58:46,538 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 07:58:48,288 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -67,21 +72,12 @@ Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 24, in index
-    mail.send(msg)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 181, in send
-    if message.has_bad_headers():
-       ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 400, in has_bad_headers
-    headers = [self.sender, self.reply_to] + self.recipients
-              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-TypeError: can only concatenate list (not "str") to list
-2023-05-12 07:52:46,438 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
-2023-05-12 07:52:49,853 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 18, in index
+    a = x / y
+        ~~^~~
+ZeroDivisionError: division by zero
+2023-05-12 07:59:49,134 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 07:59:50,775 ERROR: Exception on /user/ [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
 Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
     response = self.full_dispatch_request()
@@ -95,17 +91,13 @@ Traceback (most recent call last):
   File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 24, in index
-    mail.send(msg)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 181, in send
-    if message.has_bad_headers():
-       ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 400, in has_bad_headers
-    headers = [self.sender, self.reply_to] + self.recipients
-              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-TypeError: can only concatenate list (not "str") to list
-2023-05-12 07:53:50,169 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+  File "/home/t1/PycharmProjects/flask_car_testdrive/app/user/routes.py", line 30, in index
+    a = x / y
+        ~~^~~
+ZeroDivisionError: division by zero
+2023-05-12 08:00:04,483 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 08:05:50,690 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 08:19:05,635 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 08:19:28,732 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 08:19:44,099 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-12 08:20:17,955 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
