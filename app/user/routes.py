@@ -1,22 +1,24 @@
 import datetime
+import json
+import time
 from datetime import datetime as datetime_module
 import os
 from flask import render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
-from app.user.forms import TakeTestdrive
-from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive, ResetPasswordStatic
+from app import db, redis
+from app.user.forms import TakeTestdrive, MessagesForm
+from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive, ResetPasswordStatic, Messages
 
 from app.user import bp
 
 from flask_login import current_user, login_user, logout_user, login_required
 
-from app.user.email import send_password_reset_email, send_email
+from app.user.email import send_password_reset_email, send_email, add_to_queue_send_email, send_test
 from app.user.forms import LoginForm, RegisterForm, ReviewsForm, EditProfile, PasswordSecurity, ResetPassword, \
     ResetPasswordForm
 
 from app import login_manager
-from config import Config
+from flask_car_testdrive import CONFIG
 
 menu = [['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'],
         ['Registration', 'register']]
@@ -128,6 +130,7 @@ def show_car(alias_car):
 @bp.route('/add_review', methods=['POST', 'GET'])
 @login_required
 def add_review():
+    # add only jpg
     form = ReviewsForm()
     name_car = request.args.get('add_car')
 
@@ -148,8 +151,19 @@ def add_review():
             db.session.flush()
             db.session.commit()
 
-            id_review = db.session.execute(
-                db.select(Reviews.id_review).filter_by(id_car=id_car, id_user=current_user.id_user)).scalar_one()
+            if form.photos.data.filename:
+                id_review = db.session.execute(
+                    db.select(Reviews.id_review).filter_by(id_car=id_car, id_user=current_user.id_user)).scalar_one()
+
+                name_photo_db = ReviewsPhoto(id_review=id_review)
+                db.session.add(name_photo_db)
+                db.session.flush()
+                db.session.commit()
+                photo_id = db.session.execute(
+                    db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalars().first()
+                file_path = CONFIG.basepath + 'app/static/reviews_photo/' + str(photo_id) + '.jpg'
+                if not os.path.exists(file_path):
+                    form.photos.data.save(file_path)
 
             # whole_photo = []
             #
@@ -169,16 +183,6 @@ def add_review():
             #         file_path = Config.basepath + 'app/static/reviews_photo/' + str(photos_id[photo_id]) + '.jpg'
             #         if not os.path.exists(file_path):
             #             form.photos.data[photo_id].save(file_path)
-
-            name_photo_db = ReviewsPhoto(id_review=id_review)
-            db.session.add(name_photo_db)
-            db.session.flush()
-            db.session.commit()
-            photo_id = db.session.execute(
-                db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalars().first()
-            file_path = Config.basepath + 'app/static/reviews_photo/' + str(photo_id) + '.jpg'
-            if not os.path.exists(file_path):
-                form.photos.data.save(file_path)
 
             flash('Add review success', category='success')
             return redirect(url_for('.show_brands'))
@@ -231,6 +235,7 @@ def show_reviews():
                     if photo['id_photo']:
                         photo['id_photo'] = url_for('static',
                                                     filename='reviews_photo/' + str(photo['id_photo']) + '.jpg')
+                        print(photo['id_photo'])
         else:
             reviews_dict = []
 
@@ -277,7 +282,7 @@ def delete_review():
             id_photo = db.session.execute(db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalar_one()
             if id_photo is not None:
 
-                file_path = Config.basepath + 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
+                file_path = CONFIG.basepath + 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -293,6 +298,68 @@ def delete_review():
             flash('Error, review not deleted', category='error')
 
     return redirect(url_for('.show_my_reviews'))
+
+
+@bp.route('/add_message', methods=['POST', 'GET'])
+def add_message():
+    form = MessagesForm()
+    email = request.args.get('add_message')
+    print(email)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            email = request.form['add_message']
+            id_user = db.session.execute(db.select(Users.id_user).filter_by(email=email)).scalar_one()
+            print(id_user)
+            message = Messages(text=form.text.data, id_sender=current_user.id_user, id_recipient=id_user)
+            db.session.add(message)
+            db.session.flush()
+            db.session.commit()
+            flash('Message send success', category='success')
+            return redirect(url_for('.profile'))
+
+    return render_template('user/add_message.html', main_menu=menu, title='Add message', form=form, email=email)
+
+
+@bp.route('/show_my_messages', methods=['POST', 'GET'])
+def show_my_messages():
+    # try:
+    user = Users.query.filter_by(id_user=current_user.id_user).first()
+    user.last_seen_profile = datetime.datetime.now()
+    db.session.commit()
+
+    page = request.args.get('page', 1, type=int)
+
+    my_messages = db.session.query(Messages.text, Messages.date, Messages.id_sender, Users.name
+                                   ).join(Users,
+                                          Messages.id_sender == Users.id_user).where(
+        Messages.id_recipient == current_user.id_user).order_by(Messages.date.desc()).paginate(page=page,
+                                                                                               per_page=2,
+                                                                                               error_out=False)
+    if my_messages.has_next:
+        next_url = url_for('user.show_my_messages', page=my_messages.next_num)
+    else:
+        next_url = None
+    if my_messages.has_prev:
+        prev_url = url_for('user.show_my_messages', page=my_messages.prev_num)
+    else:
+        prev_url = None
+
+    my_messages_dict = []
+
+    if my_messages.items != []:
+        for row in my_messages:
+            row = {'text': row.text, 'date': row.date,
+                   'name': row.name, 'id_sender': row.id_sender}
+            my_messages_dict.append(row)
+
+    else:
+        my_messages_dict = []
+    print(my_messages_dict)
+    # except:
+    # reviews_dict = []
+    return render_template('user/show_my_messages.html', main_menu=menu, my_messages=my_messages_dict,
+                           next_url=next_url,
+                           prev_url=prev_url, title='My messages')
 
 
 @bp.route('/show_my_test_drives', methods=['POST', 'GET'])
@@ -384,8 +451,13 @@ def take_test_drive(name_car):
             body = 'Hello, your testdrive date: ' + date_start
             car_photo = db.session.execute(db.select(Photos.name_photo).filter_by(id_car=id_car)).scalars().first()
             attachments = 'static/car_image/' + car_photo
-            send_email(subject, Config.MAIL_USERNAME, [current_user.email], body, attachments)
 
+            if CONFIG.name == 'ProductionConfig':
+                send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
+            else:
+                send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
+                # add_to_queue_send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
+                # send_test(current_user)
             flash('test_drive reserved', category='success')
             return redirect(url_for('.pay_for_test_drive'))
 
@@ -416,6 +488,7 @@ def register():
 
     form = RegisterForm()
     if request.method == 'POST':
+
         if form.validate_on_submit():
             if not Users.query.filter_by(email=form.email.data).first():
 
@@ -435,7 +508,7 @@ def register():
 
                         subject = 'You was register on testdrive'
                         body = user.name + ' Welcome!'
-                        send_email(subject, Config.MAIL_USERNAME, [current_user.email], body)
+                        send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body)
 
                         return redirect(url_for('.profile'))
 
@@ -551,12 +624,32 @@ def unauthorized():
 @bp.route('/profile')
 @login_required
 def profile():
-    image = current_user.profile_pic
-    amount_testdrive = db.session.query(TestDrive.id_user, db.func.count(TestDrive.id_order)).filter_by(
-        id_user=current_user.id_user).group_by(TestDrive.id_user).all()
-    amount_reviews = db.session.execute(
-        db.select(Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(id_user=current_user.id_user).group_by(
-            Reviews.id_user)).all()
+    profile_pic = current_user.profile_pic
+    id_user = current_user.id_user
+    email = current_user.email
+
+    cached_data1 = redis.get(profile_pic)
+    cached_data2 = redis.get(id_user)
+    cached_data3 = redis.get(email)
+
+    if cached_data1 and cached_data2 and cached_data3:
+        image = json.loads(cached_data1)
+        amount_testdrive = json.loads(cached_data2)
+        amount_reviews = json.loads(cached_data3)
+    else:
+        amount_testdrive = db.session.query(TestDrive.id_user, db.func.count(TestDrive.id_order)).filter_by(
+            id_user=id_user).group_by(TestDrive.id_user).all()[0][1]
+
+        amount_reviews = db.session.query(
+            Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(
+            id_user=id_user).group_by(
+            Reviews.id_user).all()[0][1]
+
+        image = current_user.profile_pic
+
+        redis.setex(email, 20, json.dumps(str(amount_reviews)))
+        redis.setex(id_user, 20, json.dumps(str(amount_testdrive)))
+        redis.setex(profile_pic, 20, json.dumps(str(image)))
 
     if not image:
         image = url_for('static', filename='profile_image/' + 'default.jpg')
@@ -669,7 +762,7 @@ def delete_profile(id_user):
         try:
             profile_pic = db.session.execute(db.select(Users.profile_pic).filter_by(id_user=id_user)).scalar_one()
             if profile_pic:
-                file_path = Config.basepath + 'app/static/profile_image/' + profile_pic
+                file_path = CONFIG.basepath + 'app/static/profile_image/' + profile_pic
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -681,3 +774,19 @@ def delete_profile(id_user):
             flash('Error, profile not deleted', category='error')
 
     return redirect(url_for('.profile'))
+
+
+@bp.context_processor
+def notifications():
+    try:
+        count_new_notifications = db.session.query(Messages.id_recipient, Messages.date,
+                                                   db.func.count(Messages.id_message)).where(
+            Messages.id_recipient == current_user.id_user,
+            Messages.date > current_user.last_seen_profile).group_by(Messages.id_recipient, Messages.date).order_by(
+            Messages.date.desc()).first()
+
+        notifications = count_new_notifications[2]
+    except:
+        notifications = 0
+
+    return dict(notifications=notifications)

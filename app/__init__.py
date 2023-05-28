@@ -2,30 +2,38 @@ import os
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask
+from flask import Flask, current_app
 from flask_migrate import Migrate
+from rq import Queue
+
 from config import Config
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
+from redis import Redis
 
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 mail = Mail()
 
+redis = Redis.from_url(os.environ.get('REDIS_URL_LOCAL'))
+task_queue = Queue(connection=redis)
 
-def create_app(config_class=Config):
+
+def create_app(config):
     # создание объектов приложения и базы данных
     app = Flask(__name__)
 
     # берет все конфиги из класса Config и заносит в приложение flask
-    app.config.from_object(config_class)
+    app.config.from_object(config)
 
     # подключаем все модули
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
     mail.init_app(app)
     login_manager.init_app(app)
+    # redis = Redis.from_url(config.REDIS_URL)
+    # app.task_queue = Queue(connection=redis)
 
     mail_handler = SMTPHandler(mailhost=(Config.MAIL_SERVER, int(Config.MAIL_PORT)),
                                fromaddr=Config.MAIL_USERNAME,

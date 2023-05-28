@@ -17,7 +17,13 @@
                                          class="rounded-circle img-fluid" style="width: 250px;">
                                     <h4 class="my-3">{{ user.name }}</h4>
                                     <h6>Last seen: {{ user.last_seen }}</h6>
-
+                                      <div class="profile-button">
+                                        <form action="{{ url_for('user.add_message') }}" method="get">
+                                            <button type="submit" name="add_message" value="{{user.email}}"
+                                                    class="btn btn-primary">Send message
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

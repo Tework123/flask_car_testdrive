@@ -5,16 +5,38 @@ from app import db
 from app.admin import bp
 from app.admin.forms import LoginForm, AddBrand, AddCar
 from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto
-from config import Config
+from flask_car_testdrive import CONFIG
 
 menu = [['Home_users', '/'], ['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'], ['Admin-panel', '#']]
 
 
-@bp.route('/')
-def index():
-    if not is_logged():
-        return redirect(url_for('.login'))
+def admin_login_required(func):
+    def wrapper(*args, **kwargs):
+        if not is_logged():
+            return redirect(url_for('.login'))
+        else:
+            return func(*args, **kwargs)
 
+    # for user this decorator for few routes
+    wrapper.__name__ = func.__name__
+    return wrapper
+
+
+def is_logged():
+    return True if session.get('admin_logged') else False
+
+
+def login_admin():
+    session['admin_logged'] = 1
+
+
+def logout_admin():
+    session.pop('admin_logged', None)
+
+
+@bp.route('/')
+@admin_login_required
+def index():
     whole_cars = db.session.query(Cars.name_car, db.func.min(Photos.name_photo), db.func.min(Photos.id_photo)).join(
         Photos,
         Cars.id_car == Photos.id_car).group_by(
@@ -32,10 +54,8 @@ def index():
 
 
 @bp.route('/show_brands', methods=['POST', 'GET'])
+@admin_login_required
 def show_brands():
-    if not is_logged():
-        return redirect(url_for('.login'))
-
     brands = db.session.query(Brands.name_brand, Brands.description, Brands.name_photo,
                               db.func.count(Cars.id_car)).join(Cars, Brands.id_brand == Cars.id_brand,
                                                                isouter=True).group_by(
@@ -54,10 +74,8 @@ def show_brands():
 
 
 @bp.route('/show_brand_<alias>')
+@admin_login_required
 def show_brand(alias):
-    if not is_logged():
-        return redirect(url_for('.login'))
-
     try:
         brand = db.session.execute(db.select(Brands).filter_by(name_brand=alias)).scalar_one()
     except:
@@ -95,33 +113,33 @@ def show_brand(alias):
 
 
 @bp.route('/add_brand', methods=['POST', 'GET'])
+@admin_login_required
 def add_brand():
     form = AddBrand()
     if request.method == 'POST':
         if form.validate_on_submit():
-            file = request.files['photo']
-            brand_image = file.filename
+                file = request.files['photo']
+                brand_image = file.filename
 
-            try:
-                brand = Brands(name_brand=form.name_brand.data, name_photo=brand_image,
-                               description=form.description.data)
+                try:
+                    brand = Brands(name_brand=form.name_brand.data, name_photo=brand_image,
+                                   description=form.description.data)
 
-                file_path = Config.basepath + 'app/static/brand_image/' + brand_image
+                    file_path = CONFIG.basepath + 'app/static/brand_image/' + brand_image
 
-                if not os.path.exists(file_path):
-                    file.save(file_path)
+                    if not os.path.exists(file_path):
+                        file.save(file_path)
 
-                db.session.add(brand)
-                db.session.flush()
-                db.session.commit()
-                flash('Add brand success', category='success')
+                    db.session.add(brand)
+                    db.session.flush()
+                    db.session.commit()
+                    flash('Add brand success', category='success')
 
+                    return redirect(url_for('.show_brands'))
 
-                return redirect(url_for('.show_brands'))
-
-            except:
-                db.session.rollback()
-                flash('Add brand error', category='error')
+                except:
+                    db.session.rollback()
+                    flash('Add brand error', category='error')
 
         else:
             flash('incorrect file', category='error')
@@ -130,6 +148,7 @@ def add_brand():
 
 
 @bp.route('/delete_brand', methods=['POST', 'GET'])
+@admin_login_required
 def delete_brand():
     if request.method == 'POST':
         try:
@@ -147,11 +166,11 @@ def delete_brand():
                     photos_dict.append(row)
 
                 for photo in photos_dict:
-                    file_path = Config.basepath + 'app/static/car_image/' + photo['name_photo']
+                    file_path = CONFIG.basepath + 'app/static/car_image/' + photo['name_photo']
                     if os.path.exists(file_path):
                         os.remove(file_path)
 
-                file_path = Config.basepath + 'app/static/brand_image/' + brand_photo
+                file_path = CONFIG.basepath + 'app/static/brand_image/' + brand_photo
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -167,7 +186,7 @@ def delete_brand():
                 Brands.query.filter_by(name_brand=name_brand).delete()
                 db.session.commit()
 
-                file_path = Config.basepath + 'app/static/brand_image/' + brand_photo
+                file_path = CONFIG.basepath + 'app/static/brand_image/' + brand_photo
                 if os.path.exists(file_path):
                     os.remove(file_path)
                 flash('brand deleted', category='success')
@@ -179,9 +198,8 @@ def delete_brand():
 
 
 @bp.route('/show_car_<alias_car>')
+@admin_login_required
 def show_car(alias_car):
-    if not is_logged():
-        return redirect(url_for('.login'))
     car = db.session.query(Cars.name_car, Cars.description, Cars.url_video, Photos.name_photo, Brands.name_brand).join(
         Photos,
         Cars.id_car == Photos.id_car).join(
@@ -208,6 +226,7 @@ def show_car(alias_car):
 
 
 @bp.route('/show_reviews', methods=['POST', 'GET'])
+@admin_login_required
 def show_reviews():
     try:
         page = request.args.get('page', 1, type=int)
@@ -264,6 +283,7 @@ def show_reviews():
 
 
 @bp.route('/delete_review', methods=['POST', 'GET'])
+@admin_login_required
 def delete_review():
     if request.method == 'POST':
         id_review = request.form['delete_review']
@@ -271,7 +291,7 @@ def delete_review():
             id_photo = db.session.execute(db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalar_one()
             if id_photo is not None:
 
-                file_path = Config.basepath + 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
+                file_path = CONFIG.basepath + 'app/static/reviews_photo/' + str(id_photo) + '.jpg'
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -290,6 +310,7 @@ def delete_review():
 
 
 @bp.route('/add_car', methods=['POST', 'GET'])
+@admin_login_required
 def add_car():
     form = AddCar()
     if request.method == 'GET':
@@ -313,7 +334,7 @@ def add_car():
                     name_photo_str = photo.filename
                     name_photo_db = Photos(id_car=id_car, name_photo=photo.filename)
                     whole_photo.append(name_photo_db)
-                    file_path = Config.basepath + 'app/static/car_image/' + name_photo_str
+                    file_path = CONFIG.basepath + 'app/static/car_image/' + name_photo_str
                     if not os.path.exists(file_path):
                         photo.save(file_path)
 
@@ -334,6 +355,7 @@ def add_car():
 
 
 @bp.route('/delete_car', methods=['POST', 'GET'])
+@admin_login_required
 def delete_car():
     if request.method == 'POST':
         try:
@@ -348,7 +370,7 @@ def delete_car():
                 car_and_photos_dict.append(row)
 
             for dict in car_and_photos_dict:
-                file_path = Config.basepath + 'app/static/car_image/' + dict['name_photo']
+                file_path = CONFIG.basepath + 'app/static/car_image/' + dict['name_photo']
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
@@ -374,18 +396,6 @@ def upload():
         return redirect(url_for('.profile'))
 
 
-def is_logged():
-    return True if session.get('admin_logged') else False
-
-
-def login_admin():
-    session['admin_logged'] = 1
-
-
-def logout_admin():
-    session.pop('admin_logged', None)
-
-
 @bp.route('/login', methods=['POST', 'GET'])
 def login():
     if is_logged():
@@ -398,7 +408,8 @@ def login():
             try:
                 email = form.email.data
                 password = form.password.data
-                if email == 'admin@admin.com' and password == 'admin':
+
+                if email == CONFIG.ADMIN_LOGIN and password == CONFIG.ADMIN_PASSWORD:
                     login_admin()
                     flash('Ah shit, here we go again. Admin', category='success')
                     return redirect(url_for('.profile'))
@@ -414,15 +425,14 @@ def login():
 
 
 @bp.route('/logout')
+@admin_login_required
 def logout():
-    if not is_logged():
-        return redirect(url_for('.login'))
-
     logout_admin()
     return redirect(url_for('.login'))
 
 
 @bp.route('/profile')
+@admin_login_required
 def profile():
     return render_template('admin/profile.html', main_menu=menu, title='My admin profile', user='admin',
                            email='admin@admin.com')

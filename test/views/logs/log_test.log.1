@@ -1,0 +1,119 @@
+2023-05-22 07:29:52,512 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:30:43,036 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:31:01,311 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:35:27,874 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:35:41,488 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:35:49,829 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:36:01,376 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:36:11,294 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:38:06,464 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:48:09,431 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:48:09,554 ERROR: Exception on /user/register [POST] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1826, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1845, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2137, in make_response
+    raise TypeError(
+TypeError: The view function for 'user.register' did not return a valid response. The function either returned None or ended without a return statement.
+2023-05-22 07:48:10,924 ERROR: Exception on /user/register [POST] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1826, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1845, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2137, in make_response
+    raise TypeError(
+TypeError: The view function for 'user.register' did not return a valid response. The function either returned None or ended without a return statement.
+2023-05-22 07:49:41,728 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:57:20,651 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:58:23,503 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:58:50,139 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:59:28,938 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 07:59:29,122 ERROR: Exception on /user/show_brands [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 748, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "brands" не существует
+LINE 2: FROM brands LEFT OUTER JOIN cars ON brands.id_brand = cars.i...
+             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/app/user/routes.py", line 48, in show_brands
+    Brands.name_brand, Brands.description, Brands.name_photo).all()
+                                                              ^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2697, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2855, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2229, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2124, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 253, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1414, in execute
+    return meth(
+           ^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 486, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2326, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 748, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) ОШИБКА:  отношение "brands" не существует
+LINE 2: FROM brands LEFT OUTER JOIN cars ON brands.id_brand = cars.i...
+             ^
+
+[SQL: SELECT brands.name_brand AS brands_name_brand, brands.description AS brands_description, brands.name_photo AS brands_name_photo, count(cars.id_car) AS count_1 
+FROM brands LEFT OUTER JOIN cars ON brands.id_brand = cars.id_brand GROUP BY brands.name_brand, brands.description, brands.name_photo]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2023-05-22 07:59:36,316 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 08:00:05,438 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 08:00:10,831 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 08:00:21,821 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 08:02:35,411 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]

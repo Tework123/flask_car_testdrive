@@ -1,0 +1,74 @@
+2023-05-22 08:02:35,575 ERROR: Exception on /user/ [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 748, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: ОШИБКА:  отношение "cars" не существует
+LINE 2: FROM cars JOIN photos ON cars.id_car = photos.id_car GROUP B...
+             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/app/user/routes.py", line 30, in index
+    Cars.name_car).all()
+                   ^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2697, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2855, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2229, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2124, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 253, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1414, in execute
+    return meth(
+           ^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 486, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2326, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 748, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) ОШИБКА:  отношение "cars" не существует
+LINE 2: FROM cars JOIN photos ON cars.id_car = photos.id_car GROUP B...
+             ^
+
+[SQL: SELECT cars.name_car AS cars_name_car, min(photos.name_photo) AS min_1, min(photos.id_photo) AS min_2 
+FROM cars JOIN photos ON cars.id_car = photos.id_car GROUP BY cars.name_car]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2023-05-22 08:02:44,927 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 08:03:36,244 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]
+2023-05-22 08:29:19,267 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:54]

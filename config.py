@@ -14,12 +14,24 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = os.environ.get('ADMINS')
+    ADMIN_LOGIN = os.environ.get('ADMIN_LOGIN')
+    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
 
-    host = 'local'
-    # host = 'prod'
-    if host == 'local':
-        basepath = os.path.abspath("") + '/'
-        SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES')
-    else:
-        basepath = os.path.abspath('') + '/flask_car_testdrive/'
-        SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_MYSQL')
+
+class DevelopmentConfig(Config):
+    name = 'DevelopmentConfig'
+    basepath = os.path.abspath("") + '/'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES')
+    REDIS_URL = os.environ.get('REDIS_URL_LOCAL')
+
+
+class TestingConfig(Config):
+    name = 'TestingConfig'
+    basepath = os.path.abspath("") + '/'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES_TEST')
+
+
+class ProductionConfig(Config):
+    name = 'ProductionConfig'
+    basepath = os.path.abspath('') + '/flask_car_testdrive/'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_MYSQL')

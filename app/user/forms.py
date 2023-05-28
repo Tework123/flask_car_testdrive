@@ -49,5 +49,10 @@ class ReviewsForm(FlaskForm):
     photos = FileField('Photos: ')
 
 
+
 class TakeTestdrive(FlaskForm):
     date_start = DateField('Date:', validators=[DataRequired()], format='%Y-%m-%d')
+
+
+class MessagesForm(FlaskForm):
+    text = TextAreaField("Message: ", validators=[DataRequired(), Length(min=1, max=1000)])

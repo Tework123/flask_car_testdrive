@@ -1,21 +1,16 @@
 from flask import redirect, url_for
-
+from config import Config
+from config import DevelopmentConfig
+from config import ProductionConfig
+from config import TestingConfig
 from app import create_app
 
-app = create_app()
+# here change config
+CONFIG = DevelopmentConfig
+
+app = create_app(CONFIG)
 
 
 @app.route('/')
 def index():
     return redirect(url_for('user.index'))
-
-
-#
-# Установить единорога и нгинкс, захостить и установить тоже самое на пайтоненивхере
-#
-# Попробовать снова пайтест или юниттесты от мигеля
-# разобрать эти гребаные миграции
-# redis and miguel
-# FOR NEXT PROJECT:
-# и разбирать этот говнокод, наладить нормальные url, посмотреть на других сайтах и sqlалхеми, какие запросы делать
-# хранение сразу пути в базе данных для скорости

@@ -33,6 +33,16 @@
                                             </button>
                                         </form>
                                     </div>
+                                    <div class="profile-button-messages">
+                                        <form action="{{ url_for('user.show_my_messages') }}" method="get">
+                                            <button type="submit" name="show_my_reviews" value=""
+                                                    class="btn btn-primary">Show my messages
+                                            </button>
+                                        </form>
+                                        <div class="notifications">
+                                            <p>{{notifications}}</p>
+                                        </div>
+                                    </div>
                                     <div class="profile-button">
                                         <form action="{{ url_for('user.show_my_test_drives') }}" method="get">
                                             <button type="submit" name="show_my_test_drives" value=""
@@ -106,7 +116,7 @@
                                         </div>
                                         <div class="col-sm-9">
                                             {% if amount_reviews != [] %}
-                                            <p class="text-muted mb-0">{{amount_reviews[0][1]}}</p>
+                                            <p class="text-muted mb-0">{{amount_reviews}}</p>
                                             {% else %}
                                             <p class="text-muted mb-0">Nothing</p>
                                             {% endif %}
@@ -120,7 +130,7 @@
                                         </div>
                                         <div class="col-sm-9">
                                             {% if amount_testdrive != [] %}
-                                            <p class="text-muted mb-0">{{amount_testdrive[0][1]}}</p>
+                                            <p class="text-muted mb-0">{{amount_testdrive}}</p>
                                             {% else %}
                                             <p class="text-muted mb-0">Nothing</p>
                                             {% endif %}

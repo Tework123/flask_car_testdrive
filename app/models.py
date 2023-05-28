@@ -13,15 +13,16 @@ class MainMenu(db.Model):
 
 class Users(db.Model):
     id_user = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=False)
+    name = db.Column(db.String(50))
     email = db.Column(db.String(50), unique=True)
-    country = db.Column(db.String(50), unique=False)
-    password = db.Column(db.String(500), nullable=True)
-    profile_pic = db.Column(db.String(), nullable=True)
+    country = db.Column(db.String(50))
+    password = db.Column(db.String(500))
+    profile_pic = db.Column(db.String())
     date = db.Column(db.DateTime, default=datetime.now())
     phone = db.Column(db.String(100))
-    text = db.Column(db.String(500))
+    text = db.Column(db.String(500), nullable=True)
     last_seen = db.Column(db.DateTime)
+    last_seen_profile = db.Column(db.DateTime, default=datetime.now())
 
     def is_authenticated(self):
         return True
@@ -55,8 +56,6 @@ class ResetPasswordStatic:
         except:
             return None
         return Users.query.get(int(id))
-
-        # change this
 
 
 class Cars(db.Model):
@@ -105,3 +104,13 @@ class TestDrive(db.Model):
     id_car = db.Column(db.Integer, db.ForeignKey('cars.id_car', ondelete='SET NULL'))
     date_start = db.Column(db.DateTime, default=datetime.now())
     date_end = db.Column(db.DateTime)
+
+
+class Messages(db.Model):
+    id_message = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(1000))
+    id_sender = db.Column(db.Integer)
+    id_recipient = db.Column(db.Integer)
+    date = db.Column(db.DateTime, default=datetime.now())
+
+# А зачем я прописываю внешние ключи там, где они не нужны?

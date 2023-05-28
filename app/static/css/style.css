@@ -165,7 +165,14 @@ body h1 {
 .mb-3-profile {
  width: 80%;
 }
+.profile-button-messages{
+  display: inline-flex;
+}
 
+.notifications {
+  padding-left: 5px;
+  color: red;
+}
 
 
 .card:hover {

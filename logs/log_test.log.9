@@ -1,108 +1,87 @@
-2023-05-12 07:31:24,099 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:57]
-2023-05-12 07:31:26,605 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
-Traceback (most recent call last):
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 25, in index
-    mail.send(msg)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 188, in send
-    self.host.sendmail(sanitize_address(envelope_from or message.sender),
-  File "/usr/lib/python3.11/smtplib.py", line 901, in sendmail
-    raise SMTPRecipientsRefused(senderrs)
-smtplib.SMTPRecipientsRefused: {'': (555, b'5.5.2 Syntax error. i7-20020a056512006700b004f13cd61ebbsm1334823lfo.175 - gsmtp')}
-2023-05-12 07:31:36,837 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
-2023-05-12 07:32:09,158 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
-2023-05-12 07:32:10,989 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
-Traceback (most recent call last):
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 25, in index
-    mail.send(msg)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 188, in send
-    self.host.sendmail(sanitize_address(envelope_from or message.sender),
-  File "/usr/lib/python3.11/smtplib.py", line 901, in sendmail
-    raise SMTPRecipientsRefused(senderrs)
-smtplib.SMTPRecipientsRefused: {'': (555, b'5.5.2 Syntax error. c6-20020ac25306000000b004f00d3d9df9sm1342401lfh.188 - gsmtp')}
-2023-05-12 07:34:44,660 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
-2023-05-12 07:34:47,442 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
-Traceback (most recent call last):
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 25, in index
-    mail.send(msg)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 188, in send
-    self.host.sendmail(sanitize_address(envelope_from or message.sender),
-  File "/usr/lib/python3.11/smtplib.py", line 901, in sendmail
-    raise SMTPRecipientsRefused(senderrs)
-smtplib.SMTPRecipientsRefused: {'': (555, b'5.5.2 Syntax error. j1-20020a2e8501000000b002ac74f5f022sm306923lji.0 - gsmtp')}
-2023-05-12 07:40:27,848 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
-2023-05-12 07:40:31,435 ERROR: Exception on / [GET] [in /home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py:1744]
-Traceback (most recent call last):
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/main.py", line 24, in index
-    mail.send(msg)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 492, in send
-    message.send(connection)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 427, in send
-    connection.send(self)
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 181, in send
-    if message.has_bad_headers():
-       ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/t1/PycharmProjects/flask_car_testdrive/venv/lib/python3.11/site-packages/flask_mail.py", line 400, in has_bad_headers
-    headers = [self.sender, self.reply_to] + self.recipients
-              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-TypeError: can only concatenate list (not "str") to list
-2023-05-12 07:40:59,791 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:56]
+2023-05-14 15:17:48,918 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-14 15:17:49,369 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-14 15:29:42,044 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-14 15:29:42,469 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-14 15:45:51,510 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-14 15:45:51,983 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-14 15:58:37,533 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 06:20:59,543 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 06:21:00,011 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 08:59:22,181 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 08:59:22,717 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 09:34:05,093 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 09:34:05,601 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 14:52:51,003 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 14:52:51,601 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:01:37,986 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:01:38,493 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:02:10,241 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:02:10,687 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:02:15,975 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:02:16,446 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:02:25,227 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:02:25,710 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-15 15:09:08,687 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-15 15:09:09,175 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:58]
+2023-05-15 15:09:43,019 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 15:10:17,117 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 15:10:17,597 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:04:35,714 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:04:36,158 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:05:11,910 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:05:12,730 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:05:57,902 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:05:58,685 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:07:26,427 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:07:26,887 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:09:34,805 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:10:37,999 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:11:15,537 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:11:16,012 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:14:20,043 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:14:20,567 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:14:31,912 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:14:32,706 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:14:49,957 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:14:50,453 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:15:27,828 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:15:37,789 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-15 17:15:38,243 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:61]
+2023-05-16 05:50:41,631 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 05:51:20,815 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 05:51:21,427 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 05:53:15,322 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 05:55:47,326 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:03:38,722 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:03:39,209 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:07:21,077 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:10:12,216 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:11:02,362 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:11:02,839 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:19:11,798 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:19:12,279 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:21:19,427 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:21:19,905 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:28:49,702 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:28:50,178 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:30:52,018 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:30:52,497 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:49:36,050 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:50:09,279 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:50:09,816 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:52:34,062 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:52:34,563 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:54:22,874 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:54:23,386 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:56:00,032 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:56:24,219 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:56:24,910 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:57:03,839 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 06:57:04,364 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 08:03:18,792 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 08:03:19,239 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 08:06:56,094 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 08:06:56,553 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-16 08:34:07,293 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 07:23:38,808 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
+2023-05-17 07:23:39,410 INFO: Start application [in /home/t1/PycharmProjects/flask_car_testdrive/app/__init__.py:55]
