@@ -1,4 +1,6 @@
 import os
+
+import pika
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
@@ -18,6 +20,11 @@ mail = Mail()
 
 redis = Redis.from_url(os.environ.get('REDIS_URL_LOCAL'))
 task_queue = Queue(connection=redis)
+
+
+# connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+# channel = connection.channel()
+# channel.queue_declare(queue='hello')
 
 
 def create_app(config):
@@ -62,21 +69,36 @@ def create_app(config):
     app.logger.info('Start application')
 
     # импорт и регистрация blueprint
-    from app.user import bp as bp_user
-
-    app.register_blueprint(bp_user, url_prefix='/user')
-
-    from app.admin import bp as bp_admin
-
-    app.register_blueprint(bp_admin, url_prefix='/admin')
-
-    from app.errors import bp as bp_errors
-
-    app.register_blueprint(bp_errors, url_prefix='/errors')
+    # from app.user import bp as bp_user
+    #
+    # app.register_blueprint(bp_user, url_prefix='/user')
+    #
+    # from app.admin import bp as bp_admin
+    #
+    # app.register_blueprint(bp_admin, url_prefix='/admin')
+    #
+    # from app.errors import bp as bp_errors
+    #
+    # app.register_blueprint(bp_errors, url_prefix='/errors')
 
     with app.app_context():
+        from app.user import bp as bp_user
+
+        app.register_blueprint(bp_user, url_prefix='/user')
+
+        from app.admin import bp as bp_admin
+
+        app.register_blueprint(bp_admin, url_prefix='/admin')
+
+        from app.errors import bp as bp_errors
+
+        app.register_blueprint(bp_errors, url_prefix='/errors')
+
+        from app.command import bp as bp_command
+
+        app.register_blueprint(bp_command)
+
         # db.drop_all()
         # db.create_all()
-        pass
 
     return app

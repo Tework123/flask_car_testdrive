@@ -17,7 +17,7 @@ def admin_login_required(func):
         else:
             return func(*args, **kwargs)
 
-    # for user this decorator for few routes
+    # use this decorator for few routes
     wrapper.__name__ = func.__name__
     return wrapper
 
@@ -70,6 +70,8 @@ def show_brands():
     for brand in brands_dict:
         brand['name_photo'] = url_for('static', filename='brand_image/' + brand['name_photo'])
 
+    # print(brands_dict[0]['name_photo'])
+
     return render_template('admin/show_brands.html', main_menu=menu, brands=brands_dict)
 
 
@@ -118,28 +120,29 @@ def add_brand():
     form = AddBrand()
     if request.method == 'POST':
         if form.validate_on_submit():
-                file = request.files['photo']
-                brand_image = file.filename
+            file = request.files['photo']
+            print(file)
+            brand_image = file.filename
 
-                try:
-                    brand = Brands(name_brand=form.name_brand.data, name_photo=brand_image,
-                                   description=form.description.data)
+            try:
+                brand = Brands(name_brand=form.name_brand.data, name_photo=brand_image,
+                               description=form.description.data)
 
-                    file_path = CONFIG.basepath + 'app/static/brand_image/' + brand_image
+                file_path = CONFIG.basepath + 'app/static/brand_image/' + brand_image
 
-                    if not os.path.exists(file_path):
-                        file.save(file_path)
+                if not os.path.exists(file_path):
+                    file.save(file_path)
 
-                    db.session.add(brand)
-                    db.session.flush()
-                    db.session.commit()
-                    flash('Add brand success', category='success')
+                db.session.add(brand)
+                db.session.flush()
+                db.session.commit()
+                flash('Add brand success', category='success')
 
-                    return redirect(url_for('.show_brands'))
+                return redirect(url_for('.show_brands'))
 
-                except:
-                    db.session.rollback()
-                    flash('Add brand error', category='error')
+            except:
+                db.session.rollback()
+                flash('Add brand error', category='error')
 
         else:
             flash('incorrect file', category='error')

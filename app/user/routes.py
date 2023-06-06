@@ -13,7 +13,7 @@ from app.user import bp
 
 from flask_login import current_user, login_user, logout_user, login_required
 
-from app.user.email import send_password_reset_email, send_email, add_to_queue_send_email, send_test
+from app.user.email import send_password_reset_email, send_email, add_to_queue_email
 from app.user.forms import LoginForm, RegisterForm, ReviewsForm, EditProfile, PasswordSecurity, ResetPassword, \
     ResetPasswordForm
 
@@ -202,7 +202,7 @@ def show_reviews():
                                    Users.id_user).join(
             ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review, isouter=True).join(Users,
                                                                                           Reviews.id_user == Users.id_user).where(
-            Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=2, error_out=False)
+            Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=3, error_out=False)
 
         if reviews.has_next:
             next_url = url_for('user.show_reviews', page=reviews.next_num)
@@ -455,7 +455,9 @@ def take_test_drive(name_car):
             if CONFIG.name == 'ProductionConfig':
                 send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
             else:
-                send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
+
+                add_to_queue_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
+                # send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
                 # add_to_queue_send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
                 # send_test(current_user)
             flash('test_drive reserved', category='success')
@@ -627,8 +629,10 @@ def profile():
     profile_pic = current_user.profile_pic
     id_user = current_user.id_user
     email = current_user.email
-
-    cached_data1 = redis.get(profile_pic)
+    if profile_pic is not None:
+        cached_data1 = redis.get(profile_pic)
+    else:
+        cached_data1 = None
     cached_data2 = redis.get(id_user)
     cached_data3 = redis.get(email)
 
@@ -637,19 +641,24 @@ def profile():
         amount_testdrive = json.loads(cached_data2)
         amount_reviews = json.loads(cached_data3)
     else:
-        amount_testdrive = db.session.query(TestDrive.id_user, db.func.count(TestDrive.id_order)).filter_by(
-            id_user=id_user).group_by(TestDrive.id_user).all()[0][1]
-
-        amount_reviews = db.session.query(
-            Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(
-            id_user=id_user).group_by(
-            Reviews.id_user).all()[0][1]
-
+        try:
+            amount_testdrive = db.session.query(TestDrive.id_user, db.func.count(TestDrive.id_order)).filter_by(
+                id_user=id_user).group_by(TestDrive.id_user).all()[0][1]
+        except:
+            amount_testdrive = 0
+        try:
+            amount_reviews = db.session.query(
+                Reviews.id_user, db.func.count(Reviews.id_review)).filter_by(
+                id_user=id_user).group_by(
+                Reviews.id_user).all()[0][1]
+        except:
+            amount_reviews = 0
         image = current_user.profile_pic
 
         redis.setex(email, 20, json.dumps(str(amount_reviews)))
         redis.setex(id_user, 20, json.dumps(str(amount_testdrive)))
-        redis.setex(profile_pic, 20, json.dumps(str(image)))
+        if image is not None:
+            redis.setex(profile_pic, 20, json.dumps(str(image)))
 
     if not image:
         image = url_for('static', filename='profile_image/' + 'default.jpg')

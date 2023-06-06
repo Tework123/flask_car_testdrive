@@ -8,3 +8,8 @@ __pycache__/
 **/__pycache__
 *.env
 .env
+
+postgres-data/
+redis_data/
+static/
+app/user/__pycache__
