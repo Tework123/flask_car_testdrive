@@ -1,14 +1,11 @@
+import base64
+import os
+
 import jwt
 from app import db, login_manager
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import time
 from config import Config
-
-
-class MainMenu(db.Model):
-    head_id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(30), unique=True)
-    url = db.Column(db.String(30), unique=True)
 
 
 class Users(db.Model):
@@ -23,6 +20,8 @@ class Users(db.Model):
     text = db.Column(db.String(500), nullable=True)
     last_seen = db.Column(db.DateTime)
     last_seen_profile = db.Column(db.DateTime, default=datetime.now())
+    token = db.Column(db.String(32), index=True, unique=True)
+    token_expiration = db.Column(db.DateTime)
 
     def is_authenticated(self):
         return True
@@ -35,6 +34,25 @@ class Users(db.Model):
 
     def get_id(self):
         return str(self.id_user)
+
+    def get_token(self, expires_in=15000):
+        now = datetime.now()
+        if self.token and self.token_expiration > now + timedelta(seconds=60):
+            return self.token
+        self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
+        self.token_expiration = now + timedelta(seconds=expires_in)
+        db.session.add(self)
+        return self.token
+
+    def revoke_token(self):
+        self.token_expiration = datetime.now() - timedelta(seconds=1)
+
+    @staticmethod
+    def check_token(token):
+        user = Users.query.filter_by(token=token).first()
+        if user is None or user.token_expiration < datetime.now():
+            return None
+        return user
 
 
 @login_manager.user_loader
@@ -112,5 +130,3 @@ class Messages(db.Model):
     id_sender = db.Column(db.Integer)
     id_recipient = db.Column(db.Integer)
     date = db.Column(db.DateTime, default=datetime.now())
-
-# А зачем я прописываю внешние ключи там, где они не нужны?

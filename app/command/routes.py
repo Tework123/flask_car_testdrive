@@ -1,5 +1,8 @@
 import datetime
+import os
 import random
+import subprocess
+
 from flask.cli import with_appcontext
 from werkzeug.security import generate_password_hash
 from app import db
@@ -12,7 +15,7 @@ fake = Faker()
 
 @bp.cli.command('add_user')
 def add_user():
-    names = ['denchik322', 'vovan', 'kama', 'mishua', 'nekit_kach', 'zavaR', 'sanya']
+    names = ['denchik322', 'maksik_шпала', 'kama_marks', 'mishua_keto', 'nekit_kach', 'zaxar_sex', 'sanya_shop']
     emails = ['postgres@mail.ru', 'postgres1@mail.ru', 'postgres2@mail.ru', 'postgres3@mail.ru', 'postgres4@mail.ru',
               'postgres5@mail.ru', 'postgres6@mail.ru']
     password = '12345'

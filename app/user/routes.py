@@ -6,6 +6,7 @@ import os
 from flask import render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, redis
+from app.user.errors import HtmlDbError
 from app.user.forms import TakeTestdrive, MessagesForm
 from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive, ResetPasswordStatic, Messages
 
@@ -21,11 +22,19 @@ from app import login_manager
 from flask_car_testdrive import CONFIG
 
 menu = [['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'],
-        ['Registration', 'register']]
+        ['Registration', 'register'], ['Api', '/api']]
 
 
 @bp.route('/')
 def index():
+    x = 1
+    if x == 1:
+        raise HtmlDbError('Some mistake men', 500)
+
+    # try:
+    #     x = 1 / 0
+    # except Exception as e:
+    #     raise HtmlDbError('Some mistake men', str(e), 500)
     whole_cars = db.session.query(Cars.name_car, db.func.min(Photos.name_photo), db.func.min(Photos.id_photo)).join(
         Photos,
         Cars.id_car == Photos.id_car).group_by(
@@ -201,7 +210,8 @@ def show_reviews():
         reviews = db.session.query(Reviews.text, Reviews.date, Reviews.degree, ReviewsPhoto.id_photo, Users.name,
                                    Users.id_user).join(
             ReviewsPhoto, Reviews.id_review == ReviewsPhoto.id_review, isouter=True).join(Users,
-                                                                                          Reviews.id_user == Users.id_user).where(
+                                                                                          Reviews.id_user == Users.id_user).join(
+            Cars, Reviews.id_car == Cars.id_car).where(
             Cars.name_car == name_car).order_by(Reviews.date.desc()).paginate(page=page, per_page=3, error_out=False)
 
         if reviews.has_next:
@@ -235,7 +245,6 @@ def show_reviews():
                     if photo['id_photo']:
                         photo['id_photo'] = url_for('static',
                                                     filename='reviews_photo/' + str(photo['id_photo']) + '.jpg')
-                        print(photo['id_photo'])
         else:
             reviews_dict = []
 
@@ -250,11 +259,12 @@ def show_reviews():
 def show_my_reviews():
     try:
         my_reviews = db.session.query(Reviews.id_review, Reviews.date, Reviews.text, Reviews.degree, Cars.name_car,
-                                      ReviewsPhoto.id_photo).join(ReviewsPhoto,
-                                                                  Reviews.id_review == ReviewsPhoto.id_review,
-                                                                  isouter=True).where(
+                                      ReviewsPhoto.id_photo).join(Cars, Reviews.id_car == Cars.id_car).join(
+            ReviewsPhoto,
+            Reviews.id_review == ReviewsPhoto.id_review,
+            isouter=True).where(
             Reviews.id_user == current_user.id_user).all()
-
+        print(len(my_reviews))
         if my_reviews:
             my_reviews_dict = []
 
@@ -268,6 +278,7 @@ def show_my_reviews():
                     review['id_photo'] = url_for('static', filename='reviews_photo/' + str(review['id_photo']) + '.jpg')
         else:
             my_reviews_dict = []
+
     except:
         flash('Don`t have your reviews now', category='error')
         my_reviews_dict = []
@@ -451,15 +462,12 @@ def take_test_drive(name_car):
             body = 'Hello, your testdrive date: ' + date_start
             car_photo = db.session.execute(db.select(Photos.name_photo).filter_by(id_car=id_car)).scalars().first()
             attachments = 'static/car_image/' + car_photo
+            # test rabbitmq worker
+            add_to_queue_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
 
-            if CONFIG.name == 'ProductionConfig':
-                send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
-            else:
+            # send email with new tread
+            send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
 
-                add_to_queue_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
-                # send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
-                # add_to_queue_send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
-                # send_test(current_user)
             flash('test_drive reserved', category='success')
             return redirect(url_for('.pay_for_test_drive'))
 
@@ -544,7 +552,7 @@ def login():
                 if check_password:
                     flash('Ah shit, here we go again', category='success')
                     if form.remember.data:
-                        login_user(user, remember=True, duration=datetime.timedelta(days=2))
+                        login_user(user, remember=True, duration=datetime.timedelta(days=30))
                     else:
                         login_user(user)
 

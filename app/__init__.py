@@ -34,6 +34,9 @@ def create_app(config):
     # берет все конфиги из класса Config и заносит в приложение flask
     app.config.from_object(config)
 
+    # без сортировки возвращаемых jsonfy
+    app.json.sort_keys = False
+
     # подключаем все модули
     db.init_app(app)
     migrate.init_app(app, db)
@@ -53,7 +56,7 @@ def create_app(config):
     # for SMTP logging
     if not os.path.exists('logs'):
         os.mkdir('logs')
-    file_handler = RotatingFileHandler('logs/log_test.log', maxBytes=10240, backupCount=10)
+    file_handler = RotatingFileHandler('logs/log_test.log', maxBytes=10240, backupCount=1)
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
 
@@ -68,18 +71,7 @@ def create_app(config):
     app.logger.setLevel(logging.INFO)
     app.logger.info('Start application')
 
-    # импорт и регистрация blueprint
-    # from app.user import bp as bp_user
-    #
-    # app.register_blueprint(bp_user, url_prefix='/user')
-    #
-    # from app.admin import bp as bp_admin
-    #
-    # app.register_blueprint(bp_admin, url_prefix='/admin')
-    #
-    # from app.errors import bp as bp_errors
-    #
-    # app.register_blueprint(bp_errors, url_prefix='/errors')
+    # импорт и регистрация blueprint in context flask_app
 
     with app.app_context():
         from app.user import bp as bp_user
@@ -90,9 +82,13 @@ def create_app(config):
 
         app.register_blueprint(bp_admin, url_prefix='/admin')
 
+        from app.api import bp as bp_api
+
+        app.register_blueprint(bp_api, url_prefix='/api')
+
         from app.errors import bp as bp_errors
 
-        app.register_blueprint(bp_errors, url_prefix='/errors')
+        app.register_blueprint(bp_errors)
 
         from app.command import bp as bp_command
 
