@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: flask_car_testdrive/
+    container_name: flask_app
+    restart: always
+    volumes:
+      - /usr/src/app/
+
+    #    command: gunicorn --bind 0.0.0.0:5000 flask_car_testdrive:app
+
+    #    command: flask run -h 0.0.0.0
+    environment:
+      #      - SQLALCHEMY_DATABASE_URI_POSTGRES=postgresql://postgres:testdrive123@db:5432/testdrive
+      - REDIS_URL_LOCAL=redis://redis:6379
+
+    links:
+      - rabbitmq
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=testdrive123
+      - POSTGRES_DB=testdrive
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/datas/
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
+      # заходить на сайт не по этому порту, а по 0.0.0.0/user
+      PGADMIN_LISTEN_PORT: 5555
+
+
+  nginx:
+    build: deployment/nginx/
+    ports:
+      - 80:80
+    volumes:
+      - ./static:/web-static/static
+    depends_on:
+      - flask-app
+      - pgadmin
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes:
+      - ./redis_data:/redis-data
+
+  rabbitmq:
+    image: rabbitmq:latest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - ./rabbitmq:/rabbitmq-data
+    depends_on:
+      - rabbitmq-management
+
+
+  rabbitmq-management:
+    image: rabbitmq:management
+    ports:
+      - "15671:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
+
+  worker:
+    build: flask_car_testdrive/rabbitmq/.
+    restart: always
+    depends_on:
+      - rabbitmq
+      - rabbitmq-management
+
+
+
+volumes:
+  postgres_data:
+  redis_data:
+
+
+#docker-compose build
+#docker-compose up -d
+#docker-compose logs -f
+#docker-compose down -v
+#sudo lsof -nP -iTCP -sTCP:LISTEN
+
