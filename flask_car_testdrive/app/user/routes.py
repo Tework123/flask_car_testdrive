@@ -20,21 +20,21 @@ from app.user.forms import LoginForm, RegisterForm, ReviewsForm, EditProfile, Pa
 
 from app import login_manager
 from flask_car_testdrive import CONFIG
-
-menu = [['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'],
-        ['Registration', 'register'], ['Api', '/api']]
+from app.user import menu
 
 
 @bp.route('/')
 def index():
-    x = 1
-    if x == 1:
-        raise HtmlDbError('Some mistake men', 500)
+    # test some mistake
+    # x = 1
+    # if x == 1:
+    #     raise HtmlDbError('Some mistake men', 500)
 
     # try:
     #     x = 1 / 0
     # except Exception as e:
     #     raise HtmlDbError('Some mistake men', str(e), 500)
+
     whole_cars = db.session.query(Cars.name_car, db.func.min(Photos.name_photo), db.func.min(Photos.id_photo)).join(
         Photos,
         Cars.id_car == Photos.id_car).group_by(
@@ -264,7 +264,6 @@ def show_my_reviews():
             Reviews.id_review == ReviewsPhoto.id_review,
             isouter=True).where(
             Reviews.id_user == current_user.id_user).all()
-        print(len(my_reviews))
         if my_reviews:
             my_reviews_dict = []
 
@@ -315,12 +314,10 @@ def delete_review():
 def add_message():
     form = MessagesForm()
     email = request.args.get('add_message')
-    print(email)
     if request.method == 'POST':
         if form.validate_on_submit():
             email = request.form['add_message']
             id_user = db.session.execute(db.select(Users.id_user).filter_by(email=email)).scalar_one()
-            print(id_user)
             message = Messages(text=form.text.data, id_sender=current_user.id_user, id_recipient=id_user)
             db.session.add(message)
             db.session.flush()
@@ -365,7 +362,6 @@ def show_my_messages():
 
     else:
         my_messages_dict = []
-    print(my_messages_dict)
     # except:
     # reviews_dict = []
     return render_template('user/show_my_messages.html', main_menu=menu, my_messages=my_messages_dict,
@@ -491,6 +487,7 @@ def pay_for_test_drive():
     return render_template('user/pay_for_test_drive.html', main_menu=menu, test_drive=test_drive)
 
 
+# refactor
 @bp.route('/register', methods=['POST', 'GET'])
 def register():
     if current_user.is_authenticated:
@@ -498,41 +495,37 @@ def register():
 
     form = RegisterForm()
     if request.method == 'POST':
-
         if form.validate_on_submit():
             if not Users.query.filter_by(email=form.email.data).first():
 
-                if form.password.data == form.repeat_password.data:
+                hash = generate_password_hash(form.password.data)
+                try:
+                    user = Users(name=form.name.data, password=hash, email=form.email.data,
+                                 country=form.country.data, phone=form.phone.data)
+                    db.session.add(user)
+                    db.session.flush()
+                except Exception as e:
+                    raise HtmlDbError('register bd error', str(e), 500)
 
-                    try:
-                        hash = generate_password_hash(form.password.data)
-                        user = Users(name=form.name.data, password=hash, email=form.email.data,
-                                     country=form.country.data, phone=form.phone.data)
-                        db.session.add(user)
-                        db.session.flush()
-                        db.session.commit()
-                        flash('Registration success', category='success')
-                        new_user = Users.query.filter_by(email=form.email.data).first()
-                        login_user(new_user)
-                        flash('Welcome', category='success')
+                db.session.commit()
 
-                        subject = 'You was register on testdrive'
-                        body = user.name + ' Welcome!'
-                        send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body)
+                try:
+                    new_user = Users.query.filter_by(email=form.email.data).first()
+                except Exception as e:
+                    raise HtmlDbError('register user not found error', str(e), 500)
 
-                        return redirect(url_for('.profile'))
+                login_user(new_user)
+                flash('Registration success', category='success')
+                flash('Welcome', category='success')
 
-                    except:
-                        db.session.rollback()
-                        flash('incorrect data', category='error')
-                else:
-                    flash('incorrect repeat password', category='error')
+                subject = 'You was register on testdrive'
+                body = current_user.name + ' Welcome!'
+                send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body)
+
+                return redirect(url_for('.profile'))
+
             else:
                 flash('This email already use', category='error')
-
-
-        else:
-            flash('incorrect data', category='error')
 
     return render_template('user/register.html', main_menu=menu, form=form)
 

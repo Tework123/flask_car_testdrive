@@ -6,8 +6,12 @@ class ApiError(Exception):
     error_place = 'Api error'
 
 
-class ApiAuthError(ApiError):
-    error_type = "Authentication error"
+class ApiDbError(ApiError):
+    error_type = 'Db error'
+
+
+class ApiUserError(ApiError):
+    error_type = 'User error'
 
 
 def error_response(status_code, message=None):

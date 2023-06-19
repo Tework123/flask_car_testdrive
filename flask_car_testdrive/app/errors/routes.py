@@ -1,10 +1,10 @@
 from flask import render_template, jsonify
 
 from app import db
+from app.user import menu
 from app.api.errors import ApiError
 from app.errors import bp
 from app.user.errors import HtmlError
-from app.user.routes import menu
 
 
 # здесь ловятся все необработанные ошибки
@@ -57,17 +57,18 @@ def handler_api_error(error):
         response = {
             'error_place': error.error_place,
             'error_type': error.error_type,
-            'error_description': error.args[0],
-            'status_code': error.args[1]
-        }
+            'error_description': error.args[0]}
+
+        db.session.rollback()
+        return jsonify(response), error.args[1]
+
     else:
         response = {
             'error_place': error.error_place,
             'error_type': error.error_type,
             'error_description': error.args[0],
-            'error_exception': error.args[1],
-            'status_code': error.args[2]
+            'error_exception': error.args[1]
         }
 
     db.session.rollback()
-    return jsonify(response)
+    return jsonify(response), error.args[2]

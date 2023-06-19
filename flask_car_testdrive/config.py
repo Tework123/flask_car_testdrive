@@ -32,6 +32,7 @@ class TestingConfig(Config):
     name = 'TestingConfig'
     basepath = os.path.abspath("") + '/'
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES_TEST')
+    REDIS_URL = os.environ.get('REDIS_URL_LOCAL')
     RABBIT_HOST = os.environ.get('RABBIT_HOST_local')
 
 

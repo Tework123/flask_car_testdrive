@@ -19,7 +19,6 @@ def send_async_email(app, msg):
 
 # this func must get whole request about email
 def send_email(subject, sender, recipients, body, attachments=None):
-    print('sendemail')
     msg = Message(subject, sender=sender, recipients=recipients, body=body)
 
     if attachments is not None:

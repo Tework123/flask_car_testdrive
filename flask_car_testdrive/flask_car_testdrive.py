@@ -7,6 +7,9 @@ from app import create_app
 # here change config
 CONFIG = DevelopmentConfig
 
+# test with new_app or localhost, docker, server
+CONFIG_TEST = 'new_app'
+
 app = create_app(CONFIG)
 
 

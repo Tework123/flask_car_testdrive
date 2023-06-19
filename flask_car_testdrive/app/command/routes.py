@@ -1,7 +1,5 @@
 import datetime
-import os
 import random
-import subprocess
 
 from flask.cli import with_appcontext
 from werkzeug.security import generate_password_hash
@@ -15,8 +13,27 @@ fake = Faker()
 
 @bp.cli.command('add_user')
 def add_user():
+    add_user_base()
+
+
+@bp.cli.command('add_brands')
+def add_brands():
+    add_brands_base()
+
+
+@bp.cli.command('add_cars')
+def add_cars():
+    add_cars_base()
+
+
+@bp.cli.command('add_reviews')
+def add_reviews():
+    add_reviews_base()
+
+
+def add_user_base():
     names = ['denchik322', 'maksik_шпала', 'kama_marks', 'mishua_keto', 'nekit_kach', 'zaxar_sex', 'sanya_shop']
-    emails = ['postgres@mail.ru', 'postgres1@mail.ru', 'postgres2@mail.ru', 'postgres3@mail.ru', 'postgres4@mail.ru',
+    emails = ['postgres0@mail.ru', 'postgres1@mail.ru', 'postgres2@mail.ru', 'postgres3@mail.ru', 'postgres4@mail.ru',
               'postgres5@mail.ru', 'postgres6@mail.ru']
     password = '12345'
     country = 'russia'
@@ -44,8 +61,7 @@ def create_db():
     print('***Complete***')
 
 
-@bp.cli.command('add_brands')
-def add_brands():
+def add_brands_base():
     name_brands = ['Audi', 'BMW', 'KIA', 'Porsche', 'Ferrari']
     name_photos = ['audi-logo.png', 'bmw-logo.jpg', 'kia-logo.jpg', 'porsche-logo.jpg', 'ferrari-logo.png']
     description = [
@@ -73,8 +89,7 @@ def add_brands():
     print('***Complete***')
 
 
-@bp.cli.command('add_cars')
-def add_cars():
+def add_cars_base():
     name_brands = ['Audi', 'BMW', 'KIA', 'Porsche', 'Ferrari']
 
     name_cars = [['Audi A6', 'Audi A7', 'Audi Q7'],
@@ -170,8 +185,7 @@ def add_cars():
     print('***Complete***')
 
 
-@bp.cli.command('add_reviews')
-def add_reviews():
+def add_reviews_base():
     name_cars = ['Audi A6', 'Audi A7', 'Audi Q7',
                  'BMW 2', 'BMW 6', 'BMW X2',
                  'KIA CEED', 'KIA RIO', 'KIA Sportage',
@@ -182,7 +196,7 @@ def add_reviews():
 
         id_car = db.session.execute(db.select(Cars.id_car).filter_by(name_car=name_cars[i])).scalar_one()
 
-        emails = ['postgres@mail.ru', 'postgres1@mail.ru', 'postgres2@mail.ru', 'postgres3@mail.ru',
+        emails = ['postgres0@mail.ru', 'postgres1@mail.ru', 'postgres2@mail.ru', 'postgres3@mail.ru',
                   'postgres4@mail.ru',
                   'postgres5@mail.ru', 'postgres6@mail.ru']
 
