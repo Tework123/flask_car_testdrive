@@ -16,14 +16,13 @@ def to_json(response, type_test):
 
 # протестируем в докере после диплома, если будет удобно и будет смысл в этой функции - изменим остальные тесты
 def right_response(type_test, url, request, client, headers=None, body=None):
-    print(type_test, url, request, headers, body)
     if type_test == 'new_app':
         if request == 'post':
             response = client.post(url, json=body)
     else:
         if request == 'post':
             response = requests.post('http://127.0.0.1:5000/' + url, json=body)
-
+            
     return response
 
 
@@ -66,12 +65,6 @@ class TestRegisterErrors:
         assert to_json(response, type_test)['error_place'] == 'Api error'
         assert to_json(response, type_test)['error_type'] == 'User error'
         assert to_json(response, type_test)['error_description'] == expected_error_description
-
-    #     response_local_app = requests.post('http://127.0.0.1:5000/api/create_user', json=body)
-    #     assert response_local_app.status_code == 400
-    #     assert response_local_app.json()['error_place'] == 'Api error'
-    #     assert response_local_app.json()['error_type'] == 'User error'
-    #     assert response_local_app.json()['error_description'] == 'email incorrect'
 
 
 @pytest.mark.usefixtures('client', 'context')

@@ -5,10 +5,10 @@ from config import TestingConfig
 from app import create_app
 
 # here change config
-CONFIG = DevelopmentConfig
+CONFIG = ProductionConfig
 
 # test with new_app or localhost, docker, server
-CONFIG_TEST = 'new_app'
+CONFIG_TEST = '123'
 
 app = create_app(CONFIG)
 
