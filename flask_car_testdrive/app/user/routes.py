@@ -459,7 +459,7 @@ def take_test_drive(name_car):
             car_photo = db.session.execute(db.select(Photos.name_photo).filter_by(id_car=id_car)).scalars().first()
             attachments = 'static/car_image/' + car_photo
             # test rabbitmq worker
-            add_to_queue_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
+            # add_to_queue_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
 
             # send email with new tread
             send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
