@@ -12,5 +12,5 @@ __pycache__/
 
 postgres-data/
 redis_data/
-static/
+
 app/user/__pycache__
