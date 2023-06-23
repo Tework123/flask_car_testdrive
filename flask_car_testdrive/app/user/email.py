@@ -11,7 +11,6 @@ from app.models import ResetPasswordStatic
 from flask_car_testdrive import CONFIG
 
 
-# async send message, but don`t work on pythonanywhere
 def send_async_email(app, msg):
     with app.app_context():
         mail.send(msg)

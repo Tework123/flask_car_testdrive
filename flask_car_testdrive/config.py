@@ -18,11 +18,11 @@ class Config(object):
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
     RABBIT_USER = os.environ.get('RABBIT_USER')
     RABBIT_PASSWORD = os.environ.get('RABBIT_PASSWORD')
+    basepath = os.path.abspath("") + '/'
 
 
 class DevelopmentConfig(Config):
     name = 'DevelopmentConfig'
-    basepath = os.path.abspath("") + '/'
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES')
     REDIS_URL = os.environ.get('REDIS_URL_LOCAL')
     RABBIT_HOST = os.environ.get('RABBIT_HOST_local')
@@ -30,7 +30,6 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     name = 'TestingConfig'
-    basepath = os.path.abspath("") + '/'
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES_TEST')
     REDIS_URL = os.environ.get('REDIS_URL_LOCAL')
     RABBIT_HOST = os.environ.get('RABBIT_HOST_local')
@@ -38,7 +37,6 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     name = 'ProductionConfig'
-    basepath = os.path.abspath('') + '/flask_car_testdrive/'
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES_server')
     REDIS_URL = os.environ.get('REDIS_URL_server')
     RABBIT_HOST = os.environ.get('RABBIT_HOST_server')

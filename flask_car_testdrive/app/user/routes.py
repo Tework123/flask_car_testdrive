@@ -151,7 +151,7 @@ def show_car(alias_car):
 def add_review():
     # add only jpg
     form = ReviewsForm()
-    name_car = request.args.get('add_car')
+    name_car = request.args.get('add_review')
 
     review = db.session.query(Reviews.id_review).join(Cars, Reviews.id_car == Cars.id_car).where(
         Cars.name_car == name_car, Reviews.id_user == current_user.id_user).all()

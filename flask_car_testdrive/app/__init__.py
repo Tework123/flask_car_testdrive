@@ -68,8 +68,7 @@ def create_app(config):
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
 
-    app.logger.setLevel(logging.INFO)
-    app.logger.info('Start application')
+    app.logger.setLevel(logging.ERROR)
 
     # импорт и регистрация blueprint in context flask_app
 
