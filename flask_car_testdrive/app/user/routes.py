@@ -23,27 +23,37 @@ from flask_car_testdrive import CONFIG
 from app.user import menu
 
 
+def to_dict(data, fields):
+    list_dicts = []
+
+    for i in range(len(data)):
+        data_dict = {}
+        for j in range(len(fields)):
+            data_dict[fields[j]] = data[i][j]
+        list_dicts.append(data_dict)
+
+    return list_dicts
+
+
 @bp.route('/')
 def index():
-    # test some mistake
-    # x = 1
-    # if x == 1:
-    #     raise HtmlDbError('Some mistake men', 500)
+    cached_data_cars = redis.get('whole_cars')
+    if cached_data_cars:
+        cars_dict = json.loads(cached_data_cars)
+    else:
+        try:
+            cars = db.session.query(Cars.name_car, db.func.min(Photos.name_photo), db.func.min(Photos.id_photo)).join(
+                Photos,
+                Cars.id_car == Photos.id_car).group_by(
+                Cars.name_car).all()
 
-    # try:
-    #     x = 1 / 0
-    # except Exception as e:
-    #     raise HtmlDbError('Some mistake men', str(e), 500)
+            cars_dict = []
+            if cars:
+                cars_dict = to_dict(cars, ['name_car', 'name_photo'])
+        except Exception as e:
+            raise HtmlDbError('Some mistake men', str(e), 500)
 
-    whole_cars = db.session.query(Cars.name_car, db.func.min(Photos.name_photo), db.func.min(Photos.id_photo)).join(
-        Photos,
-        Cars.id_car == Photos.id_car).group_by(
-        Cars.name_car).all()
-
-    cars_dict = []
-    for row in whole_cars:
-        row = {'name_car': row.name_car, 'name_photo': row._data[1]}
-        cars_dict.append(row)
+        redis.setex('whole_cars', 20, json.dumps(cars_dict))
 
     for car in cars_dict:
         car['name_photo'] = url_for('static', filename='car_image/' + car['name_photo'])

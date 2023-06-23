@@ -94,7 +94,4 @@ def create_app(config):
 
         app.register_blueprint(bp_command)
 
-        # db.drop_all()
-        # db.create_all()
-
     return app

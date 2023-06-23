@@ -7,8 +7,11 @@ from app import create_app
 # here change config
 CONFIG = ProductionConfig
 
-# test with new_app or localhost, docker, server
-CONFIG_TEST = '123'
+# test server
+CONFIG_TEST = 'http://45.141.76.71/'
+
+# test with new_app on localhost
+# CONFIG_TEST = 'new_app'
 
 app = create_app(CONFIG)
 

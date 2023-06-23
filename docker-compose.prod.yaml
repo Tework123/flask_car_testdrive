@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: flask_car_testdrive/
+    container_name: flask_app
+    restart: always
+    volumes:
+      - /usr/src/app/
+
+    environment:
+      - REDIS_URL_LOCAL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15.3
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=testdrive123
+      - POSTGRES_DB=testdrive
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/datas/
+
+  nginx:
+    build: deployment/nginx/
+    ports:
+      - 80:80
+    volumes:
+      - ./static:/web-static/static
+    depends_on:
+      - flask-app
+
+  redis:
+    image: redis:7.0
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes:
+      - ./redis_data:/redis-data
+
+volumes:
+  postgres_data:
+  redis_data:
+

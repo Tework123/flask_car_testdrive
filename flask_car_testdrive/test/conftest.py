@@ -11,7 +11,7 @@ def type_test():
     if CONFIG_TEST == 'new_app':
         return 'new_app'
     else:
-        return '123'
+        return CONFIG_TEST
 
 
 @pytest.fixture(scope='session', autouse=True)
