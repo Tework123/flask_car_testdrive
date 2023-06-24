@@ -19,3 +19,7 @@ app = create_app(CONFIG)
 @app.route('/')
 def index():
     return redirect(url_for('user.index'))
+
+
+    # location flask_car_testdrive/app/static/favicon/favicon_io/favicon.ico {
+    # }
