@@ -25,6 +25,7 @@ services:
 
   nginx:
     build: deployment/nginx/
+    restart: unless-stopped
     ports:
       - 80:80
     volumes:
@@ -33,13 +34,16 @@ services:
       - flask-app
 
   redis:
+    container_name: redis
     image: redis:7.0
-    restart: always
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
     ports:
       - '6379:6379'
-    command: redis-server
     volumes:
-      - ./redis_data:/redis-data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    expose:
+      - 6379
 
 volumes:
   postgres_data:
