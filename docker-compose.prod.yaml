@@ -31,16 +31,26 @@ services:
       - 443:443
     volumes:
       - ./static:/web-static/static
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+
     depends_on:
       - flask-app
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+
 
   redis:
     container_name: redis
     image: redis:7.0
     restart: unless-stopped
     command: redis-server /usr/local/etc/redis/redis.conf
-#    environment:
-#      REDIS_ARGS: "--requirepass password --user username on >password ~* allcommands --user default off nopass nocommands"
+    #    environment:
+    #      REDIS_ARGS: "--requirepass password --user username on >password ~* allcommands --user default off nopass nocommands"
     ports:
       - '6379:6379'
     volumes:
