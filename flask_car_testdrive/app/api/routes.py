@@ -24,7 +24,6 @@ menu = [['Home', '/user'], ['Сar brands', '/user/show_brands'], ['Sing in', '/u
         ['Registration', '/user/register'], ['Api', '/api']]
 
 
-
 # если опять будет атака на редис, то использовать пароль в конфиге
 
 # настроить проксирование nginx на мой домен
