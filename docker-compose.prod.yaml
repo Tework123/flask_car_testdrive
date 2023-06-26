@@ -28,20 +28,22 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
-      - 443:443
+#      - 443:443
     volumes:
       - ./static:/web-static/static
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
+#      - ./certbot/www:/var/www/certbot/
+#      - ./certbot/conf/:/etc/letsencrypt/
+
 
     depends_on:
       - flask-app
 
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+#  certbot:
+#    container_name: certbot
+#    image: certbot/certbot:latest
+#    volumes:
+#      - ./certbot/www/:/var/www/certbot/:rw
+#      - ./certbot/conf/:/etc/letsencrypt/:rw
 
 
   redis:
