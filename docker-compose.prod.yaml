@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  tework123.ru:
+  flask-app:
     build: flask_car_testdrive/
-    container_name: tework123.ru
+    container_name: flask_app
     restart: always
     volumes:
       - /usr/src/app/
@@ -32,10 +32,10 @@ services:
     volumes:
       - ./static:/web-static/static
 #      - ./certbot/www:/var/www/certbot/:ro
-#      - ./certbot/conf/:/etc/nginx/ssl/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
 
     depends_on:
-      - tework123.ru
+      - flask-app
 
 #  certbot:
 #    image: certbot/certbot:latest
