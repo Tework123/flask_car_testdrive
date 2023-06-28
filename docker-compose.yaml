@@ -50,7 +50,7 @@ services:
       - --requirepass
       - ${REDIS_PASSWORD}
     volumes:
-      - ./deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./deployment/redis/redis.conf:./deployment/redis/redis.conf
     expose:
       - 6379
     env_file:
