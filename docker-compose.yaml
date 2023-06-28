@@ -50,11 +50,13 @@ services:
 
   redis:
     container_name: redis
-    image: redis:7.0
+    image: redis:7.0-alpine
     restart: unless-stopped
     #    command: redis-server /usr/local/etc/redis/redis.conf
     command:
-      - redis-server --requirepass ${REDIS_PASSWORD}
+      - redis-server
+      - --requirepass
+      - ${REDIS_PASSWORD}
     
 
     volumes:
