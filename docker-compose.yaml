@@ -5,8 +5,8 @@ services:
     build: flask_car_testdrive/
     container_name: flask_app
     restart: always
-    volumes:
-      - /usr/src/app/
+#    volumes:
+#      - /usr/src/app/
 
     environment:
       - REDIS_URL_LOCAL=redis://redis:6379
@@ -20,11 +20,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=kfLdi9234jK9L120)ld
       - POSTGRES_DB=testdrive
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/datas/
+#    volumes:
+#      - ./postgres-data:/var/lib/postgresql/datas/
 
   nginx:
-#    build: deployment/nginx/
     image: nginx:1.25-alpine
     restart: unless-stopped
     ports:
@@ -35,9 +34,6 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
-
-
-
     depends_on:
       - flask-app
 
@@ -57,14 +53,13 @@ services:
     image: redis:7.0
     restart: unless-stopped
     command: redis-server /usr/local/etc/redis/redis.conf
-
     volumes:
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
     expose:
       - 6379
 
   pgbackups:
-    container_name: Backup
+    container_name: backup
     image: prodrigestivill/postgres-backup-local
     restart: always
     volumes:
@@ -85,6 +80,3 @@ services:
       - BACKUP_KEEP_MONTHS=6
       - HEALTHCHECK_PORT=81
 
-volumes:
-  postgres_data:
-  redis_data:
