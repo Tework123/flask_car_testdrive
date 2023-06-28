@@ -62,7 +62,7 @@ services:
     expose:
       - 6379
     env_file:
-      - .env
+      - ./flask_car_testdrive/.env
 
   pgbackups:
     container_name: backup
