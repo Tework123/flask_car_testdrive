@@ -53,6 +53,8 @@ services:
       - ./deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
     expose:
       - 6379
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     env_file:
       - ./flask_car_testdrive/.env
 
