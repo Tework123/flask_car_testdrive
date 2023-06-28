@@ -53,10 +53,10 @@ services:
     image: redis:7.0
     restart: unless-stopped
     #    command: redis-server /usr/local/etc/redis/redis.conf
-    command:
-      - /bin/sh
-      - -c
-      - redis-server --requirepass "${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
+    command: >
+      --requirepass ${REDIS_PASSWORD}
+    
+
     volumes:
       - ./deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
     expose:
