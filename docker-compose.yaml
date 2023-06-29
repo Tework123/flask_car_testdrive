@@ -45,16 +45,13 @@ services:
     container_name: redis
     image: redis:7.0
     restart: unless-stopped
-#    command:
-#      - redis-server
-#      - --requirepass
-#      - ${REDIS_PASSWORD}
-#    volumes:
-#      - ./deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command:
+      - redis-server
+    volumes:
+      - ./deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
     expose:
       - 6379
-#    env_file:
-#      - ./flask_car_testdrive/.env
+
 
   pgbackups:
     container_name: backup
