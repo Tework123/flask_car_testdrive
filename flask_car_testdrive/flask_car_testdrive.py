@@ -8,7 +8,7 @@ from app import create_app
 CONFIG = ProductionConfig
 
 # test server
-CONFIG_TEST = 'http://45.141.76.71/'
+CONFIG_TEST = 'https://tework123.ru/'
 
 # test with new_app on localhost
 # CONFIG_TEST = 'new_app'
