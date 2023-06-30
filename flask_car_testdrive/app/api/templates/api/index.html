@@ -25,9 +25,11 @@
     <div class="card mb-3">
         <div class="card-body">
             <p>Whole methods:</p>
-            {% for i in whole_api_routes %}
-            <p>{{i}}</p>
-
+            {% for api_route in whole_api_routes %}
+            <p>url: {{api_route[0]}}</p>
+            <p>request method: {{api_route[1]}}</p>
+            <p>{{': '.join(api_route[2])}}</p>
+            <br>
             {% endfor %}
         </div>
     </div>

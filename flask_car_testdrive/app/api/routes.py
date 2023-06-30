@@ -24,27 +24,25 @@ menu = [['Home', '/user'], ['Сar brands', '/user/show_brands'], ['Sing in', '/u
         ['Registration', '/user/register'], ['Api', '/api']]
 
 
-# почистить все ненужные папки, установить пароли для постгрес через $ в докере и enf-file
-# поменять везде папку data на deployment, в том числе в bash.sh для генерации ключей
-
 # как контейнер может выгружать данные в файл/папку, для той же базы данных например актуально
+
+# оформить readme для этого проекта. Использованные технологии, перечисление всех функций
+
+# красиво оформить текстовый файл с кодом, может быть разделить его на несколько по технологиям
 
 # также нужно расписать конфиг nginx для двух приложений flask and react, хотя бы примерно, через 3 сервера получается?
 
-# протестить загрузку new кода через докерхаб
-
-# изучить gitlab и ic\dc
+# изучить gitlab и ic\dc, гитлаб тяжелый, скорее всего надо попробовать github actions
 
 # нагрузочное тестирование через библиотеку, наверное в отдельной папке pytest либо вообще отдельно
 
 # интеграция с входом через гугл, вк и так далее
 
 # яндекс метрика
-
 # поиграться со скоростью запросов в базу данных, учитывая видосы по оптимизации
 
 # поиграть с react js и flask по мигелю
-
+# some test github and ci/cd
 # поиграть с ооп и переходить на джанго
 
 
@@ -62,8 +60,38 @@ def to_dict(data, fields):
 
 @bp.route('/', methods=['POST', 'GET'])
 def index():
-    whole_api_routes = ['get_users', 'get_cars', 'get_reviews/name_car']
-    get_users_example = 'user'
+    whole_api_routes = [['/get_users_example', 'GET', ''],
+                        ['/create_user', 'POST', ['data', str({"name": "grisha",
+                                                               "email": "postgres@mail.ru",
+                                                               "country": "usa",
+                                                               "password": "12353",
+                                                               "phone": "9193913293"})]],
+
+                        ['/login', 'POST', ['data', str({"email": "postgres@mail.ru",
+                                                         "password": "12353"})]],
+                        ['api/tokens', 'GET', ['headers', str({"Authorization": "Basic {'username': 'password'}"})]],
+                        ['/delete_user', 'DELETE',
+                         ['headers', str({"Authorization": "Basic {'username': 'password'}"})]],
+                        ['/api/tokens', 'DELETE',
+                         ['headers', str({"Authorization": "Basic {'username': 'password'}"})]],
+                        ['/edit_user', 'PUT',
+                         ['headers', str({"Authorization": "Basic {'username': 'password'}"}), 'data',
+                          str({"email": "postgresmail.ru",
+                               "password": '123456',
+                               "name": 'username',
+                               "phone": '073258734'})]],
+                        ['/edit_user', 'PATCH',
+                         ['headers', str({"Authorization": "Basic {'username': 'password'}"}), 'data',
+                          str({"email": "postgresmail.ru"})]],
+                        ['/get_users', 'GET', ['headers', str({"Authorization": "Basic {'username': 'password'}"})]],
+                        ['/get_cars', 'GET', ['headers', str({"Authorization": "Basic {'username': 'password'}"})]],
+                        ['get_reviews/name_car', 'GET',
+                         ['headers', str({"Authorization": "Basic {'username': 'password'}"})]],
+                        ['/get_image_cars', 'HEAD',
+                         ['headers', str({"Authorization": "Basic {'username': 'password'}"})]]
+                        ]
+
+    get_users_example = 'get_users_example'
     return render_template('api/index.html', main_menu=menu, title='api',
                            whole_api_routes=whole_api_routes, get_users_example=get_users_example)
 

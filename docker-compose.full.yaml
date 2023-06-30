@@ -5,14 +5,9 @@ services:
     build: flask_car_testdrive/
     container_name: flask_app
     restart: always
-    volumes:
-      - /usr/src/app/
 
     environment:
       - REDIS_URL_LOCAL=redis://redis:6379
-
-    #    links:
-    #      - rabbitmq
     depends_on:
       - db
       - redis
@@ -20,12 +15,14 @@ services:
 
   db:
     image: postgres:15.3
+    restart: unless-stopped
+    env_file:
+      - ./.env
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=testdrive123
-      - POSTGRES_DB=testdrive
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/datas/
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+
 
   pgadmin:
     image: dpage/pgadmin4:7
@@ -36,49 +33,75 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
       PGADMIN_LISTEN_ADDRESS: 0.0.0.0
-      # заходить на сайт не по этому порту, а по 0.0.0.0/user
       PGADMIN_LISTEN_PORT: 5555
 
-
   nginx:
-#    build: deployment/nginx/
     image: nginx:1.25
     restart: unless-stopped
     ports:
       - 80:80
-#      - 443:443
+      - 443:443
     volumes:
-      - ./data/nginx.conf:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-
-
+      - ./deployment/nginx:/etc/nginx/conf.d
+      - ./deployment/certbot/conf:/etc/letsencrypt
+      - ./deployment/certbot/www:/var/www/certbot
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     depends_on:
       - flask-app
       - pgadmin
 
-#  certbot:
-#    container_name: certbot
-#    image: certbot/certbot:latest
-#    restart: unless-stopped
-#    volumes:
-#      - ./data/certbot/conf:/etc/letsencrypt
-#      - ./data/certbot/www:/var/www/certbot
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:v2.6.0
+    restart: unless-stopped
+    volumes:
+      - ./deployment/certbot/conf:/etc/letsencrypt
+      - ./deployment/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
 
   redis:
+    container_name: redis
     image: redis:7.0
-    restart: always
-    command: redis-server
+    restart: unless-stopped
+    command:
+      - redis-server
     volumes:
-      - ./redis_data:/redis-data
+      - ./deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    expose:
+      - 6379
 
+  pgbackups:
+    container_name: backup
+    image: prodrigestivill/postgres-backup-local
+    restart: always
+    volumes:
+      - ./backup:/backups
+    links:
+      - db:db
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_EXTRA_OPTS=-Z9 --schema=public --blobs
+      - SCHEDULE=@every 5h00m00s
+      - BACKUP_KEEP_DAYS=7
+      - BACKUP_KEEP_WEEKS=4
+      - BACKUP_KEEP_MONTHS=6
+      - HEALTHCHECK_PORT=81
+
+  # модули с rabbit не проверены
   rabbitmq:
     image: rabbitmq:3.12
     restart: always
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
+    #    ports:
+    #      - "5672:5672"
+    #      - "15672:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
@@ -96,22 +119,15 @@ services:
 
   rabbitmq-management:
     image: rabbitmq:3.12-management
-#    ports:
-#      - "15671:15672"
+    #    ports:
+    #      - "15671:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
 
 
-#  worker:
-#    build: flask_car_testdrive/rabbitmq/.
-#    depends_on:
-#      - rabbitmq
-#      - rabbitmq-management
-
-
-
-volumes:
-  postgres_data:
-  redis_data:
-
+  worker:
+    build: flask_car_testdrive/rabbitmq/.
+    depends_on:
+      - rabbitmq
+      - rabbitmq-management
