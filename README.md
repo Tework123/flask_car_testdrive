@@ -1,7 +1,7 @@
 # Flask_car_testdrive
 
 Ссылка на сайт:
-https://tework123.ru/user/
+https://tework123.ru/
 
 Реализованная функциональность сайта:
 - регистрация пользователей
