@@ -14,3 +14,4 @@ docker
 и так далее
 так же про сервер
 
+![image](https://github.com/Tework123/flask_car_testdrive/assets/115368408/6c15c61f-46a7-472a-88e3-482a0f171769)
