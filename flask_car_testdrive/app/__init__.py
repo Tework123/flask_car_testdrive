@@ -30,7 +30,6 @@ task_queue = Queue(connection=redis)
 def create_app(config):
     # создание объектов приложения и базы данных
     app = Flask(__name__)
-
     # берет все конфиги из класса Config и заносит в приложение flask
     app.config.from_object(config)
 

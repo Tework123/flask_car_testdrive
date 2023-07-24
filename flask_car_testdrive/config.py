@@ -37,6 +37,6 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     name = 'ProductionConfig'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES_server')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI_POSTGRES_prod')
     REDIS_URL = os.environ.get('REDIS_URL_server')
     RABBIT_HOST = os.environ.get('RABBIT_HOST_server')

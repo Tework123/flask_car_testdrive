@@ -5,7 +5,7 @@ from config import TestingConfig
 from app import create_app
 
 # here change config
-CONFIG = ProductionConfig
+CONFIG = DevelopmentConfig
 
 # test server
 CONFIG_TEST = 'https://tework123.ru/'
