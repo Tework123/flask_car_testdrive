@@ -19,7 +19,7 @@ https://github.com/Tework123/flask_car_testdrive/
 Обеспечивает миграции базы данных
 - Flask-Mail
 Отправляет сообщения на почту
-- pytest
+- Pytest
 unit test
 - WTForms
 Проверка введенных данных в поля
@@ -52,3 +52,7 @@ Docker-conteiners:
 - заказ автомобиля
 - отправка сообщений
 - api для получение контента
+
+Also:
+- unit test api
+- Кеширование стартовой страницы
