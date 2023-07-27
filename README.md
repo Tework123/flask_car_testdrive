@@ -7,8 +7,8 @@ https://tework123.ru/
 https://github.com/Tework123/flask_car_testdrive/
 
 Использованные технологии:
-- Веб-фреймворк: flask
-Библиотеки:
+- Flask
+Веб-фреймворк
 - Flask-login
 Создает сессии и куки
 - Flask-SQLAlchemy
