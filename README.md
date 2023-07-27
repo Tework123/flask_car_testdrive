@@ -57,3 +57,19 @@ Also:
 - unit test api
 - кеширование стартовой страницы
 
+Установка:
+Создаем новую папку, создаем виртуальное окружение, активируем его.
+
+Подключаем git к папке:
+
+    git init 
+    git clone https://github.com/Tework123/flask_car_testdrive.git
+    
+Заходим в папку с приложением flask:
+
+    cd flask_car_testdrive
+    cd flask_car_testdrive
+    
+Устанавливаем зависимости:
+
+    pip install -r requirements.txt
