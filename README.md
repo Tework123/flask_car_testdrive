@@ -1,4 +1,4 @@
-![image](https://github.com/Tework123/flask_car_testdrive/assets/115368408/7e526f4e-6476-4d8f-8007-52419c58fce9)# Flask_car_testdrive
+Flask_car_testdrive
 
 Ссылка на сайт:
 https://tework123.ru/
@@ -22,7 +22,8 @@ unit test
 Проверка введенных данных в поля
 - Jinja2
 Позволят создавать html шаблоны
-jwt token
+- PyJWT
+Создает jwt токен для использования api
 
 
 Веб-приложение запущено на VPS с помощью docker.
@@ -34,10 +35,8 @@ Docker-conteiners:
 - certbot
 - redis(cash)
 
-Стартовая страница сайта
+Стартовая страница сайта:
 ![Снимок экрана от 2023-07-27 06-49-10](https://github.com/Tework123/flask_car_testdrive/assets/115368408/41092a64-75d8-4f61-93e9-a3c7ba5b6d0e)
-
-
 
 
 Схема базы данных:
@@ -47,5 +46,6 @@ Docker-conteiners:
 - регистрация пользователей
 - восстановление пароля по почте
 - панель админа для добавления контента
+- заказ автомобиля
 - отправка сообщений
 - api для получение контента
