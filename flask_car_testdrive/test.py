@@ -15,7 +15,8 @@ class BearerAuth:
 
 token = 'KU32jaODN8FQSxNGL4W7bKZzNY+pPgbQ'
 
-r = requests.get('http://127.0.0.1:5000/api/get_image_cars', auth=BearerAuth('KU32jaODN8FQSxNGL4W7bKZzNY+pPgbQ'))
+r = requests.get('http://127.0.0.1:5000/api/get_image_cars',
+                 auth=BearerAuth('KU32jaODN8FQSxNGL4W7bKZzNY+pPgbQ'))
 
 images = r.json()['data']
 
@@ -33,12 +34,3 @@ if count == 45:
         file = str(j) + '.jpg'
         os.remove(file)
 print('ok')
-
-
-
-
-
-
-
-
-
