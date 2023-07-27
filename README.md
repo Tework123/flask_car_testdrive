@@ -4,20 +4,19 @@
 https://tework123.ru/
 
 Использованные технологии и их назначение:
-Веб-фреймворк: flask
+- Веб-фреймворк: flask
 Дополнительные библиотеки:
-Flask-login
-Flask-migrate описать зачем!!
-
-pytest
+- Flask-login
+- Flask-migrate
+- pytest
 
 Веб-приложение запущено на VPS с помощью docker.
-Docker-conteiners: написать для чего используется каждый контейнер!!
-nginx
-flask(gunicorn)
-db(postgres)
-certbot
-redis(cash)
+Docker-conteiners: 
+- nginx 
+- flask(gunicorn)
+- db(postgres)
+- certbot
+- redis(cash)
 Также надо про апи написать, в том числе, что не использовались доп библиотеки
 обработку ошибок
 тестирование
