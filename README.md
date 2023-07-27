@@ -1,25 +1,42 @@
-# Flask_car_testdrive
+![image](https://github.com/Tework123/flask_car_testdrive/assets/115368408/7e526f4e-6476-4d8f-8007-52419c58fce9)# Flask_car_testdrive
 
 Ссылка на сайт:
 https://tework123.ru/
+Ссылка на гитхаб:
+https://github.com/Tework123/flask_car_testdrive/
 
-Использованные технологии и их назначение:
+Использованные технологии:
 - Веб-фреймворк: flask
-Дополнительные библиотеки:
+Библиотеки:
 - Flask-login
+Создает сессии и куки
+- Flask-SQLAlchemy
+Позволяет работать с базой данных через python классы и функции
 - Flask-migrate
+Обеспечивает миграции базы данных
+- Flask-Mail
+Отправляет сообщения на почту
 - pytest
+unit test
+- WTForms
+Проверка введенных данных в поля
+- Jinja2
+Позволят создавать html шаблоны
+jwt token
+
 
 Веб-приложение запущено на VPS с помощью docker.
 Docker-conteiners: 
 - nginx 
 - flask(gunicorn)
 - db(postgres)
+- pgbackups
 - certbot
 - redis(cash)
-Также надо про апи написать, в том числе, что не использовались доп библиотеки
-обработку ошибок
-тестирование
+
+Стартовая страница сайта
+![Снимок экрана от 2023-07-27 06-49-10](https://github.com/Tework123/flask_car_testdrive/assets/115368408/41092a64-75d8-4f61-93e9-a3c7ba5b6d0e)
+
 
 
 
@@ -28,4 +45,7 @@ Docker-conteiners:
 
 Реализованная функциональность сайта:
 - регистрация пользователей
-пройтись по кнопкам
+- восстановление пароля по почте
+- панель админа для добавления контента
+- отправка сообщений
+- api для получение контента
