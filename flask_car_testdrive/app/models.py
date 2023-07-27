@@ -1,6 +1,5 @@
 import base64
 import os
-
 import jwt
 from app import db, login_manager
 from datetime import datetime, timedelta

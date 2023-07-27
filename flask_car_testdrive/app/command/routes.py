@@ -78,10 +78,6 @@ def add_brands_base():
         brand = Brands(name_brand=name_brands[i], name_photo=name_photos[i])
         brands.append(brand)
 
-    # потом посмотрим как удобно загружать сразу кучу фото на сервер через код
-    # пока не понято, сначала купим хостинг.
-    # file_path = CONFIG.basepath + 'app/static/brand_image/' + 123
-
     db.session.add_all(brands)
     db.session.flush()
     db.session.commit()
@@ -174,8 +170,6 @@ def add_cars_base():
                 name_photo_db = Photos(id_car=id_car, name_photo=name_photos[i][j][k])
                 whole_photo.append(name_photo_db)
 
-                # file_path = CONFIG.basepath + 'app/static/car_image/' + 123
-
             db.session.add_all(whole_photo)
             db.session.flush()
             db.session.commit()
@@ -218,10 +212,6 @@ def add_reviews_base():
                 db.session.add(name_photo_db)
                 db.session.flush()
                 db.session.commit()
-                # photo_id = db.session.execute(
-                #     db.select(ReviewsPhoto.id_photo).filter_by(id_review=id_review)).scalars().first()
-                #
-                # file_path = CONFIG.basepath + 'app/static/reviews_photo/' + str(photo_id) + '.jpg'
 
     print('add_reviews')
     print('***Complete***')

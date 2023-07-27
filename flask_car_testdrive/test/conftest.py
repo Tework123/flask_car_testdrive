@@ -30,6 +30,7 @@ def app():
     app_context.pop()
 
 
+# заполнение базы данных
 @pytest.fixture(scope='session')
 def add_data_to_db(app):
     add_user_base()

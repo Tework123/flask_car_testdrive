@@ -1,5 +1,4 @@
 import json
-import time
 from threading import Thread
 
 import pika
@@ -45,5 +44,6 @@ def add_to_queue_email(subject, sender, recipients, body, attachments):
     channel = connection.channel()
     channel.queue_declare(queue='hello')
     channel.basic_publish(exchange='', routing_key='hello', body=json.dumps(
-        {'subject': subject, 'sender': sender, 'recipients': recipients, 'body': body, 'attachments': attachments}))
+        {'subject': subject, 'sender': sender, 'recipients':
+            recipients, 'body': body, 'attachments': attachments}))
     connection.close()

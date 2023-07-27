@@ -1,16 +1,10 @@
 import base64
 import json
 import os
-import time
-
 from flask import render_template, jsonify, request
-from flask_login import current_user, login_user
+from flask_login import login_user
 from jsonschema.validators import validate
 from werkzeug.security import generate_password_hash, check_password_hash
-
-# решить проблему с циркуляркой при тестах
-# from app.user.email import send_email
-
 from app import db, redis
 from app.api import bp
 from app.api.auth import token_auth
@@ -18,36 +12,12 @@ from app.api.errors import ApiDbError, ApiUserError
 from app.api.schemas import schema_get_users_example
 from app.api.validation import UserFieldValidation
 from app.models import Users, Cars, Reviews, Photos
+from app.user.email import send_email
 from flask_car_testdrive import CONFIG
 
 menu = [['Home', '/user'], ['Сar brands', '/user/show_brands'], ['Sing in', '/user/login'],
         ['Registration', '/user/register'], ['Api', '/api']]
 
-
-# как контейнер может выгружать данные в файл/папку, для той же базы данных например актуально
-
-# оформить readme для этого проекта. Использованные технологии, перечисление всех функций
-
-# красиво оформить текстовый файл с кодом, может быть разделить его на несколько по технологиям
-# git, docker, server vps, react-flask integration, sll ключ, остальное свалить в один файл и красиво оформить
-
-# надо создать текстовый файл, где указать все зависимости во flask, какие переменные менять для тестирования
-# и так далее, потому что я это быстро забуду. Надо будет этот файл вести, когда будет новый проект, документация такая.
-
-# изучить gitlab и ic\dc, гитлаб тяжелый, скорее всего надо попробовать github actions
-
-# нагрузочное тестирование через библиотеку, наверное в отдельной папке pytest либо вообще отдельно
-
-# интеграция с входом через гугл, вк и так далее
-
-# яндекс метрика
-
-# поиграться со скоростью запросов в базу данных, учитывая видосы по оптимизации
-
-# поиграть с ооп и переходить на джанго
-
-# алгоритмы и подготовка к собеседованиям
-print(10)
 
 def to_dict(data, fields):
     list_dicts = []
@@ -147,7 +117,7 @@ def create_user():
     body = user.name + ' Welcome!'
 
     # не думаю, что нужно сообщать пользователям, что модуль отправки приветственных писем сломался
-    # send_email(subject, CONFIG.MAIL_USERNAME, [user.email], body)
+    send_email(subject, CONFIG.MAIL_USERNAME, [user.email], body)
 
     response = jsonify({'data': 'registration success'})
     response.status_code = 200

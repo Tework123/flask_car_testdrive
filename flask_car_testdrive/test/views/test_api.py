@@ -1,5 +1,4 @@
 import base64
-import json
 import os
 from base64 import b64encode
 

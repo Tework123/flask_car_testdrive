@@ -1,17 +1,16 @@
 from flask import redirect, url_for
 from config import DevelopmentConfig
 from config import ProductionConfig
-from config import TestingConfig
 from app import create_app
 
 # here change config
 CONFIG = DevelopmentConfig
 
 # test server
-CONFIG_TEST = 'https://tework123.ru/'
+# CONFIG_TEST = 'https://tework123.ru/'
 
 # test with new_app on localhost
-# CONFIG_TEST = 'new_app'
+CONFIG_TEST = 'new_app'
 
 app = create_app(CONFIG)
 

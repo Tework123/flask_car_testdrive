@@ -70,8 +70,6 @@ def show_brands():
     for brand in brands_dict:
         brand['name_photo'] = url_for('static', filename='brand_image/' + brand['name_photo'])
 
-    # print(brands_dict[0]['name_photo'])
-
     return render_template('admin/show_brands.html', main_menu=menu, brands=brands_dict)
 
 
