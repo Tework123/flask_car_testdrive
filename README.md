@@ -29,7 +29,7 @@ unit test
 Создает jwt токен для использования api
 
 
-Веб-приложение развернуто на VPS с помощью docker.
+Веб-приложение развернуто на VPS с помощью docker(из ветки main).
 Docker-conteiners: 
 - nginx 
 - flask(gunicorn)
@@ -105,3 +105,5 @@ Also:
 В папке с flask приложением запускаем локальный сервер:
 
     flask run
+
+
