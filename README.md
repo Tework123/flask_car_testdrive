@@ -100,4 +100,8 @@ Also:
     REDIS_URL_server = 'redis://redis:6379'
     REDIS_PASSWORD = 'mzxcvm213zmvdsf@k3ll1'
 
-Локально поднимаем postgres, redis
+Локально поднимаем postgres, redis.
+
+В папке с flask приложением запускаем локальный сервер:
+
+    flask run
