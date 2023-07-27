@@ -1,5 +1,7 @@
 Flask_car_testdrive
 
+Сайт для заказа автомобилей на тест-драйв
+
 Ссылка на сайт:
 https://tework123.ru/
 
@@ -27,7 +29,7 @@ unit test
 Создает jwt токен для использования api
 
 
-Веб-приложение запущено на VPS с помощью docker.
+Веб-приложение развернуто на VPS с помощью docker.
 Docker-conteiners: 
 - nginx 
 - flask(gunicorn)
