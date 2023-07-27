@@ -55,4 +55,8 @@ Docker-conteiners:
 
 Also:
 - unit test api
+- кеширование стартовой страницы
+
+Also:
+- unit test api
 - Кеширование стартовой страницы
