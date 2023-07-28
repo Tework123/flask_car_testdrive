@@ -1,0 +1,141 @@
+2023-06-30 08:00:56,874 ERROR: Exception on /user/show_brands [GET] [in /home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3275, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 455, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 1271, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 719, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/impl.py", line 168, in _do_get
+    with util.safe_reraise():
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/impl.py", line 166, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 396, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 681, in __init__
+    self.__connect()
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 905, in __connect
+    with util.safe_reraise():
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 901, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 636, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 580, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "db" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/flask_car_testdrive/app/user/routes.py", line 69, in show_brands
+    Brands.name_brand, Brands.description, Brands.name_photo).all()
+                                                              ^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2697, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2855, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2229, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2114, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1981, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1108, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3251, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 147, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2413, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 3275, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 455, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 1271, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 719, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/impl.py", line 168, in _do_get
+    with util.safe_reraise():
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/impl.py", line 166, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 396, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 681, in __init__
+    self.__connect()
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 905, in __connect
+    with util.safe_reraise():
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 901, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 636, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 580, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "db" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

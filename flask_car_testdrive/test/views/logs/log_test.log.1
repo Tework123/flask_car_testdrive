@@ -1,0 +1,21 @@
+2023-06-23 08:55:54,862 ERROR: Exception on /api/get_image_cars [GET] [in /home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask_httpauth.py", line 174, in decorated
+    return self.ensure_sync(f)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/flask_car_testdrive/app/api/routes.py", line 314, in get_image_cars
+    with open(file_path, "rb") as image_file:
+         ^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/t1/PycharmProjects/flask_car_testdrive2/flask_car_testdrive/test/views/flask_car_testdrive/app/static/car_image/audi_A6-1.jpg'

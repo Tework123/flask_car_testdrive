@@ -1,0 +1,72 @@
+2023-06-21 05:30:14,530 ERROR: Exception on /api/create_user [POST] [in /home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py:1744]
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 748, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InFailedSqlTransaction: ОШИБКА:  текущая транзакция прервана, команды до конца блока транзакции игнорируются
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/flask_car_testdrive/app/api/routes.py", line 90, in create_user
+    UserFieldValidation(data['email']).email_validation()
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/flask_car_testdrive/app/api/validation.py", line 11, in email_validation
+    if Users.query.filter_by(email=self.data).first():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2752, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2855, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2229, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2124, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 253, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1414, in execute
+    return meth(
+           ^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 486, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2326, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/t1/PycharmProjects/flask_car_testdrive2/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 748, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.InternalError: (psycopg2.errors.InFailedSqlTransaction) ОШИБКА:  текущая транзакция прервана, команды до конца блока транзакции игнорируются
+
+[SQL: SELECT users.id_user AS users_id_user, users.name AS users_name, users.email AS users_email, users.country AS users_country, users.password AS users_password, users.profile_pic AS users_profile_pic, users.date AS users_date, users.phone AS users_phone, users.text AS users_text, users.last_seen AS users_last_seen, users.last_seen_profile AS users_last_seen_profile, users.token AS users_token, users.token_expiration AS users_token_expiration 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'postgres@mail.ru', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/2j85)
