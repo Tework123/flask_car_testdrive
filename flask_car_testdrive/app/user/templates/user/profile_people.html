@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+<div class="main-profile">
+    <div class="card mb-3-profile">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <img src="{{ user.profile_pic }}"
+                                         alt="avatar"
+                                         class="rounded-circle img-fluid" style="width: 250px;">
+                                    <h4 class="my-3">{{ user.name }}</h4>
+                                    <h6>Last seen: {{ user.last_seen }}</h6>
+                                      <div class="profile-button">
+                                        <form action="{{ url_for('user.add_message') }}" method="get">
+                                            <button type="submit" name="add_message" value="{{user.email}}"
+                                                    class="btn btn-primary">Send message
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Name</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.name }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Email</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{user.email }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Phone</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.phone }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Country</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.country }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Date register</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.date.year }}.{{ user.date.month }}.{{
+                                                user.date.day }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Amount Reviews</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            {% if amount_reviews != [] %}
+                                            <p class="text-muted mb-0">{{amount_reviews[0][1]}}</p>
+                                            {% else %}
+                                            <p class="text-muted mb-0">Nothing</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Amount testdrive</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            {% if amount_testdrive != [] %}
+                                            <p class="text-muted mb-0">{{amount_testdrive[0][1]}}</p>
+                                            {% else %}
+                                            <p class="text-muted mb-0">Nothing</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">About me</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{ user.text }}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

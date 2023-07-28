@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+<div class="main">
+
+    <h1>{{brand.name_brand}}</h1>
+
+    <form action="{{ url_for('admin.add_car') }}" method="get">
+        <button type="submit" name="add_car" value="{{ brand.name_brand }}" class="btn btn-primary">Add car</button>
+    </form>
+
+    <div class="card mb-brand">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p><a href="{{url_for('admin.show_brands')}}"><img src="{{ brand.name_photo }}"></a></p>
+        </div>
+    </div>
+
+
+    {% if cars != [] %}
+    {% for car in cars %}
+    <div class="card mb-cars">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+
+            <p><a href="{{url_for('admin.show_car', alias_car=car[0]['name_car'])}}">{{ car[0]['name_car'] }}</a></p>
+
+
+            {% for photo in car %}
+
+            <a href="{{url_for('admin.show_car', alias_car=car[0]['name_car'])}}">
+                <img src="{{ photo['name_photo'] }}"></a>
+            {% endfor %}
+            {% for string in car[0]['description'] %}
+            <p>{{ string }}</p>
+
+            {% endfor %}
+            <form action="{{ url_for('admin.delete_car') }}" method="POST">
+                <button type="submit" class="btn btn-secondary" name="delete_car" value="{{ car[0]['name_car'] }}">
+                    Delete
+                    car
+                </button>
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Cars empty</p>
+
+    {% endif %}
+
+</div>
+{% endblock %}

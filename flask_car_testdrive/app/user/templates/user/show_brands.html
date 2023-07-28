@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+<div class="main">
+    <h1>Brands</h1>
+
+    {% if brands != [] %}
+    {% for brand in brands %}
+    <div class="card mb-3">
+        <a href="{{url_for('user.show_brand', alias=brand.name_brand)}}"><img src="{{ brand.name_photo }}"
+                                                                               class="card-img-top" alt="photo car"></a>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p><a href="{{url_for('user.show_brand', alias=brand.name_brand)}}">{{brand.name_brand}}</a></p>
+
+<!--            <p class="card-text">{{ brand.description }}</p>-->
+            <p class="card-text"><small class="text-muted">
+                Available car: {{ brand.count_car}}</small></p>
+
+        </div>
+    </div>
+
+
+    {% endfor %}
+    {% else %}
+    <p>Brands empty</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}

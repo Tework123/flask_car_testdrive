@@ -1,0 +1,44 @@
+
+/* user_profile*/
+
+
+/* registration, login */
+
+.form-contact {
+  display: block;
+  /* background-color: white; */
+  font-size: 30px;
+  text-align: center;
+}
+
+.form-contact p {
+  font-size: 30px;
+}
+
+.form-contact input {
+  font-size: 30px;
+  /* background-color: white; */
+}
+
+body .login{
+  border: none;
+  color: white;
+
+
+  font-size: 30px;
+
+  margin-left: 6em;
+}
+
+#remember {
+  display: inline-block;
+  transform:scale(1.4);
+  opacity:0.9;
+  cursor:pointer;
+  padding-left: 20px;
+}
+
+#remember_me {
+  display: inline-block;
+
+}

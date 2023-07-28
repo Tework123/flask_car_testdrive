@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+<div class="main">
+    <h1>Api methods</h1>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            {{ token }}
+            <p><a href="{{url_for('api.get_token')}}">My tokens</a></p>
+
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+
+            <p><a href="{{url_for('api.get_users_example')}}">{{ get_users_example }}</a></p>
+
+        </div>
+    </div>
+
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <p>Whole methods:</p>
+            {% for api_route in whole_api_routes %}
+            <p>url: {{api_route[0]}}</p>
+            <p>request method: {{api_route[1]}}</p>
+            <p>{{': '.join(api_route[2])}}</p>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+

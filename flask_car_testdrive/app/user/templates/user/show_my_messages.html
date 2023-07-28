@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+<div class="main">
+    {% if my_messages != [] %}
+    {% for message in my_messages %}
+    <div class="card mb-review">
+        <div class="card-body">
+            <div class="card-body-review">
+                <h5 class="card-title"></h5>
+
+                <p>From <a href="{{url_for('user.profile_people', alias=message['id_sender'])}}">{{ message['name'] }}</a>
+                </p>
+                <p>Date: {{message['date']}}</p>
+                <p>Text: {{message['text']}}</p>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>My messages empty</p>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}
+
+</div>

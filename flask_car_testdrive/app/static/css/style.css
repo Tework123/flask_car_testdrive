@@ -1,0 +1,386 @@
+
+/* main */
+.main_menu {
+  /* display: flex; */
+  color: red;
+  background-color: rgb(291, 155, 24);
+}
+
+
+/* MAIN PART */
+body {
+  /* background-color: rgb(228, 220, 220); */
+  background: rgb(176,186,194);
+  background: linear-gradient(160deg, rgba(176,186,194,1) 0%, rgba(227,227,240,1) 51%, rgba(178,178,178,1) 100%);
+  /* background: rgb(0,0,0);
+background: linear-gradient(160deg, rgba(0,0,0,1) 0%, rgba(102,102,112,1) 51%, rgba(0,0,0,1) 100%); */
+  font-size: 30px;
+  height: 100%;
+
+}
+
+
+
+body a{
+  font-size: 40px;
+  text-decoration: none;
+}
+
+body p{
+  font-size: 35px;
+  
+}
+
+body h1 {
+  margin: 30px;
+}
+
+.mb-home {
+  margin: 15px;
+  width: 60%;
+}
+
+.mb-home img {
+  width: auto;
+  margin: 15px;
+  height: 600px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* img-show_brands */
+.mb-3 img {
+  height: auto;
+  max-height: 600px;
+  width: 100%;
+  max-width: 900px;
+
+  
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+
+/* card show_brands */
+.mb-3 {
+  margin: 15px;
+  height: auto;
+  width: 48%;
+  max-width: 100%;
+  display: inline-block;
+}
+
+/* for one img-brand on show_brand.html */
+.mb-brand {
+  margin: 15px;
+  height: auto;
+  max-width: 20%;
+}
+
+.mb-brand img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+/* show_brand card car and img car */
+.mb-cars img {
+  height: auto;
+  width: 48%;
+  /* max-height: 500px;
+  max-width: 500px; */
+  margin: 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+.mb-cars {
+  margin: 15px;
+  height: auto;
+  max-width: 100%;
+}
+
+
+
+.mb-car {
+  margin: 15px;
+
+}
+
+/* show_car */
+.main-car {
+  display: grid;
+  padding: 15px;
+  padding-bottom: 100px;
+}
+
+.card-body-car {
+  display: grid;
+  grid-column: 1/13;
+}
+.mb-car-2-main {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1);
+}
+
+.mb-car-2-left {
+  grid-column: 1/5;
+  margin: 15px;
+
+}
+
+.mb-car-2-right {
+  grid-column: 5/13;
+  margin: 15px;
+}
+
+.mb-car-2-right img{
+  width: 100%;
+  height: auto;
+  margin-top: 15px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+.show_car_buttons {
+  display:flex;
+  justify-content:flex-start;
+  margin: 10px;
+  margin-top: 20px;
+}
+
+
+
+/* profile */
+.mb-3-profile {
+ width: 80%;
+}
+.profile-button-messages{
+  display: inline-flex;
+}
+
+.notifications {
+  padding-left: 5px;
+  color: red;
+}
+
+
+.card:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+
+.main {
+
+  padding-bottom: 150px;
+}
+.profile-button {
+  margin: 10px;
+
+}
+.btn-primary{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+ .btn-success{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+
+.btn-danger{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+  
+}
+
+.btn-delete_profile{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 54px;
+  margin-top: 10px;
+}
+
+body .btn-warning{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+
+
+
+
+body .add_brand{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin-left: 0px;
+}
+
+
+input:hover {
+  box-shadow: 0 0 3px 3px rgba(0, 140, 186, 0.5);
+  
+}
+
+
+body .btn-secondary{
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  margin: 4px 2px;
+}
+
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.footer {
+  /* position: absolute; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #ffffff;
+}
+
+
+/* user */
+
+.main-profile {
+  padding: 15px;
+}
+
+.main-registration {
+  padding: 15px;
+}
+
+.button-register {
+
+  text-align: center;
+
+}
+
+
+.main-login {
+  padding: 15px;
+}
+.main-reset-password{
+  padding: 15px;
+
+}
+
+/* video */
+.mb-3-video {
+  width: 70%;
+}
+.url_video {
+  width: 1500px;
+}
+/* order */
+.main-order h2{
+  padding-left: 15px;
+}
+
+.main-order {
+  padding-bottom: 370px;
+
+}
+/* show test drives */
+.closed {
+  color: red;
+}
+
+/* reviews */
+.mb-review img {
+  height: auto;
+  width: 410%;  
+  max-height: 500px;
+  max-width: 500px;
+  margin: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  display: inline-block;
+  
+}
+
+.mb-review {
+  margin: 15px;
+  height: auto;
+  max-width: 70%;
+}
+.card-body-review {
+  display: inline-block
+}
+
+
+.main-password_security{
+
+  padding-bottom: 750px;
+}
+
+/* mistakes */
+
+.card-body-error {
+  border: 3px solid black;
+  border-radius: 7px;
+  background: #FF9C9C;
+  padding: 10px;
+}
+
+.flash {
+  padding: 10px;
+  text-align: center;
+}
+
+.flash.error {
+  border: 1px solid #FF4343;
+  background: #FF9C9C;
+}
+
+.flash.success {
+  border: 1px solid #46ff43;
+  background: #abff9c;
+}
+
+#form-contact ul {
+  border: 1px solid #FF4343;
+  background: #FF9C9C;
+}
+
+

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+
+<div class="main">
+
+    <h1>Add brand</h1>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+
+            <form action="/admin/add_brand" method="post" enctype="multipart/form-data" id="form-contact">
+
+                {{ form.hidden_tag() }}
+
+                {% for field in form if field.name not in ['csrf_token'] %}
+                <p>{{field.label()}}</p>
+                <p>{{ field }}</p>
+                {% endfor %}
+
+                <input type="submit" class="btn btn-primary add_brand" value="Add brand">
+
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
