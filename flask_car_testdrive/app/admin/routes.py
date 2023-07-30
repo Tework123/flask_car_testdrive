@@ -4,7 +4,7 @@ from flask_login import current_user
 from app import db
 from app.admin import bp
 from app.admin.forms import LoginForm, AddBrand, AddCar
-from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto
+from app.models import Brands, Cars, Photos, Reviews, ReviewsPhoto
 from flask_car_testdrive import CONFIG
 
 menu = [['Home_users', '/'], ['Home', './'], ['Сar brands', 'show_brands'], ['Sing in', 'login'], ['Admin-panel', '#']]

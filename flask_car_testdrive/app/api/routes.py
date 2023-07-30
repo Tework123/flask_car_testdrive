@@ -11,7 +11,7 @@ from app.api.auth import token_auth
 from app.api.errors import ApiDbError, ApiUserError
 from app.api.schemas import schema_get_users_example
 from app.api.validation import UserFieldValidation
-from app.models import Users, Cars, Reviews, Photos
+from app.models import Cars, Reviews, Photos
 from app.user.email import send_email
 from flask_car_testdrive import CONFIG
 

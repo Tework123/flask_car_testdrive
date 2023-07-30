@@ -1,6 +1,10 @@
 import base64
+import json
 import os
+
 import jwt
+import requests
+
 from app import db, login_manager
 from datetime import datetime, timedelta
 from time import time
@@ -54,9 +58,29 @@ class Users(db.Model):
         return user
 
 
+# class User(db.Model):
+#     def __init__(self, **entries):
+#         self.__dict__.update(entries)
+
+
 @login_manager.user_loader
 def load_user(id):
-    return Users.query.get(int(id))
+    response = requests.get(f'http://127.0.0.1:5001/auth/get_user/{id}')
+    print(response)
+    print(response.text)
+
+    print('******************************')
+    # print(response.content)
+    # print(json.loads(response.content))
+    response = json.loads(response.text)
+    response = response['object']
+    response = json.loads(response)
+    response = Users(**response)
+
+    print(response)
+
+    return response
+    # return Users.query.get(int(id))
 
 
 class ResetPasswordStatic:

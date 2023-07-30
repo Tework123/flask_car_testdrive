@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash
 from app import db
 from app.command import bp
 from faker import Faker
-from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto
+from app.models import  Brands, Cars, Photos, Reviews, ReviewsPhoto
 
 fake = Faker()
 

@@ -2,7 +2,6 @@ from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from werkzeug.security import check_password_hash
 
 from app.api.errors import error_response
-from app.models import Users
 
 basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth()

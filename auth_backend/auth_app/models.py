@@ -54,4 +54,5 @@ class Users(db.Model):
 
 @login_manager.user_loader
 def load_user(id):
+    print(Users.query.get(int(id)))
     return Users.query.get(int(id))

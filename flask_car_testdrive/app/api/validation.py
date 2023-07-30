@@ -1,6 +1,6 @@
 import re
 from app.api.errors import ApiUserError
-from app.models import Users
+# from app.models import Users
 
 
 class UserFieldValidation:

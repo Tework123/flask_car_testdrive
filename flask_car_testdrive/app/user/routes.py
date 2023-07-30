@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, redis
 from app.user.errors import HtmlDbError
 from app.user.forms import TakeTestdrive, MessagesForm
-from app.models import Users, Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive, ResetPasswordStatic, Messages
+from app.models import Brands, Cars, Photos, Reviews, ReviewsPhoto, TestDrive, ResetPasswordStatic, Messages
 
 from app.user import bp
 
@@ -546,33 +546,36 @@ def register():
 
 @bp.route('/login', methods=['POST', 'GET'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('.profile'))
+    if request.method == 'GET':
+        return redirect('http://127.0.0.1:5001/auth/login', code=301)
 
-    form = LoginForm()
-
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            try:
-                user = Users.query.filter_by(email=form.email.data).first()
-                check_password = check_password_hash(user.password, form.password.data)
-                if check_password:
-                    flash('Ah shit, here we go again', category='success')
-                    if form.remember.data:
-                        login_user(user, remember=True, duration=datetime.timedelta(days=30))
-                    else:
-                        login_user(user)
-
-                    return redirect(url_for('.profile'))
-                else:
-                    flash('incorrect password', category='error')
-            except:
-                flash('No such user', category='error')
-
-        else:
-            flash('incorrect data', category='error')
-
-    return render_template('user/login.html', main_menu=menu, title='Sing in', form=form)
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('.profile'))
+    #
+    # form = LoginForm()
+    #
+    # if request.method == 'POST':
+    #     if form.validate_on_submit():
+    #         try:
+    #             user = Users.query.filter_by(email=form.email.data).first()
+    #             check_password = check_password_hash(user.password, form.password.data)
+    #             if check_password:
+    #                 flash('Ah shit, here we go again', category='success')
+    #                 if form.remember.data:
+    #                     login_user(user, remember=True, duration=datetime.timedelta(days=30))
+    #                 else:
+    #                     login_user(user)
+    #
+    #                 return redirect(url_for('.profile'))
+    #             else:
+    #                 flash('incorrect password', category='error')
+    #         except:
+    #             flash('No such user', category='error')
+    #
+    #     else:
+    #         flash('incorrect data', category='error')
+    #
+    # return render_template('user/login.html', main_menu=menu, title='Sing in', form=form)
 
 
 @bp.route('/reset_password', methods=['POST', 'GET'])
