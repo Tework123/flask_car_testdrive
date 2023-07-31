@@ -26,7 +26,8 @@ services:
     image: nginx:1.25
     restart: unless-stopped
     ports:
-      - 80:80
+      - "80:80"
+      - "443:443"
     volumes:
       - ./deployment/nginx:/etc/nginx/conf.d
       - ./deployment/certbot/conf:/etc/letsencrypt
