@@ -1,6 +1,7 @@
 import os
 
 import pika
+from celery import Celery
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
@@ -21,6 +22,8 @@ mail = Mail()
 redis = Redis.from_url(os.environ.get('REDIS_URL_LOCAL'))
 task_queue = Queue(connection=redis)
 
+celery = Celery(__name__, broker='redis://127.0.0.1:6379')
+
 
 # connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 # channel = connection.channel()
@@ -35,6 +38,9 @@ def create_app(config):
 
     # без сортировки возвращаемых jsonfy
     app.json.sort_keys = False
+
+    celery.conf.update(app.config)
+
 
     # подключаем все модули
     db.init_app(app)

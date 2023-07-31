@@ -1,11 +1,12 @@
 import json
+import time
 from threading import Thread
 
 import pika
 from flask import render_template, current_app
 from flask_mail import Message
 
-from app import mail
+from app import mail, celery
 from app.models import ResetPasswordStatic
 from flask_car_testdrive import CONFIG
 
@@ -35,6 +36,14 @@ def send_password_reset_email(user):
     body = render_template('user/reset_password_email.html', user=user, token=token)
     send_email('Reset_password', CONFIG.MAIL_USERNAME, [user.email], body)
 
+
+@celery.task
+def celery_task():
+    time.sleep(5)
+    print(11)
+    email = 'potsanovik@mail.ru'
+    msg = Message('email_register', sender=CONFIG.MAIL_USERNAME, recipients=[email], body='123')
+    mail.send(msg)
 
 # use rabbitmq queue for fun
 def add_to_queue_email(subject, sender, recipients, body, attachments):
