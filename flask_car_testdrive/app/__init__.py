@@ -41,7 +41,6 @@ def create_app(config):
 
     celery.conf.update(app.config)
 
-
     # подключаем все модули
     db.init_app(app)
     migrate.init_app(app, db)
