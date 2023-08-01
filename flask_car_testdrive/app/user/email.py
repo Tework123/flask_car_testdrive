@@ -37,13 +37,18 @@ def send_password_reset_email(user):
     send_email('Reset_password', CONFIG.MAIL_USERNAME, [user.email], body)
 
 
+# отправка на емайл с помощью celery
 @celery.task
-def celery_task():
-    time.sleep(5)
-    print(11)
-    email = 'potsanovik@mail.ru'
-    msg = Message('email_register', sender=CONFIG.MAIL_USERNAME, recipients=[email], body='123')
+def celery_task_send_email(subject, sender, recipients, body, attachments=None):
+    msg = Message(subject, sender=sender, recipients=recipients, body=body)
+
+    if attachments is not None:
+        attach_photo = attachments.split('/')[-1]
+        with current_app.open_resource(attachments) as fp:
+            msg.attach(attach_photo, 'image/png', fp.read())
+    time.sleep(7)
     mail.send(msg)
+
 
 # use rabbitmq queue for fun
 def add_to_queue_email(subject, sender, recipients, body, attachments):

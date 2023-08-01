@@ -14,7 +14,8 @@ from app.user import bp
 
 from flask_login import current_user, login_user, logout_user, login_required
 
-from app.user.email import send_password_reset_email, send_email, add_to_queue_email, celery_task
+from app.user.email import send_password_reset_email, send_email, add_to_queue_email, \
+    celery_task_send_email
 from app.user.forms import LoginForm, RegisterForm, ReviewsForm, EditProfile, PasswordSecurity, ResetPassword, \
     ResetPasswordForm
 
@@ -473,7 +474,7 @@ def take_test_drive(name_car):
 
             # send email with new tread
             send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
-
+            celery_task_send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
             flash('test_drive reserved', category='success')
             return redirect(url_for('.pay_for_test_drive'))
 
@@ -810,9 +811,3 @@ def notifications():
         notifications = 0
 
     return dict(notifications=notifications)
-
-
-@bp.route('/send_email', methods=['GET'])
-def send_email_celery():
-    celery_task()
-    return 'Success'
