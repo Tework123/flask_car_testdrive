@@ -1,14 +1,17 @@
-Flask_car_testdrive
+# Flask_car_testdrive
 
-Сайт для заказа автомобилей на тест-драйв
+Сайт для заказа автомобилей на тест-драйв.
 
 Ссылка на сайт:
-https://tework123.ru/
+https://tework123.store/
 
 Ссылка на гитхаб:
 https://github.com/Tework123/flask_car_testdrive/
 
-Использованные технологии:
+## Стартовая страница сайта:
+![Снимок экрана от 2023-07-27 06-49-10](https://github.com/Tework123/flask_car_testdrive/assets/115368408/41092a64-75d8-4f61-93e9-a3c7ba5b6d0e)
+
+## Использованные технологии:
 - Flask
 Веб-фреймворк
 - Flask-login
@@ -29,8 +32,8 @@ unit test
 Создает jwt токен для использования api
 
 
-Веб-приложение развернуто на VPS с помощью docker(из ветки main).
-Docker-conteiners: 
+### Веб-приложение развернуто на VPS с помощью docker(из ветки main).
+### Docker-conteiners: 
 - nginx 
 - flask(gunicorn)
 - db(postgres)
@@ -38,14 +41,7 @@ Docker-conteiners:
 - certbot
 - redis(cash)
 
-Стартовая страница сайта:
-![Снимок экрана от 2023-07-27 06-49-10](https://github.com/Tework123/flask_car_testdrive/assets/115368408/41092a64-75d8-4f61-93e9-a3c7ba5b6d0e)
-
-
-Схема базы данных:
-![image](https://github.com/Tework123/flask_car_testdrive/assets/115368408/6c15c61f-46a7-472a-88e3-482a0f171769)
-
-Реализованная функциональность сайта:
+## Функциональность сайта:
 - регистрация пользователей
 - восстановление пароля по почте
 - панель админа для добавления контента
@@ -56,6 +52,9 @@ Docker-conteiners:
 Also:
 - unit test api
 - кеширование стартовой страницы
+
+## Схема базы данных:
+![image](https://github.com/Tework123/flask_car_testdrive/assets/115368408/6c15c61f-46a7-472a-88e3-482a0f171769)
 
 Установка:
 
