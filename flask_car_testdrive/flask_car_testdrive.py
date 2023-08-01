@@ -14,7 +14,7 @@ else:
 
 
 # test server
-# CONFIG_TEST = 'https://tework123.ru/'
+# CONFIG_TEST = 'https://tework123.store/'
 
 # test with new_app on localhost
 CONFIG_TEST = 'new_app'
