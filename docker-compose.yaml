@@ -6,7 +6,7 @@ services:
     container_name: flask_app
     restart: always
     environment:
-      - REDIS_URL_LOCAL=redis://redis:6379
+      - ENV=$ENV_PROD
     depends_on:
       - db
       - redis

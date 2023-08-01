@@ -4,7 +4,14 @@ from config import ProductionConfig
 from app import create_app
 
 # here change config
-CONFIG = ProductionConfig
+import os
+
+# set environment auto
+if os.environ.get('ENV') == 'development':
+    CONFIG = DevelopmentConfig()
+else:
+    CONFIG = ProductionConfig()
+
 
 # test server
 # CONFIG_TEST = 'https://tework123.ru/'

@@ -474,7 +474,9 @@ def take_test_drive(name_car):
 
             # send email with new tread
             send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
-            celery_task_send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
+
+            # send email with celery
+            # celery_task_send_email(subject, CONFIG.MAIL_USERNAME, [current_user.email], body, attachments)
             flash('test_drive reserved', category='success')
             return redirect(url_for('.pay_for_test_drive'))
 
