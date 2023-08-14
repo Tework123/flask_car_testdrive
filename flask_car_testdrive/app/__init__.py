@@ -5,7 +5,7 @@ from celery import Celery
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, current_app
+from flask import Flask
 from flask_migrate import Migrate
 from rq import Queue
 
@@ -46,8 +46,6 @@ def create_app(config):
     migrate.init_app(app, db)
     mail.init_app(app)
     login_manager.init_app(app)
-    # redis = Redis.from_url(config.REDIS_URL)
-    # app.task_queue = Queue(connection=redis)
 
     mail_handler = SMTPHandler(mailhost=(Config.MAIL_SERVER, int(Config.MAIL_PORT)),
                                fromaddr=Config.MAIL_USERNAME,
