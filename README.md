@@ -2,9 +2,6 @@
 
 Сайт для заказа автомобилей на тест-драйв.
 
-Ссылка на сайт:
-https://tework123.store/
-
 Ссылка на гитхаб:
 https://github.com/Tework123/flask_car_testdrive/
 
